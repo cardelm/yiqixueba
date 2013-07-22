@@ -31,6 +31,7 @@ $scriptlang['yiqixueba_server'] = array(
   '' => '',
   '' => '',
   '' => '',
+  '' => '',
 );
 
 $templatelang['yiqixueba_server'] = array(

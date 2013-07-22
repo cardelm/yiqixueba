@@ -7,6 +7,9 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 
 require_once DISCUZ_ROOT.'/source/plugin/yiqixueba_server/function.func.php';
 
+$this_page = substr($_SERVER['QUERY_STRING'],7,strlen($_SERVER['QUERY_STRING'])-7);
+stripos($this_page,'subac=') ? $this_page = substr($this_page,0,stripos($this_page,'subac=')-1) : $this_page;
+
 $subac = getgpc('subac');
 $subacs = array('mokuailist','mokuaiedit','pagelist','pageedit','versionlist','zhuanhuan','huanyuan');
 $subac = in_array($subac,$subacs) ? $subac : $subacs[0];
@@ -15,7 +18,6 @@ $mokuaiid = getgpc('mokuaiid');
 $mokuai_info = $mokuaiid ? DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE mokuaiid=".$mokuaiid) : array();
 
 if($subac == 'mokuailist') {
-
 	if(!submitcheck('submit')) {
 		$zhuanhuanen_ids = array();
 		showtips(lang('plugin/yiqixueba_server','mokuai_list_tips'));
@@ -80,4 +82,20 @@ if($subac == 'mokuailist') {
 }elseif($subac == 'huanyuan') {
 	var_dump($mokuaiid['pluginid']);
 }
+
+function fetchtablelist($tablepre = '') {
+	global $db;
+	$arr = explode('.', $tablepre);
+	$dbname = $arr[1] ? $arr[0] : '';
+	$tablepre = str_replace('_', '\_', $tablepre);
+	$sqladd = $dbname ? " FROM $dbname LIKE '$arr[1]%'" : "LIKE '$tablepre%'";
+	$tables = $table = array();
+	$query = DB::query("SHOW TABLE STATUS $sqladd");
+	while($table = DB::fetch($query)) {
+		$table['Name'] = ($dbname ? "$dbname." : '').$table['Name'];
+		$tables[] = $table;
+	}
+	return $tables;
+}
+
 ?>
