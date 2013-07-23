@@ -47,7 +47,7 @@ function make_plugin($pluginid){
 	}
 	$github_lang_file =  $github_dir.'/data/plugindata/'.$plugin_info['identifier'].'.lang.php';
 	if(!file_exists($github_lang_file)){
-		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."语言包\n*\t文件名：".$plugin_info['identifier'].".lang.php 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\n\$scriptlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$templatelang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$installlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$systemlang['".$plugin_info['identifier']."'] = array(\n\t'file' => array(\n\t\t'' => '',\n\t\t'' => '',\n);\n\n\n?>";
+		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."语言包\n*\t文件名：".$plugin_info['identifier'].".lang.php 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\n\$scriptlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$templatelang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$installlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$systemlang['".$plugin_info['identifier']."'] = array(\n\t'file' => array(\n\t\t'' => '',\n\t\t'' => '',\n\t),\n);\n\n\n?>";
 		file_put_contents($github_lang_file,$_G['charset'] == 'utf-8' ? $file_text : diconv($file_text,"GBK", "UTF-8//IGNORE"));
 	}
 	$plugin_modules = dunserialize($plugin_info['modules']);
@@ -133,7 +133,91 @@ function make_plugin($pluginid){
 	}
 }
 
+//得到插件的文件内容的语言包数组
+function get_plugin_lang($plugin_file){
+	global  $scriptlang,$templatelang,$installlang,$systemlang,$plugin_info,$_G;
+	$github_dir = "C:\GitHub\yiqixueba";
+	$lang_file = $github_dir.'/data/plugindata/'.$plugin_info['identifier'].'.lang.php';
+	require_once $lang_file;
+	$plugin_lang = array();
+	$file_text = file_get_contents($plugin_file);
+	$temp_array1 = explode("lang('plugin/".$plugin_info['identifier']."','",$file_text);
+	foreach($temp_array1 as $k=>$v ){
+		if($k){
+			$temp_array2 = explode("')",$v);
+				$plugin_lang[] = array('en'=>$temp_array2[0],'cn'=>($_G['charset'] == 'utf-8' ? $scriptlang[$plugin_info['identifier']][$temp_array2[0]] : diconv($scriptlang[$plugin_info['identifier']][$temp_array2[0]],"UTF-8", "GBK//IGNORE")));
+		}
+	}
+	return $plugin_lang;
+}//func end
+//采用递归的方式读取插件目录下的文件列表，并以数组形式输出
+function get_plugin_file($path){
+	global $_G,$pluginfile_array;
+	clearstatcache();
+	if ($handle = opendir($path)) {
+		while (false !== ($file = readdir($handle))) {
 
+			if ($file != "." && $file != ".." && $file != "index.html" && substr($file,0,1) != "." ) {
+				if (is_dir($path.$file)) {
+					get_plugin_file($path.$file);
+				}else{
+					$pluginfile_array[] = array('file'=>$path.$file);
+				}
+			}
+		}
+	}
+	return $pluginfile_array;
+}
+//写入脚本语言包
+function write_scriptlang_file($pluginid,$script_lang){
+	global $scriptlang,$templatelang,$installlang,$systemlang,$_G;
+	$github_dir = "C:\GitHub\yiqixueba";
+	$plugin_info = DB::fetch_first("SELECT * FROM ".DB::table('common_plugin')." WHERE pluginid=".$pluginid);
+	$lang_file = $github_dir.'/data/plugindata/'.$plugin_info['identifier'].'.lang.php';
+	$file_text = file_get_contents($lang_file);
+	$old_row_text = explode("\n",$file_text);
+	foreach($old_row_text as $k=>$v ){
+		if(stripos($v,$plugin_info['identifier'].'.lang.php')){
+			$edit_h = $k;
+		}
+	}
+	for($i=0;$i<$edit_h+3 ; $i++){
+		$new_row_array[$i] = $old_row_text[$i];
+		if($i==$edit_h+1){
+			$edit_text = "*\t修改时间：".dgmdate(time(),'dt');
+			$new_row_array[$i] = $_G['charset'] == 'utf-8' ? $edit_text : diconv($edit_text,"GBK", "UTF-8//IGNORE");
+		}
+	}
+	$new_row_text = implode("\n",$new_row_array);
+	$new_row_text .= "\n";
+	$new_row_text .= "\$scriptlang['".$plugin_info['identifier']."'] = array(\n";
+	foreach($script_lang as $k=>$v ){
+		$new_row_text .= $v ? "\t'".$k."' => '".($_G['charset'] == 'utf-8' ? $v : diconv($v,"GBK", "UTF-8//IGNORE"))."',\n" : "";
+	}
+	$new_row_text .= ");\n\n";
+	$new_row_text .= "\$templatelang['".$plugin_info['identifier']."'] = array(\n";
+	foreach($templatelang as $k=>$v ){
+		$new_row_text .=  $v ? "\t'".$k."' => '".($_G['charset'] == 'utf-8' ? $v : diconv($v,"GBK", "UTF-8//IGNORE"))."',\n" : "";
+	}
+	$new_row_text .= ");\n\n";
+	$new_row_text .= "\$installlang['".$plugin_info['identifier']."'] = array(\n";
+	foreach($installlang as $k=>$v ){
+		$new_row_text .=  $v ? "\t'".$k."' => '".($_G['charset'] == 'utf-8' ? $v : diconv($v,"GBK", "UTF-8//IGNORE"))."',\n" : "";
+	}
+	$new_row_text .= ");\n\n";
+	//$new_row_text .= "\$systemlang['".$plugin_info['identifier']."'] = array(\n";
+	//foreach($systemlang as $k=>$v ){
+		//$new_row_text .= "\t'file' => array(\n";
+		//foreach($v as $k1=>$v1 ){
+			//$new_row_text .=  $v ? "\t\t'".$k1."' => '".($_G['charset'] == 'utf-8' ? $v1 : diconv($v1,"GBK", "UTF-8//IGNORE"))."',\n" : "";
+		//}
+		//$new_row_text .= "\t),\n";
+	//}
+	//$new_row_text .= ");\n\n";
+	$new_row_text .= "?>";
+	file_put_contents($lang_file,$new_row_text);
+	return ;
+}
 // 浏览器友好的变量输出
 if(!function_exists('dump')){
 	function dump($var, $echo=true,$label=null, $strict=true){

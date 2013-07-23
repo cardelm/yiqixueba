@@ -11,7 +11,7 @@ $this_page = substr($_SERVER['QUERY_STRING'],7,strlen($_SERVER['QUERY_STRING'])-
 stripos($this_page,'subac=') ? $this_page = substr($this_page,0,stripos($this_page,'subac=')-1) : $this_page;
 
 $subac = getgpc('subac');
-$subacs = array('mokuailist','mokuaiedit','pagelist','pageedit','versionlist','zhuanhuan','huanyuan');
+$subacs = array('mokuailist','mokuaiedit','pagelist','pageedit','versionlist','zhuanhuan','huanyuan','pluginlang');
 $subac = in_array($subac,$subacs) ? $subac : $subacs[0];
 
 $mokuaiid = getgpc('mokuaiid');
@@ -50,7 +50,7 @@ if($subac == 'mokuailist') {
 					$mokuaiico ?'<img src="'.$mokuaiico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '',
 					'<span class="bold">'.$row['name'].$row['version'].($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span>',
 					$row['description'],
-					"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=zhuanhuan&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','zhuanhuan')."</a>",
+					"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=pluginlang&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=zhuanhuan&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','zhuanhuan')."</a>",
 				));
 			}
 		}
@@ -79,6 +79,35 @@ if($subac == 'mokuailist') {
 	}
 	cpmsg(lang('plugin/yiqixueba_server', 'mokuai_edit_succeed'), 'action='.$this_page.'&subac=mokuailist', 'succeed');
 	//dump($mokuai_info);
+}elseif($subac == 'pluginlang') {
+	$pluginid = getgpc('pluginid');
+	$plugin_info = DB::fetch_first("SELECT * FROM ".DB::table('common_plugin')." WHERE pluginid=".$pluginid);
+	$pluginfile_array = $plugin_lang = array();
+	$pluginfile_array = get_plugin_file(DISCUZ_ROOT.'source/plugin/'.$plugin_info['directory']);
+	if(!submitcheck('submit')) {
+		showtips(lang('plugin/yiqixueba_server','mokuai_list_tips'));
+		showformheader($this_page.'&subac=pluginlang&pluginid='.$pluginid);
+		foreach($pluginfile_array as $k=>$v ){
+			showtableheader(lang('plugin/yiqixueba_server','mokuai_pluginlang_list').$v['file']);
+			$plugin_lang = get_plugin_lang($v['file']);
+			//array_unique($plugin_lang);
+			foreach($plugin_lang as $k1=>$v1 ){
+				showtablerow('', array('class="td29"', 'class="td28"'), array(
+					lang('plugin/yiqixueba_server','english').$v1['en'],
+					lang('plugin/yiqixueba_server','chinese').'<TEXTAREA name="script_lang['.$v1['en'].']" rows="3" cols="30">'.$v1['cn'].'</TEXTAREA>',
+				));
+			}
+			showtablefooter();
+		}
+		showtableheader();
+		showsubmit('submit');
+		showtablefooter();
+		showformfooter();
+	}else{
+		$script_lang = getgpc('script_lang');
+		write_scriptlang_file($pluginid,$script_lang);
+		cpmsg(lang('plugin/yiqixueba_server', 'mokuai_langedit_succeed'), 'action='.$this_page.'&subac=mokuailist', 'succeed');
+	}
 }elseif($subac == 'huanyuan') {
 	var_dump($mokuaiid['pluginid']);
 }
