@@ -1,14 +1,38 @@
 <?php
 
+/**
+
+*	
+
+*	文件名：function.func.php 创建时间：2013-7-24 16:30 杨文
+
+*
+
+*/
+
+
+
+/**
+*	
+*	����function.func.php ����2013-7-24 16:25 ����
+*
+*/
+
+/**
+*	
+*	����function.func.php ����2013-7-24 16:25  ����
+*
+*/
+
 update_github();
-//采用递归方式，自动更新discuz文件
+//�Զ�����github
 function update_github($path=''){
 	global $_G;
 	clearstatcache();
 	if($path=='')
-		$path = 'C:\GitHub\yiqixueba';//本地的GitHub的discuz文件夹
+		$path = 'C:\GitHub\yiqixueba';//����github·��
 
-	$out_path = substr(DISCUZ_ROOT,0,-1).str_replace("C:\GitHub\yiqixueba","",$path);//本地的wamp的discuz文件夹
+	$out_path = substr(DISCUZ_ROOT,0,-1).str_replace("C:\GitHub\yiqixueba","",$path);//����������wamp����discuz����������
 
 	if ($handle = opendir($path)) {
 		while (false !== ($file = readdir($handle))) {
@@ -20,8 +44,28 @@ function update_github($path=''){
 					}
 					update_github($path."/".$file);
 				}else{
-					if (filemtime($path."/".$file)  > filemtime($out_path."/".$file)){//GitHub文件修改时间大于wamp时
-						file_put_contents ($out_path."/".$file,$_G['charset'] == 'utf-8' && stripos($file,'.lang.php') ? file_get_contents($path."/".$file) : diconv(file_get_contents($path."/".$file),"UTF-8", "GBK//IGNORE"));
+//					if(substr($file,-4)=='.php'){
+//						$old_row_text = $new_row_text = array();
+//						$file_text = file_get_contents($path."/".$file);
+//						$old_row_text = explode("\n",$file_text);
+//						if(stripos($old_row_text[2],"/**")===false &&  stripos($old_row_text[6],"*/")===false){
+//							$zhushi_text =  "*	文件名".$file." 创建时间".dgmdate(time(),'dt')." 杨文";
+//							$new_row_text[0] = "<?php";
+//							$new_row_text[1] = "/**";
+//							$new_row_text[2] = "*\t";
+//							$new_row_text[3] = $_G['charset'] == 'utf-8' ? $zhushi_text : diconv($zhushi_text,"GBK", "UTF-8//IGNORE");
+//							$new_row_text[4] = "*";
+//							$new_row_text[5] = "*/";
+//							$new_row_text[6] = "";
+//							for($i=1;$i<count($old_row_text) ;$i++ ){
+//								$new_row_text[] = $old_row_text[$i];
+//							}
+//							file_put_contents ($path."/".$file,implode("\n",$new_row_text));
+//						}
+//					}
+					if (filemtime($path."/".$file)  > filemtime($out_path."/".$file)){//GitHub������������������������wamp��
+						$write_text = $_G['charset'] == 'utf-8' && stripos($file,'.lang.php') ? file_get_contents($path."/".$file) : diconv(file_get_contents($path."/".$file),"UTF-8", "GBK//IGNORE");
+						file_put_contents ($out_path."/".$file,$write_text);
 					}
 				}
 			}
@@ -29,7 +73,7 @@ function update_github($path=''){
 	}
 }//func end
 
-//在github中自动生成yiqixueba_为开头的插件的文件
+//����github������������������yiqixueba_��������������������������
 function make_plugin($pluginid){
 	global $_G;
 	$tablepre = $_G['config']['db'][1]['tablepre'];
@@ -42,18 +86,18 @@ function make_plugin($pluginid){
 	}
 	$github_func_file =  $plugin_dir.'function.func.php';
 	if(!file_exists($github_func_file)){
-		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."函数集程序\n*\t文件名：function.func.php 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\nif(!defined('IN_DISCUZ')) {\n\texit('Access Denied');\n}\n\n?>";
+		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."��������������������\n*\t��������������function.func.php ��������������".dgmdate(time(),'dt')."  ��������\n*\n*/\n\nif(!defined('IN_DISCUZ')) {\n\texit('Access Denied');\n}\n\n?>";
 		file_put_contents($github_func_file,$_G['charset'] == 'utf-8' ? $file_text : diconv($file_text,"GBK", "UTF-8//IGNORE"));
 	}
 	$github_lang_file =  $github_dir.'/data/plugindata/'.$plugin_info['identifier'].'.lang.php';
 	if(!file_exists($github_lang_file)){
-		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."语言包\n*\t文件名：".$plugin_info['identifier'].".lang.php 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\n\$scriptlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$templatelang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$installlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$systemlang['".$plugin_info['identifier']."'] = array(\n\t'file' => array(\n\t\t'' => '',\n\t\t'' => '',\n\t),\n);\n\n\n?>";
+		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."����������\n*\t��������������".$plugin_info['identifier'].".lang.php ��������������".dgmdate(time(),'dt')."  ��������\n*\n*/\n\n\$scriptlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$templatelang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$installlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$systemlang['".$plugin_info['identifier']."'] = array(\n\t'file' => array(\n\t\t'' => '',\n\t\t'' => '',\n\t),\n);\n\n\n?>";
 		file_put_contents($github_lang_file,$_G['charset'] == 'utf-8' ? $file_text : diconv($file_text,"GBK", "UTF-8//IGNORE"));
 	}
 	$plugin_modules = dunserialize($plugin_info['modules']);
 	foreach( $plugin_modules as $k=>$v ){
 		if(in_array($v['type'],array(3))){
-			//数据表
+			//����������
 			$plugin_tablename = $tablepre.$plugin_info['identifier']."_".$v['name'];
 			$dztables = array();
 			$discuz_tables = fetchtablelist($tablepre.$plugin_info['identifier']);
@@ -64,10 +108,10 @@ function make_plugin($pluginid){
 				$create_sql = "CREATE TABLE `".$plugin_tablename."` (\n`".$v['name']."id` mediumint(8) unsigned NOT NULL auto_increment,\n`".$v['name']."name` char(40) NOT NULL,\n`displayorder` mediumint(8) NOT NULL,\nPRIMARY KEY  (`".$v['name']."id`)\n)ENGINE=MyISAM;";
 				runquery($create_sql);
 			}
-			//创建新的数据表结束
+			//������������������������������
 			$github_file = $plugin_dir.$v['name'].'.inc.php';
 			if(!file_exists($github_file)){
-				$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."-".$v['menu']."程序\n*\t文件名：".$v['name'].'.inc.php'." 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\nif(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {\n\texit('Access Denied');\n}\n\nrequire_once DISCUZ_ROOT.'source/plugin/".$plugin_info['directory']."function.func.php';\n\n".
+				$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."-".$v['menu']."��������\n*\t��������������".$v['name'].'.inc.php'." ��������������".dgmdate(time(),'dt')."  ��������\n*\n*/\n\nif(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {\n\texit('Access Denied');\n}\n\nrequire_once DISCUZ_ROOT.'source/plugin/".$plugin_info['directory']."function.func.php';\n\n".
 				"\$this_page = substr(\$_SERVER['QUERY_STRING'],7,strlen(\$_SERVER['QUERY_STRING'])-7);\n".
 				"stripos(\$this_page,'subac=') ? \$this_page = substr(\$this_page,0,stripos(\$this_page,'subac=')-1) : \$this_page;\n\n".
 				"\$subac = getgpc('subac');\n".
@@ -80,11 +124,21 @@ function make_plugin($pluginid){
 				"\t\tshowtips(lang('plugin/".$plugin_info['identifier']."','".$v['name']."_list_tips'));\n".
 				"\t\tshowformheader(\$this_page.'&subac=".$v['name']."list');\n".
 				"\t\tshowtableheader(lang('plugin/".$plugin_info['identifier']."','".$v['name']."_list'));\n".
+				"\t\tshowsubtitle(array('', lang('plugin/".$plugin_info['identifier']."','ico'),lang('plugin/".$plugin_info['identifier']."','".$v['name']."name'), lang('plugin/".$plugin_info['identifier']."','displayorder'), lang('plugin/".$plugin_info['identifier']."','status'), ''));\n".
 				"\t\t\$query = DB::query(\"SELECT * FROM \".DB::table('".$plugin_info['identifier']."_".$v['name']."').\" order by displayorder asc\");\n".
 				"\t\twhile(\$row = DB::fetch(\$query)) {\n".
-				"\t\t\tshowtablerow('', array('class=\"td25\"', 'class=\"td23\"', 'class=\"td28\"'), array(\n".
+				"\t\t\t\$".$v['name']."ico = '';\n".
+				"\t\t\tif(\$row['".$v['name']."ico']!='') {\n".
+				"\t\t\t\t\$".$v['name']."ico = str_replace('{STATICURL}', STATICURL, \$row['".$v['name']."ico']);\n".
+				"\t\t\t\tif(!preg_match(\"/^\".preg_quote(STATICURL, '/').\"/i\", \$".$v['name']."ico) && !((\$valueparse = parse_url(\$".$v['name']."ico)) && isset(\$valueparse['host']))) {\n".
+				"\t\t\t\t\t\$".$v['name']."ico = \$_G['setting']['attachurl'].'common/'.\$row['".$v['name']."ico'].'?'.random(6);\n".
+				"\t\t\t\t}\n".
+				"\t\t\t}\n".
+				"\t\t\tshowtablerow('', array('class=\"td25\"','style=\"width:45px\"', 'class=\"td23\"', 'class=\"td28\"'), array(\n".
 				"\t\t\t\t\"<input class=\\\"checkbox\\\" type=\\\"checkbox\\\" name=\\\"delete[]\\\" value=\\\"\$row[".$v['name']."id]\\\">\",\n".
+				"\t\t\t\t\$".$v['name']."ico ?'<img src=\"'.\$".$v['name']."ico.'\" width=\"40\" height=\"40\" align=\"left\" style=\"margin-right:5px\" />' : '',\n".
 				"\t\t\t\t\$row['".$v['name']."name'],\n".
+				"\t\t\t\t\"<input type=\\\"text\\\" name=\\\"displayordernew[\".\$row['".$v['name']."id'].\"]\\\" value=\\\"\".\$row['displayorder'].\"\\\"  size=\\\"2\\\">\",\n".
 				"\t\t\t\t\"<input class=\\\"checkbox\\\" type=\\\"checkbox\\\" name=\\\"statusnew[\".\$row['".$v['name']."id'].\"]\\\" value=\\\"1\\\" \".(\$row['status'] > 0 ? 'checked' : '').\">\",\n".
 				"\t\t\t\t\"<a href=\\\"\".ADMINSCRIPT.\"?action=\".\$this_page.\"&subac=".$v['name']."edit&".$v['name']."id=\$row[".$v['name']."id]\\\" class=\\\"act\\\">\".lang('plugin/".$plugin_info['identifier']."','edit').\"</a>\",\n".
 				"\t\t\t));\n".
@@ -97,10 +151,18 @@ function make_plugin($pluginid){
 				"\t}\n".
 				"}elseif(\$subac == '".$v['name']."edit') {\n".
 				"\tif(!submitcheck('submit')) {\n".
+				"\t\tif(\$".$v['name']."_info['".$v['name']."ico']!='') {\n".
+				"\t\t\t\$".$v['name']."ico = str_replace('{STATICURL}', STATICURL, \$".$v['name']."_info['".$v['name']."ico']);\n".
+				"\t\t\tif(!preg_match(\"/^\".preg_quote(STATICURL, '/').\"/i\", \$".$v['name']."ico) && !((\$valueparse = parse_url(\$".$v['name']."ico)) && isset(\$valueparse['host']))) {\n".
+				"\t\t\t\t\$".$v['name']."ico = \$_G['setting']['attachurl'].'common/'.\$".$v['name']."_info['".$v['name']."ico'].'?'.random(6);\n".
+				"\t\t\t\t\$".$v['name']."icohtml = '<br /><label><input type=\"checkbox\" class=\"checkbox\" name=\"delete1\" value=\"yes\" /> '.\$lang['del'].'</label><br /><img src=\"'.\$".$v['name']."ico.'\" width=\"40\" height=\"40\"/>';\n".
+				"\t\t\t}\n".
+				"\t\t}\n".
 				"\t\tshowtips(lang('plugin/".$plugin_info['identifier']."','".$v['name']."_edit_tips'));\n".
 				"\t\tshowformheader(\$this_page.'&subac=".$v['name']."edit','enctype');\n".
 				"\t\tshowtableheader(lang('plugin/".$plugin_info['identifier']."','".$v['name']."_edit'));\n".
 				"\t\t\$".$v['name']."id ? showhiddenfields(array('".$v['name']."id'=>\$".$v['name']."id)) : '';\n".
+				"\t\tshowsetting(lang('plugin/".$plugin_info['identifier']."','".$v['name']."ico'),'".$v['name']."ico',\$".$v['name']."_info['".$v['name']."ico'],'filetext','',0,lang('plugin/".$plugin_info['identifier']."','".$v['name']."ico_comment').\$".$v['name']."icohtml,'','',true);\n".
 				"\t\tshowsetting(lang('plugin/".$plugin_info['identifier']."','".$v['name']."name'),'".$v['name']."_info[".$v['name']."name]',\$".$v['name']."_info['".$v['name']."name'],'text','',0,lang('plugin/".$plugin_info['identifier']."','".$v['name']."name_comment'),'','',true);\n".
 				"\t\tshowsubmit('submit');\n".
 				"\t\tshowtablefooter();\n".
@@ -109,7 +171,22 @@ function make_plugin($pluginid){
 				"\t\tif(!htmlspecialchars(trim(\$_GET['".$v['name']."_info']['".$v['name']."name']))) {\n".
 				"\t\t\tcpmsg(lang('plugin/".$plugin_info['identifier']."','".$v['name']."name_nonull'));\n".
 				"\t\t}\n".
+				"\t\t\$".$v['name']."ico = addslashes(\$_POST['".$v['name']."ico']);\n".
+				"\t\tif(\$_FILES['".$v['name']."ico']) {\n".
+				"\t\t\t\$upload = new discuz_upload();\n".
+				"\t\t\tif(\$upload->init(\$_FILES['".$v['name']."ico'], 'common') && \$upload->save()) {\n".
+				"\t\t\t\t\$".$v['name']."ico = \$upload->attach['attachment'];\n".
+				"\t\t\t}\n".
+				"\t\t}\n".
+				"\t\tif(\$_POST['delete1'] && addslashes(\$_POST['".$v['name']."ico'])) {\n".
+				"\t\t\t\$valueparse = parse_url(addslashes(\$_POST['".$v['name']."ico']));\n".
+				"\t\t\tif(!isset(\$valueparse['host']) && !strexists(addslashes(\$_POST['".$v['name']."ico']), '{STATICURL}')) {\n".
+				"\t\t\t\t@unlink(\$_G['setting']['attachurl'].'temp/'.addslashes(\$_POST['".$v['name']."ico']));\n".
+				"\t\t\t}\n".
+				"\t\t\t\$".$v['name']."ico = '';\n".
+				"\t\t}\n".
 				"\t\t\$datas = \$_GET['".$v['name']."_info'];\n".
+				"\t\t\$datas['".$v['name']."ico'] = \$".$v['name']."ico;\n".
 				"\t\tforeach ( \$datas as \$k=>\$v) {\n".
 				"\t\t\t\$data[\$k] = htmlspecialchars(trim(\$v));\n".
 				"\t\t\tif(!DB::result_first(\"describe \".DB::table('".$plugin_info['identifier']."_".$v['name']."').\" \".\$k)) {\n".
@@ -133,7 +210,7 @@ function make_plugin($pluginid){
 	}
 }
 
-//得到插件的文件内容的语言包数组
+//��������������������������������������������������
 function get_plugin_lang($plugin_file){
 	global  $scriptlang,$templatelang,$installlang,$systemlang,$plugin_info,$_G;
 	$github_dir = "C:\GitHub\yiqixueba";
@@ -150,7 +227,7 @@ function get_plugin_lang($plugin_file){
 	}
 	return $plugin_lang;
 }//func end
-//采用递归的方式读取插件目录下的文件列表，并以数组形式输出
+//�������������������������������������������������Ҁ�������������������������������
 function get_plugin_file($path){
 	global $_G,$pluginfile_array;
 	clearstatcache();
@@ -168,7 +245,7 @@ function get_plugin_file($path){
 	}
 	return $pluginfile_array;
 }
-//写入脚本语言包
+//�Հ�����������������
 function write_scriptlang_file($pluginid,$script_lang){
 	global $scriptlang,$templatelang,$installlang,$systemlang,$_G;
 	$github_dir = "C:\GitHub\yiqixueba";
@@ -184,7 +261,7 @@ function write_scriptlang_file($pluginid,$script_lang){
 	for($i=0;$i<$edit_h+3 ; $i++){
 		$new_row_array[$i] = $old_row_text[$i];
 		if($i==$edit_h+1){
-			$edit_text = "*\t修改时间：".dgmdate(time(),'dt');
+			$edit_text = "*\t������������".dgmdate(time(),'dt');
 			$new_row_array[$i] = $_G['charset'] == 'utf-8' ? $edit_text : diconv($edit_text,"GBK", "UTF-8//IGNORE");
 		}
 	}
@@ -218,8 +295,8 @@ function write_scriptlang_file($pluginid,$script_lang){
 	file_put_contents($lang_file,$new_row_text);
 	return ;
 }
-// 浏览器友好的变量输出
-if(!function_exists('dump')){
+// ������������������������������
+
 	function dump($var, $echo=true,$label=null, $strict=true){
 		$label = ($label===null) ? '' : rtrim($label) . ' ';
 		if(!$strict) {
@@ -244,5 +321,5 @@ if(!function_exists('dump')){
 		}else
 			return $output;
 	}
-}
+
 ?>
