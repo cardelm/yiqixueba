@@ -1,9 +1,16 @@
 <?php
 
 /**
-*	商家展示-商家模型程序
-*	文件名：shopmoxing.inc.php 创建时间：2013-7-24 11:19  杨文
 *
+*	文件名：shopmoxing.inc.php 创建时间：2013-7-26 16:13  杨文
+*	修改时间：2013-7-26 16:13 杨文
+*/
+
+
+/**
+*	商家展示-商家模型程序
+*	文件名：shopmoxing.inc.php 创建时间：2013-7-26 16:11  杨文
+*	修改时间：2013-7-26 16:11 杨文
 */
 
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
@@ -139,19 +146,6 @@ if($subac == 'shopmoxinglist') {
 				<option value="color">'.cplang('plugins_edit_vars_type_color').'</option>
 				<option value="date">'.cplang('plugins_edit_vars_type_date').'</option>
 				<option value="datetime">'.cplang('plugins_edit_vars_type_datetime').'</option>
-				<option value="forum">'.cplang('plugins_edit_vars_type_forum').'</option>
-				<option value="forums">'.cplang('plugins_edit_vars_type_forums').'</option>
-				<option value="group">'.cplang('plugins_edit_vars_type_group').'</option>
-				<option value="groups">'.cplang('plugins_edit_vars_type_groups').'</option>
-				<option value="extcredit">'.cplang('plugins_edit_vars_type_extcredit').'</option>
-				<option value="forum_text">'.cplang('plugins_edit_vars_type_forum_text').'</option>
-				<option value="forum_textarea">'.cplang('plugins_edit_vars_type_forum_textarea').'</option>
-				<option value="forum_radio">'.cplang('plugins_edit_vars_type_forum_radio').'</option>
-				<option value="forum_select">'.cplang('plugins_edit_vars_type_forum_select').'</option>
-				<option value="group_text">'.cplang('plugins_edit_vars_type_group_text').'</option>
-				<option value="group_textarea">'.cplang('plugins_edit_vars_type_group_textarea').'</option>
-				<option value="group_radio">'.cplang('plugins_edit_vars_type_group_radio').'</option>
-				<option value="group_select">'.cplang('plugins_edit_vars_type_group_select').'</option>
 			</seletc>',
 			''
 		));

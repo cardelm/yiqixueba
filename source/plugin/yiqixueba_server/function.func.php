@@ -1,38 +1,22 @@
 <?php
 
 /**
-
-*	
-
-*	文件名：function.func.php 创建时间：2013-7-24 16:30 杨文
-
-*
-
+*	卡益联盟服务端函数集
+*	文件名function.func.php 创建时间2013-7-26 14:39 杨文
+*	修改时间：2013-7-26 14:55 杨文
 */
 
 
-
-/**
-*	
-*	����function.func.php ����2013-7-24 16:25 ����
-*
-*/
-
-/**
-*	
-*	����function.func.php ����2013-7-24 16:25  ����
-*
-*/
 
 update_github();
-//�Զ�����github
+//用于github同步的程序并更新修改时间
 function update_github($path=''){
 	global $_G;
 	clearstatcache();
 	if($path=='')
-		$path = 'C:\GitHub\yiqixueba';//����github·��
+		$path = 'C:\GitHub\yiqixueba';//本地的GitHub文件夹
 
-	$out_path = substr(DISCUZ_ROOT,0,-1).str_replace("C:\GitHub\yiqixueba","",$path);//����������wamp����discuz����������
+	$out_path = substr(DISCUZ_ROOT,0,-1).str_replace("C:\GitHub\yiqixueba","",$path);////本地的wamp的discuz文件夹
 
 	if ($handle = opendir($path)) {
 		while (false !== ($file = readdir($handle))) {
@@ -44,26 +28,34 @@ function update_github($path=''){
 					}
 					update_github($path."/".$file);
 				}else{
-//					if(substr($file,-4)=='.php'){
-//						$old_row_text = $new_row_text = array();
-//						$file_text = file_get_contents($path."/".$file);
-//						$old_row_text = explode("\n",$file_text);
-//						if(stripos($old_row_text[2],"/**")===false &&  stripos($old_row_text[6],"*/")===false){
-//							$zhushi_text =  "*	文件名".$file." 创建时间".dgmdate(time(),'dt')." 杨文";
-//							$new_row_text[0] = "<?php";
-//							$new_row_text[1] = "/**";
-//							$new_row_text[2] = "*\t";
-//							$new_row_text[3] = $_G['charset'] == 'utf-8' ? $zhushi_text : diconv($zhushi_text,"GBK", "UTF-8//IGNORE");
-//							$new_row_text[4] = "*";
-//							$new_row_text[5] = "*/";
-//							$new_row_text[6] = "";
-//							for($i=1;$i<count($old_row_text) ;$i++ ){
-//								$new_row_text[] = $old_row_text[$i];
-//							}
-//							file_put_contents ($path."/".$file,implode("\n",$new_row_text));
-//						}
-//					}
-					if (filemtime($path."/".$file)  > filemtime($out_path."/".$file)){//GitHub������������������������wamp��
+					if (filemtime($path."/".$file)  > filemtime($out_path."/".$file)){////GitHub文件修改时间大于wamp时
+						if(substr($file,-4)=='.php'){//只修改文件扩展名为php的
+							$old_row_text = $new_row_text = array();
+							$file_text = file_get_contents($path."/".$file);
+							$old_row_text = explode("\n",$file_text);
+							$chuangjian_text =  "*\t文件名：".$file." 创建时间：".dgmdate(time(),'dt')."  杨文\r";
+							$zhushi_text =  "*\t修改时间：".dgmdate(time(),'dt')." 杨文\r";
+							if(stripos($old_row_text[2],"/**\r")===false &&  stripos($old_row_text[6],"*/\r")===false){
+								$new_row_text[0] = "<?php\r";
+								$new_row_text[1] = "\r";
+								$new_row_text[2] = "/**\r";
+								$new_row_text[3] = "*\t\r";
+								$new_row_text[4] = $_G['charset'] == 'utf-8' ? $chuangjian_text : diconv($chuangjian_text,"GBK", "UTF-8//IGNORE");
+								$new_row_text[5] = $_G['charset'] == 'utf-8' ? $zhushi_text : diconv($zhushi_text,"GBK", "UTF-8//IGNORE");
+								$new_row_text[6] = "*/\r";
+								$new_row_text[7] = "\r";
+								for($i=1;$i<count($old_row_text) ;$i++ ){
+									$new_row_text[] = $old_row_text[$i];
+								}
+
+							}else{
+								$old_row_text[5] = $_G['charset'] == 'utf-8' ? $zhushi_text : diconv($zhushi_text,"GBK", "UTF-8//IGNORE");
+								for($i=0;$i<count($old_row_text) ;$i++ ){
+									$new_row_text[] = $old_row_text[$i];
+								}
+							}
+							file_put_contents ($path."/".$file,implode("\n",$new_row_text));
+						}
 						$write_text = $_G['charset'] == 'utf-8' && stripos($file,'.lang.php') ? file_get_contents($path."/".$file) : diconv(file_get_contents($path."/".$file),"UTF-8", "GBK//IGNORE");
 						file_put_contents ($out_path."/".$file,$write_text);
 					}
@@ -73,7 +65,7 @@ function update_github($path=''){
 	}
 }//func end
 
-//����github������������������yiqixueba_��������������������������
+//生成从github上的模块目录和文件，只针对插件名称中含有yiqixueba_的插件
 function make_plugin($pluginid){
 	global $_G;
 	$tablepre = $_G['config']['db'][1]['tablepre'];
@@ -86,18 +78,18 @@ function make_plugin($pluginid){
 	}
 	$github_func_file =  $plugin_dir.'function.func.php';
 	if(!file_exists($github_func_file)){
-		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."��������������������\n*\t��������������function.func.php ��������������".dgmdate(time(),'dt')."  ��������\n*\n*/\n\nif(!defined('IN_DISCUZ')) {\n\texit('Access Denied');\n}\n\n?>";
+		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."模块函数集\n*\t文件名：function.func.php 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\nif(!defined('IN_DISCUZ')) {\n\texit('Access Denied');\n}\n\n?>";
 		file_put_contents($github_func_file,$_G['charset'] == 'utf-8' ? $file_text : diconv($file_text,"GBK", "UTF-8//IGNORE"));
 	}
 	$github_lang_file =  $github_dir.'/data/plugindata/'.$plugin_info['identifier'].'.lang.php';
 	if(!file_exists($github_lang_file)){
-		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."����������\n*\t��������������".$plugin_info['identifier'].".lang.php ��������������".dgmdate(time(),'dt')."  ��������\n*\n*/\n\n\$scriptlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$templatelang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$installlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$systemlang['".$plugin_info['identifier']."'] = array(\n\t'file' => array(\n\t\t'' => '',\n\t\t'' => '',\n\t),\n);\n\n\n?>";
+		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."语言包程序\n*\t文件名：".$plugin_info['identifier'].".lang.php 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\n\$scriptlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$templatelang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$installlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$systemlang['".$plugin_info['identifier']."'] = array(\n\t'file' => array(\n\t\t'' => '',\n\t\t'' => '',\n\t),\n);\n\n\n?>";
 		file_put_contents($github_lang_file,$_G['charset'] == 'utf-8' ? $file_text : diconv($file_text,"GBK", "UTF-8//IGNORE"));
 	}
 	$plugin_modules = dunserialize($plugin_info['modules']);
 	foreach( $plugin_modules as $k=>$v ){
 		if(in_array($v['type'],array(3))){
-			//����������
+			//后台文件
 			$plugin_tablename = $tablepre.$plugin_info['identifier']."_".$v['name'];
 			$dztables = array();
 			$discuz_tables = fetchtablelist($tablepre.$plugin_info['identifier']);
@@ -108,10 +100,10 @@ function make_plugin($pluginid){
 				$create_sql = "CREATE TABLE `".$plugin_tablename."` (\n`".$v['name']."id` mediumint(8) unsigned NOT NULL auto_increment,\n`".$v['name']."name` char(40) NOT NULL,\n`displayorder` mediumint(8) NOT NULL,\nPRIMARY KEY  (`".$v['name']."id`)\n)ENGINE=MyISAM;";
 				runquery($create_sql);
 			}
-			//������������������������������
+			//生成后台通用文件
 			$github_file = $plugin_dir.$v['name'].'.inc.php';
 			if(!file_exists($github_file)){
-				$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."-".$v['menu']."��������\n*\t��������������".$v['name'].'.inc.php'." ��������������".dgmdate(time(),'dt')."  ��������\n*\n*/\n\nif(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {\n\texit('Access Denied');\n}\n\nrequire_once DISCUZ_ROOT.'source/plugin/".$plugin_info['directory']."function.func.php';\n\n".
+				$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."-".$v['menu']."程序\n*\t文件名：".$v['name'].'.inc.php'." 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\nif(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {\n\texit('Access Denied');\n}\n\nrequire_once DISCUZ_ROOT.'source/plugin/".$plugin_info['directory']."function.func.php';\n\n".
 				"\$this_page = substr(\$_SERVER['QUERY_STRING'],7,strlen(\$_SERVER['QUERY_STRING'])-7);\n".
 				"stripos(\$this_page,'subac=') ? \$this_page = substr(\$this_page,0,stripos(\$this_page,'subac=')-1) : \$this_page;\n\n".
 				"\$subac = getgpc('subac');\n".
@@ -210,7 +202,7 @@ function make_plugin($pluginid){
 	}
 }
 
-//��������������������������������������������������
+//得到指定模块的语言包数组
 function get_plugin_lang($plugin_file){
 	global  $scriptlang,$templatelang,$installlang,$systemlang,$plugin_info,$_G;
 	$github_dir = "C:\GitHub\yiqixueba";
@@ -227,7 +219,7 @@ function get_plugin_lang($plugin_file){
 	}
 	return $plugin_lang;
 }//func end
-//�������������������������������������������������Ҁ�������������������������������
+//得到模块的文件列表数组
 function get_plugin_file($path){
 	global $_G,$pluginfile_array;
 	clearstatcache();
@@ -245,7 +237,7 @@ function get_plugin_file($path){
 	}
 	return $pluginfile_array;
 }
-//�Հ�����������������
+//写语言包文件
 function write_scriptlang_file($pluginid,$script_lang){
 	global $scriptlang,$templatelang,$installlang,$systemlang,$_G;
 	$github_dir = "C:\GitHub\yiqixueba";
@@ -261,7 +253,7 @@ function write_scriptlang_file($pluginid,$script_lang){
 	for($i=0;$i<$edit_h+3 ; $i++){
 		$new_row_array[$i] = $old_row_text[$i];
 		if($i==$edit_h+1){
-			$edit_text = "*\t������������".dgmdate(time(),'dt');
+			$edit_text = "*\t创建时间：".dgmdate(time(),'dt');
 			$new_row_array[$i] = $_G['charset'] == 'utf-8' ? $edit_text : diconv($edit_text,"GBK", "UTF-8//IGNORE");
 		}
 	}
@@ -295,31 +287,31 @@ function write_scriptlang_file($pluginid,$script_lang){
 	file_put_contents($lang_file,$new_row_text);
 	return ;
 }
-// ������������������������������
+//浏览器友好的变量输出
 
-	function dump($var, $echo=true,$label=null, $strict=true){
-		$label = ($label===null) ? '' : rtrim($label) . ' ';
-		if(!$strict) {
-			if (ini_get('html_errors')) {
-				$output = print_r($var, true);
-				$output = "<pre>".$label.htmlspecialchars($output,ENT_QUOTES)."</pre>";
-			} else {
-				$output = $label . " : " . print_r($var, true);
-			}
-		}else {
-			ob_start();
-			var_dump($var);
-			$output = ob_get_clean();
-			if(!extension_loaded('xdebug')) {
-				$output = preg_replace("/\]\=\>\n(\s+)/m", "] => ", $output);
-				$output = '<pre>'. $label. htmlspecialchars($output, ENT_QUOTES). '</pre>';
-			}
+function dump($var, $echo=true,$label=null, $strict=true){
+	$label = ($label===null) ? '' : rtrim($label) . ' ';
+	if(!$strict) {
+		if (ini_get('html_errors')) {
+			$output = print_r($var, true);
+			$output = "<pre>".$label.htmlspecialchars($output,ENT_QUOTES)."</pre>";
+		} else {
+			$output = $label . " : " . print_r($var, true);
 		}
-		if ($echo) {
-			echo($output);
-			return null;
-		}else
-			return $output;
+	}else {
+		ob_start();
+		var_dump($var);
+		$output = ob_get_clean();
+		if(!extension_loaded('xdebug')) {
+			$output = preg_replace("/\]\=\>\n(\s+)/m", "] => ", $output);
+			$output = '<pre>'. $label. htmlspecialchars($output, ENT_QUOTES). '</pre>';
+		}
 	}
+	if ($echo) {
+		echo($output);
+		return null;
+	}else
+		return $output;
+}
 
 ?>

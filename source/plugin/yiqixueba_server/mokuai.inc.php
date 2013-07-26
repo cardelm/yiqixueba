@@ -1,5 +1,13 @@
 <?php
 
+/**
+*	卡益联盟服务端程序
+*	文件名：mokuai.inc.php 创建时间：2013-7-26 14:56  杨文
+*	修改时间：2013-7-26 15:40 杨文
+*/
+
+//该文件是整个服务端的核心文件
+//所谓转换就是把插件数据表common_plugin和插件变量数据表common_pluginvar中的数据转换成服务端的模块数据
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
@@ -18,13 +26,13 @@ $mokuai_info = $mokuaiid ? DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba
 
 if($subac == 'mokuailist') {
 	if(!submitcheck('submit')) {
-		$zhuanhuanen_ids = array();
+		$zhuanhuanen_ids = array();//是否已经转换插件数组
 		showtips(lang('plugin/yiqixueba_server','mokuai_list_tips'));
 		showformheader($this_page.'&subac=mokuailist');
 		showtableheader(lang('plugin/yiqixueba_server','mokuai_zhuanhuanen_list'));
 		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." order by mokuaiid asc");
 		while($row = DB::fetch($query)) {
-			$zhuanhuanen_ids[] = 'yiqixueba_'.$row['identifier'];
+			$zhuanhuanen_ids[] = 'yiqixueba_'.$row['identifier'];//转换之后去掉了yiqixuaba_，需要再加上
 			$mokuaiico = '';
 			if($row['mokuaiico']!='') {
 				$mokuaiico = str_replace('{STATICURL}', STATICURL, $row['mokuaiico']);
@@ -68,7 +76,6 @@ if($subac == 'mokuailist') {
 	$query = DB::query("SELECT * FROM ".DB::table('common_pluginvar')." WHERE pluginid = ".$pluginid." order by displayorder asc");
 	while($row = DB::fetch($query)) {
 		$mokuai_setting[] = $row;
-
 	}
 	$mokuai_info['setting'] = serialize($mokuai_setting);
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_mokuai')." WHERE identifier='".$mokuai_info['identifier']."'")==0){
