@@ -3,19 +3,23 @@
 /**
 *	一起学吧服务端语言包
 *	文件名：yiqixueba_server.lang.php 创建时间：2013-7-23 16:39  杨文
-*	创建时间：2013-7-26 11:31
+*	修改时间：2013-7-27 15:32 杨文
 */
 $scriptlang['yiqixueba_server'] = array(
-	'mokuai_list_tips' => '模块列表提示',
+	'mokuai_list_tips' => '<li>已转换模块是程序可以调用的模块</li><li>未转换的模块信息自动从yiqixueba_前缀的插件获得</li><li>点击提交刷新主程序</li>',
 	'mokuai_zhuanhuanen_list' => '已转换模块列表',
+	'pluginlang' => '语言包',
 	'huanyuan' => '还原',
 	'design' => '设计',
 	'mokuai_nozhuanhuan_list' => '未转换模块列表',
-	'pluginlang' => '语言包',
 	'zhuanhuan' => '转换',
+	'mokuai_main_succeed' => '主程序刷新成功',
+	'mokuai_edit_succeed' => '模块编辑成功',
+	'mokuailang_list_tips' => '模块语言包列表',
 	'mokuai_pluginlang_list' => '语言包文件：',
 	'english' => '英文：',
 	'chinese' => '汉字：',
+	'mokuai_langedit_succeed' => '模块语言包编辑',
 	'site_list_tips' => '站长列表提示',
 	'other_link' => '其他链接',
 	'site_list' => '站长列表',

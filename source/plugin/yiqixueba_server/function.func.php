@@ -3,7 +3,7 @@
 /**
 *	卡益联盟服务端函数集
 *	文件名function.func.php 创建时间2013-7-26 14:39 杨文
-*	修改时间：2013-7-26 14:55 杨文
+*	修改时间：2013-7-27 15:39 杨文
 */
 
 
@@ -103,7 +103,7 @@ function make_plugin($pluginid){
 			//生成后台通用文件
 			$github_file = $plugin_dir.$v['name'].'.inc.php';
 			if(!file_exists($github_file)){
-				$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."-".$v['menu']."程序\n*\t文件名：".$v['name'].'.inc.php'." 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\nif(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {\n\texit('Access Denied');\n}\n\nrequire_once DISCUZ_ROOT.'source/plugin/".$plugin_info['directory']."function.func.php';\n\n".
+				$file_text = "<?php\r\n\r\n/**\r\n*\t".$plugin_info['name']."-".$v['menu']."程序\r\n*\t文件名：".$v['name'].'.inc.php'." 创建时间：".dgmdate(time(),'dt')."  杨文\r\n*\r\n*/\r\n\nif(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {\n\texit('Access Denied');\n}\n\nrequire_once DISCUZ_ROOT.'source/plugin/".$plugin_info['directory']."function.func.php';\n\n".
 				"\$this_page = substr(\$_SERVER['QUERY_STRING'],7,strlen(\$_SERVER['QUERY_STRING'])-7);\n".
 				"stripos(\$this_page,'subac=') ? \$this_page = substr(\$this_page,0,stripos(\$this_page,'subac=')-1) : \$this_page;\n\n".
 				"\$subac = getgpc('subac');\n".
@@ -287,6 +287,14 @@ function write_scriptlang_file($pluginid,$script_lang){
 	file_put_contents($lang_file,$new_row_text);
 	return ;
 }
+
+
+//刷新主程序
+function refresh_mokuai(){
+	global $_G;
+	dump($_G['siteurl']);
+	return ;
+}//end func
 //浏览器友好的变量输出
 
 function dump($var, $echo=true,$label=null, $strict=true){
