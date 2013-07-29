@@ -2,14 +2,13 @@
 
 /**
 *	卡益联盟服务端函数集
-*	文件名function.func.php 创建时间2013-7-26 14:39 杨文
-*	修改时间：2013-7-27 15:39 杨文
+*	filename:function.func.php createtime:2013-7-26 14:39 yangwen
+*	2013-7-29 15:12
 */
 
 
-
 update_github();
-//用于github同步的程序并更新修改时间
+//用于github同步的程序并更新edittime
 function update_github($path=''){
 	global $_G;
 	clearstatcache();
@@ -28,20 +27,20 @@ function update_github($path=''){
 					}
 					update_github($path."/".$file);
 				}else{
-					if (filemtime($path."/".$file)  > filemtime($out_path."/".$file)){////GitHub文件修改时间大于wamp时
+					if (filemtime($path."/".$file)  > filemtime($out_path."/".$file)){////GitHub文件edittime大于wamp时
 						if(substr($file,-4)=='.php'){//只修改文件扩展名为php的
 							$old_row_text = $new_row_text = array();
 							$file_text = file_get_contents($path."/".$file);
 							$old_row_text = explode("\n",$file_text);
-							$chuangjian_text =  "*\t文件名：".$file." 创建时间：".dgmdate(time(),'dt')."  杨文\r";
-							$zhushi_text =  "*\t修改时间：".dgmdate(time(),'dt')." 杨文\r";
+							$chuangjian_text =  "*\tfilename:".$file." createtime:".dgmdate(time(),'dt')."  yangwen\r";
+							$zhushi_text =  "*\tedittime:".dgmdate(time(),'dt')." yangwen\r";
 							if(stripos($old_row_text[2],"/**\r")===false &&  stripos($old_row_text[6],"*/\r")===false){
 								$new_row_text[0] = "<?php\r";
 								$new_row_text[1] = "\r";
 								$new_row_text[2] = "/**\r";
 								$new_row_text[3] = "*\t\r";
-								$new_row_text[4] = $_G['charset'] == 'utf-8' ? $chuangjian_text : diconv($chuangjian_text,"GBK", "UTF-8//IGNORE");
-								$new_row_text[5] = $_G['charset'] == 'utf-8' ? $zhushi_text : diconv($zhushi_text,"GBK", "UTF-8//IGNORE");
+								$new_row_text[4] = $_G['charset'] == 'utf-8' ? $chuangjian_text : diconv($chuangjian_text,"UTF-8", "GBK//IGNORE");
+								$new_row_text[5] = $_G['charset'] == 'utf-8' ? $zhushi_text : diconv($zhushi_text,"UTF-8", "GBK//IGNORE");
 								$new_row_text[6] = "*/\r";
 								$new_row_text[7] = "\r";
 								for($i=1;$i<count($old_row_text) ;$i++ ){
@@ -49,15 +48,17 @@ function update_github($path=''){
 								}
 
 							}else{
-								$old_row_text[5] = $_G['charset'] == 'utf-8' ? $zhushi_text : diconv($zhushi_text,"GBK", "UTF-8//IGNORE");
+								$old_row_text[5] = $_G['charset'] == 'utf-8' ? $zhushi_text : diconv($zhushi_text,"UTF-8", "GBK//IGNORE");
 								for($i=0;$i<count($old_row_text) ;$i++ ){
 									$new_row_text[] = $old_row_text[$i];
 								}
 							}
-							file_put_contents ($path."/".$file,implode("\n",$new_row_text));
+							$write_text = implode("\n",$new_row_text);
+							file_put_contents ($out_path."/".$file,$_G['charset'] == 'utf-8' && stripos($file,'.lang.php')?$write_text:diconv($write_text,"UTF-8", "GBK//IGNORE"));
+						}else{
+							$write_text = $_G['charset'] == 'utf-8' && stripos($file,'.lang.php') ? file_get_contents($path."/".$file) : diconv(file_get_contents($path."/".$file),"UTF-8", "GBK//IGNORE");
+							file_put_contents ($out_path."/".$file,$write_text);
 						}
-						$write_text = $_G['charset'] == 'utf-8' && stripos($file,'.lang.php') ? file_get_contents($path."/".$file) : diconv(file_get_contents($path."/".$file),"UTF-8", "GBK//IGNORE");
-						file_put_contents ($out_path."/".$file,$write_text);
 					}
 				}
 			}
@@ -78,12 +79,12 @@ function make_plugin($pluginid){
 	}
 	$github_func_file =  $plugin_dir.'function.func.php';
 	if(!file_exists($github_func_file)){
-		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."模块函数集\n*\t文件名：function.func.php 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\nif(!defined('IN_DISCUZ')) {\n\texit('Access Denied');\n}\n\n?>";
+		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."模块函数集\n*\tfilename:function.func.php createtime:".dgmdate(time(),'dt')."  yangwen\n*\n*/\n\nif(!defined('IN_DISCUZ')) {\n\texit('Access Denied');\n}\n\n?>";
 		file_put_contents($github_func_file,$_G['charset'] == 'utf-8' ? $file_text : diconv($file_text,"GBK", "UTF-8//IGNORE"));
 	}
 	$github_lang_file =  $github_dir.'/data/plugindata/'.$plugin_info['identifier'].'.lang.php';
 	if(!file_exists($github_lang_file)){
-		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."语言包程序\n*\t文件名：".$plugin_info['identifier'].".lang.php 创建时间：".dgmdate(time(),'dt')."  杨文\n*\n*/\n\n\$scriptlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$templatelang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$installlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$systemlang['".$plugin_info['identifier']."'] = array(\n\t'file' => array(\n\t\t'' => '',\n\t\t'' => '',\n\t),\n);\n\n\n?>";
+		$file_text = "<?php\n\n/**\n*\t".$plugin_info['name']."语言包程序\n*\tfilename:".$plugin_info['identifier'].".lang.php createtime:".dgmdate(time(),'dt')."  yangwen\n*\n*/\n\n\$scriptlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$templatelang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$installlang['".$plugin_info['identifier']."'] = array(\n\t'' => '',\n\t'' => '',\n);\n\n\$systemlang['".$plugin_info['identifier']."'] = array(\n\t'file' => array(\n\t\t'' => '',\n\t\t'' => '',\n\t),\n);\n\n\n?>";
 		file_put_contents($github_lang_file,$_G['charset'] == 'utf-8' ? $file_text : diconv($file_text,"GBK", "UTF-8//IGNORE"));
 	}
 	$plugin_modules = dunserialize($plugin_info['modules']);
@@ -103,7 +104,7 @@ function make_plugin($pluginid){
 			//生成后台通用文件
 			$github_file = $plugin_dir.$v['name'].'.inc.php';
 			if(!file_exists($github_file)){
-				$file_text = "<?php\r\n\r\n/**\r\n*\t".$plugin_info['name']."-".$v['menu']."程序\r\n*\t文件名：".$v['name'].'.inc.php'." 创建时间：".dgmdate(time(),'dt')."  杨文\r\n*\r\n*/\r\n\nif(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {\n\texit('Access Denied');\n}\n\nrequire_once DISCUZ_ROOT.'source/plugin/".$plugin_info['directory']."function.func.php';\n\n".
+				$file_text = "<?php\r\n\r\n/**\r\n*\t".$plugin_info['name']."-".$v['menu']."程序\r\n*\tfilename:".$v['name'].'.inc.php'." createtime:".dgmdate(time(),'dt')."  yangwen\r\n*\r\n*/\r\n\nif(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {\n\texit('Access Denied');\n}\n\nrequire_once DISCUZ_ROOT.'source/plugin/".$plugin_info['directory']."function.func.php';\n\n".
 				"\$this_page = substr(\$_SERVER['QUERY_STRING'],7,strlen(\$_SERVER['QUERY_STRING'])-7);\n".
 				"stripos(\$this_page,'subac=') ? \$this_page = substr(\$this_page,0,stripos(\$this_page,'subac=')-1) : \$this_page;\n\n".
 				"\$subac = getgpc('subac');\n".
@@ -253,7 +254,7 @@ function write_scriptlang_file($pluginid,$script_lang){
 	for($i=0;$i<$edit_h+3 ; $i++){
 		$new_row_array[$i] = $old_row_text[$i];
 		if($i==$edit_h+1){
-			$edit_text = "*\t创建时间：".dgmdate(time(),'dt');
+			$edit_text = "*\tcreatetime:".dgmdate(time(),'dt');
 			$new_row_array[$i] = $_G['charset'] == 'utf-8' ? $edit_text : diconv($edit_text,"GBK", "UTF-8//IGNORE");
 		}
 	}

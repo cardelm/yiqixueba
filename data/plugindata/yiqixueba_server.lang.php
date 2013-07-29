@@ -3,7 +3,7 @@
 /**
 *	一起学吧服务端语言包
 *	文件名：yiqixueba_server.lang.php 创建时间：2013-7-23 16:39  杨文
-*	修改时间：2013-7-27 15:32 杨文
+*
 */
 $scriptlang['yiqixueba_server'] = array(
 	'mokuai_list_tips' => '<li>已转换模块是程序可以调用的模块</li><li>未转换的模块信息自动从yiqixueba_前缀的插件获得</li><li>点击提交刷新主程序</li>',
@@ -42,6 +42,8 @@ $scriptlang['yiqixueba_server'] = array(
 	'add_sitegroup' => '增加站长组',
 	'sitegroup_authorize' => '站长组权限',
 	'server_sitegroupname_comment' => '请填写站长组名称',
+	'server_updatepre' => '升级周期',
+	'server_updatepre_comment' => '该站长组多长时间升级，单位为秒',
 	'sitegroupurl_nonull' => '站长组名称不能为空',
 );
 

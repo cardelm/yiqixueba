@@ -64,7 +64,7 @@ if($subop == 'sitegrouplist') {
 		$sitegroup_mokuais = '';
 		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." order by displayorder asc");
 		while($row = DB::fetch($query)) {
-			$sitegroup_mokuais .= '<input type="checkbox" class="checkbox" name="mokuais[]" '.(in_array($row['groupid'],$mokuais) ? ' checked':'').' value="'.$row['groupid'].'">'.$row['mokuaititle'];
+			$sitegroup_mokuais .= '<input type="checkbox" class="checkbox" name="mokuais[]" '.(in_array($row['groupid'],$mokuais) ? ' checked':'').' value="'.$row['groupid'].'">'.$row['name'];
 //			$query1 = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE groupid=".$row['groupid']." order by displayorder asc");
 //			while($row1 = DB::fetch($query1)) {
 //				$sitegroup_mokuais .= '&nbsp;&nbsp;<input type="checkbox" class="checkbox" name="mokuais[]" '.(in_array($row1['mokuaiid'],$mokuais) ? ' checked':'').' value="'.$row1['mokuaiid'].'">'.$row1['versionname'];
@@ -76,7 +76,7 @@ if($subop == 'sitegrouplist') {
 		$sitegroupid ?showhiddenfields(array('sitegroupid'=>$sitegroupid)) : '';
 		showsetting(lang('plugin/yiqixueba_server','sitegroupname'),'sitegroupname',$sitegroup_info['sitegroupname'],'text','',0,lang('plugin/yiqixueba_server','server_sitegroupname_comment'),'','',true);
 		showsetting(lang('plugin/yiqixueba_server','sitegroup_mokuai'),'','',$sitegroup_mokuais ,'',0,lang('plugin/yiqixueba_server','server_sitegroupname_comment'),'','',true);
-		showsetting('升级周期','updatepre',$sitegroup_info['updatepre'],'text' ,'',0,'升级的周期','','',true);
+		showsetting(lang('plugin/yiqixueba_server','server_updatepre'),'updatepre',$sitegroup_info['updatepre'],'text' ,'',0,lang('plugin/yiqixueba_server','server_updatepre_comment'),'','',true);
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();
