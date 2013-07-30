@@ -1,0 +1,94 @@
+<style type="text/css">
+#mtsw_show {
+	margin:15px auto 10px auto;
+}
+.mtsw_con {
+	height:auto;
+	overflow:hidden;
+	background-color:#e9e9e9;
+}
+a:link {
+	}#newspecial {
+	display:block;
+	float:left;
+	margin:0px;
+}
+.tag {}
+.tag_con {
+	padding:10px;
+	border:1px solid #EFEFF0!important;
+	background:#F7F7F7!important;
+	border-top:3px solid #64b5ec!important;
+	border-bottom:none!important;
+}
+.tag_con li{
+    width:960px;
+	float:left;
+}
+.tag_con li span{
+	height:30px;
+	line-height:30px;
+	float:left;
+}
+
+.tag_con  a {
+	height:27px;
+	line-height:25px;
+	padding:0 10px;
+	border:1px solid #EFEFF0;
+	float:left;
+	margin:0 10px 10px 0;
+	white-space:nowrap;
+	border-radius:5px;
+	box-shadow:#EEEEEE 4px 4px 4px;
+	background-color:#E3E3E3;
+	display: block;
+}
+.tag_con a:hover,.tag .current {
+	background:#64b5ec;
+	color:#FFF;
+	}
+.current {
+	background:#64b5ec;
+	color:#FFF;
+	}
+</style>
+<div id="mtsw_show" class="cl">
+	<div class="mtsw_con">
+        <div class="tag" style="width:100%;">
+			<ul class="tag_con cl">
+				<li>
+				<span>{lang yiqixueba_pbl:filter}</span><a href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl"  <!--{if !$g_fid}-->class="current"<!--{/if}-->>{lang yiqixueba_pbl:all}</a>
+				<!--{loop $group $fkey $fval}-->
+					<a href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fval[fid]}&filter={$filter}&orderby={$orderby}" <!--{if $g_fid==$fval[fid]}-->class="current"<!--{/if}-->>{$fval[name]}</a>
+				<!--{/loop}-->	
+				</li>
+				<!--{if $forum}-->
+				<li>
+				<span>{lang yiqixueba_pbl:filter}</span><a href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$g_fid}"  <!--{if !$f_fid}-->class="current"<!--{/if}-->>{lang yiqixueba_pbl:all}</a>
+				<!--{loop $forum $fkey $fval}-->
+					<a href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fval[fid]}&filter={$filter}&orderby={$orderby}" <!--{if $f_fid==$fval[fid]}-->class="current"<!--{/if}-->>{$fval[name]}</a>
+				<!--{/loop}-->	
+				</li>
+				<!--{/if}-->
+				<!--{if $sub}-->
+				<li>
+				<span>{lang yiqixueba_pbl:filter}</span><a href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$f_fid}"  <!--{if !$s_fid}-->class="current"<!--{/if}-->>{lang yiqixueba_pbl:all}</a>
+				<!--{loop $sub $fkey $fval}-->
+					<a href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fval[fid]}&filter={$filter}&orderby={$orderby}" <!--{if $s_fid==$fval[fid]}-->class="current"<!--{/if}-->>{$fval[name]}</a>
+				<!--{/loop}-->	
+				</li>
+				<!--{/if}-->
+				<!--{if $fid&&$usetypeid&&count($typeidOfForum[$fid])}-->
+				<li>
+				<span>{lang yiqixueba_pbl:filter}</span><a href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fid}"  <!--{if !$typeid}-->class="current"<!--{/if}-->>{lang yiqixueba_pbl:all}</a>
+				<!--{loop $typeidOfForum[$fid] $tval}-->
+					<a href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fid}&typeid={$tval}&filter={$filter}&orderby=$orderby" <!--{if $typeid==$tval}-->class="current"<!--{/if}-->>{$types[$tval]}</a>
+				<!--{/loop}-->	
+				</li>
+				<!--{/if}-->
+			</ul>
+			<div class="wf_shadow"></div>
+		</div>
+	</div>
+</div>

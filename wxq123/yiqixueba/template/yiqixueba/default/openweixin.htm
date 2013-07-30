@@ -1,0 +1,66 @@
+<!--{template common/header}-->
+<link rel="stylesheet" id="css_widthauto" type="text/css" href="data/cache/style_{STYLEID}_forum_forumdisplay.css?{VERHASH}" />
+<div id="wp" class="wp">
+	<div id="pt" class="bm cl">
+		<div class="z"><a href="./" class="nvhm" title="{lang home}">$_G[setting][bbname]</a><em>&raquo;</em><a href="plugin.php?id=yiqixueba">联盟商家</a><em>&raquo;</em><!--{if !$type}-->开通微信<!--{else}--><a href="plugin.php?id=yiqixueba&submod=openweixin">开通微信</a><em>&raquo;</em>{$openweixin_text}<!--{/if}--></div>
+	</div>
+</div>
+<div id="ct" class="ct2 wp cl">
+	<div class="mn">
+		<div class="bm vw">
+			<!--{if !$type}-->
+			<div class="h hm">
+				<h1 class="ph mtw mbw">开通微信说明 </h1>
+			</div>
+			<div class="bm_c">
+				<div class="bmn">本地企业开通说明：<a href="plugin.php?id=yiqixueba&submod=openweixin&type=bendi">开通</a></div>
+			</div>
+			<div class="bm_c">
+				<div class="bmn">联盟企业开通说明：<a href="plugin.php?id=yiqixueba&submod=openweixin&type=lianmeng">开通</a></div>
+			</div>
+			<div class="bm_c">
+				<div class="bmn">个人开通说明：<a href="plugin.php?id=yiqixueba&submod=openweixin&type=geren">开通</a></div>
+			</div>
+			<!--{else}-->
+			<div class="h hm">
+				<h1 class="ph mtw mbw">{$openweixin_text}</h1>
+				<div class="bm_c">
+				<div class="bmn">
+				<form method="post" autocomplete="off" action="plugin.php?id=yiqixueba&submod=openweixin" class="exfm">
+				<input type="hidden" name="formhash" value="{FORMHASH}">
+				<input type="hidden" name="referer" value="{echo dreferer()}" />
+				<input type="hidden" name="weixinsubmit" value="yes">
+				<input type="hidden" name="type" value="{$type}">
+				<table cellspacing="0" cellpadding="5">
+					<tr>
+						<th width="60">识别码:</th>
+						<td><span class="z"><input type="hidden" name="shibiema" value="{$shibiema}">{$wxq123_setting[shibiema]}{$shibiema}</span></td>
+						<td><span class="z">请在您的微信公共帐号的开发模式中的设置接口<br />URL：http://www.wxq123.com/weixin/?sbm={$wxq123_setting[shibiema]}{$shibiema}</span></td>
+					</tr>
+					<tr>
+						<th width="60">Token值:</th>
+						<td><input type="text" name="token" id="token" class="px" value="{$token}" /></td>
+						<td><span class="z">系统随机产生，可以修改，但必须和微信公共帐号的开发模式下设置一致</span></td>
+					</tr>
+					<tr>
+						<th width="60">&nbsp;&nbsp;</th>
+						<td><button type="submit" name="weixinsubmit" id="weixinsubmit" class="pn" value="true"><strong>提交</strong></button></td>
+						<td>&nbsp;</td>
+					</tr>
+				</table>
+				</form>
+				</div>
+				</div>
+			</div>
+
+			<!--{/if}-->
+		</div>
+	</div>
+	<div class="sd">
+		<div class="bmw">
+			<div class="hm bm_h"><h2 class="mbm xs2">提示信息</h2></div>
+			<div class="bm_c">{$_G['username']}，你好，{$msg_text}</div>
+		</div>
+	</div>
+</div>
+<!--{subtemplate common/footer}-->

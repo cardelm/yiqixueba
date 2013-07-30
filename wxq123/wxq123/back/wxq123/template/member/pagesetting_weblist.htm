@@ -1,0 +1,30 @@
+{template wxq123:member/member_nav}
+	<div class="mn">
+		<div class="bm bw0">
+			<h1 class="mt">{lang wxq123:member}</h1>
+			<ul class="tb cl">
+				<!--{loop $subctions $subac}-->
+				<li  <!--{if $subac==$subction}-->class="a"<!--{/if}-->><a href="plugin.php?id=wxq123:member&amp;subop={$subop}&amp;subction={$subac}">{$lang_subction[$subop.'_'.$subac]}</a></li>
+				<!--{/loop}-->
+			</ul>
+			<p class="tbmu mbm">{lang wxq123:websetting_tips}</p>
+			<form action="plugin.php?id=wxq123:member&amp;subop={$subop}&amp;subction={$subction}" method="post" autocomplete="off">
+			<input type="hidden" value="{FORMHASH}" name="formhash" />
+			<table summary="{$lang_subction[$subop.'_'.$subac]}" cellspacing="0" cellpadding="0" class="dt mtm">
+				<caption>
+					<h2 class="mbm xs2">
+						{lang wxq123:web_list}
+					</h2>
+				</caption>
+				<tr>
+					<th width="80">{lang wxq123:mokuai}</th>
+					<th width="80">{lang wxq123:weizhi}</th>
+					<th>{lang wxq123:xiangqing}</th>
+					<th width="100">{lang wxq123:caozuo}</th>
+				</tr>
+				<tr><td colspan="4"><a href="plugin.php?id=wxq123:member&amp;subop=pagesetting&amp;subction=weblist&amp;subac=webedit">{lang wxq123:add_webpage}</a></td></tr>
+			</table>
+		</div>
+	</div>
+
+{template wxq123:member/member_menu}

@@ -1,0 +1,84 @@
+<style type="text/css">
+#handle {
+	background: url(./source/plugin/yiqixueba_pbl/template/image/bj-tag-01.png) no-repeat left top!important;
+	border:none!important;
+	padding:0 10px 0 0!important;
+	box-shadow:none!important;
+	width:232px!important;
+}
+#handle .thread {
+	padding: 58px 0 13px 0!important;
+	background: url(./source/plugin/yiqixueba_pbl/template/image/bj-tag-03.png) no-repeat left bottom!important;
+	zoom: 1!important;
+}
+.menu {
+	overflow:hidden;	
+	padding: 0 0px 0 20px;
+	background: url(./source/plugin/yiqixueba_pbl/template/image/bj-tag-02.png) repeat-y left top!important;
+	zoom: 1!important;;
+}
+.menu li,.menu span {
+	display:inline-block;
+	float:left;
+}
+.menu a { 
+	text-decoration: none;
+	font-size: 12px;
+	display: inline-block;
+	margin: 0 8px 8px 0;
+	padding: 4px 10px;
+	border: 1px solid #BFBFBF;
+	/*color: #367091;*/
+	color:#2BA7E7;
+	background-color: #F7F7F7;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	box-shadow: inset 0 1px #FFF,0 1px 1px rgba(0,0,0,.1);
+	-moz-box-shadow: inset 0 1px #FFF,0 1px 1px rgba(0,0,0,.1);
+	-webkit-box-shadow: inset 0 1px #FFF,0 1px 1px rgba(0,0,0,.1);
+}
+.menu a:hover,.menu a.selected {
+	/*background: url(./source/plugin/yiqixueba_pbl/template/image/bj-tag.jpg) repeat-x left top;*/
+	background-color:#87BE25;
+	color: white;
+	/*border: 1px solid #624F86;*/
+	border:1px solid #87BE25;
+	box-shadow: none;	
+}
+</style>
+<li id="handle" class="threadwrap">
+<div class="thread">
+	<ul id="fidselect" class="menu cl">
+		<span>{lang yiqixueba_pbl:forums}</span>
+		<li><a id="fid" href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid=&filter={$filter}&orderby={$orderby}">{lang yiqixueba_pbl:all}123</a></li>
+		<!--{loop $forums $fkey $fval}-->
+		<li><a id="fid{$fkey}" href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fkey}&filter={$filter}&orderby={$orderby}">{$fval[name]}</a></li>
+			<!--{if ($usetypeid)}-->
+				<li class="tag">
+				<!--{loop $typeidOfForum[$fkey] $tval}-->
+				<a id="typeid{$tval}" href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fkey}&typeid={$tval}&filter={$filter}&orderby={$orderby}">{$types[$tval]}</a>
+				<!--{/loop}-->		
+				</li>
+			<!--{/if}-->
+		<!--{/loop}-->	
+	</ul>
+	
+	<ul id="filterselect" class="menu cl" >
+		<span>{lang yiqixueba_pbl:filter}</span>
+		<li><a id="filter" href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fid}&typeid={$typeid}&filter=&orderby={$orderby}">{lang yiqixueba_pbl:all}</a></li>
+		<!--{loop $filters $key $val}-->
+		<li><a id="filter{$key}" href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fid}&typeid={$typeid}&filter={$key}&orderby={$orderby}">{$val[name]}</a></li>
+		<!--{/loop}-->
+	</ul>
+	<ul id="orderbyselect" class="menu cl" >
+		<span>{lang yiqixueba_pbl:orderby}</span>
+		<!--{loop $orderbys $key $val}-->
+		<li><a id="orderby{$key}" href="plugin.php?id=yiqixueba_pbl:yiqixueba_pbl&fid={$fid}&typeid={$typeid}&filter={$filter}&orderby={$key}">{$val[name]}</a></li>
+		<!--{/loop}-->
+	</ul>
+
+	
+</div>
+		
+</li>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="html"><![CDATA[]]></item>
+	<item id="data">
+		<item id="0">
+			<item id="id"><![CDATA[14]]></item>
+			<item id="title"><![CDATA[xml_block_title14]]></item>
+			<item id="url"><![CDATA[xml_server.php]]></item>
+			<item id="pic"><![CDATA[nophoto.gif]]></item>
+			<item id="picflag"><![CDATA[1]]></item>
+			<item id="summary"><![CDATA[]]></item>
+			<item id="fields">
+				<item id="author"><![CDATA[xml_user14]]></item>
+				<item id="authorid"><![CDATA[14]]></item>
+				<item id="field1"><![CDATA[field1value14]]></item>
+				<item id="field2"><![CDATA[field2value14]]></item>
+			</item>
+		</item>
+		<item id="1">
+			<item id="id"><![CDATA[15]]></item>
+			<item id="title"><![CDATA[xml_block_title15]]></item>
+			<item id="url"><![CDATA[xml_server.php]]></item>
+			<item id="pic"><![CDATA[nophoto.gif]]></item>
+			<item id="picflag"><![CDATA[1]]></item>
+			<item id="summary"><![CDATA[]]></item>
+			<item id="fields">
+				<item id="author"><![CDATA[xml_user15]]></item>
+				<item id="authorid"><![CDATA[15]]></item>
+				<item id="field1"><![CDATA[field1value15]]></item>
+				<item id="field2"><![CDATA[field2value15]]></item>
+			</item>
+		</item>
+	</item>
+</root>

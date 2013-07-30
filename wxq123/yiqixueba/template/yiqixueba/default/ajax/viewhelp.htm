@@ -1,0 +1,7 @@
+<!--{template common/header_ajax}-->
+	<h3 class="flb">
+		<em id="return_$_GET[handlekey]">查看帮助信息</em>
+		<!--{if $_G[inajax]}--><span><a href="javascript:;" onclick="hideWindow('$_GET[handlekey]');" class="flbc" title="{lang close}">{lang close}</a></span><!--{/if}-->
+	</h3>
+<div style="padding: 10px 10px;width:450px;">{$help_conment}</div>
+<!--{template common/footer_ajax}-->

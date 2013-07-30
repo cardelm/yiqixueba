@@ -1,0 +1,156 @@
+{template yiqixueba:yiqixueba/juhuang/header}
+<div id="body">
+
+    <div class="ix_foo">
+
+        <div class="ix1_left">
+            <script type="text/javascript" src="source/plugin/yiqixueba/template/yiqixueba/juhuang/style/js/jquery.d.imagechange.js"></script>
+            <div class="l1_pics" id="l1_pics">
+                <!--{loop $slideshowshops $shop}-->
+                <a href="plugin.php?id=yiqixueba&submod=shopdisplay&shopid={$shop[shopid]}" title="$val[itemtitle]" target="_blank"><img src="{$shop[shoplogo]}" height="200" width="348" /></a>
+                <!--{/loop}-->
+            </div>
+            <script type="text/javascript">
+                $('#l1_pics').d_imagechange({width:300,height:250,repeat:'repeat'});
+            </script>
+        </div>
+
+        <div class="ix1_center">
+            <ul class="hl">
+                <!--{loop $slideshowshops $key $shop}-->
+				<!--{if $key==0}-->
+                <li>
+                    <h2><a href="plugin.php?id=yiqixueba&submod=shopdisplay&shopid={$shop[shopid]}">{$shop[shopname]}</a></h2>
+                    <p>{sublen $val[introduce],52,'...'}...</p>
+                </li>
+				<!--{/if}-->
+                <!--{/loop}-->
+            </ul>
+            <div class="ix1_line"></div>
+            <ul class="hl2">
+                <!--{loop $slideshowshops $shop}-->
+                <li><a href="{url article/detail/id/$val[articleid]}" title="$val[subject]">{sublen $val[subject],14}</a></li>
+                <!--{/loop}-->
+            </ul>
+            <div class="clear"></div>
+            <ul class="hl3">
+                <!--{loop $slideshowshops $shop}-->
+                <li><div><a href="{url article/detail/id/$val[articleid]}"><img src="{$shop[shoplogo]}" width="88" height="60" title="$val[subject]" /></a></div></li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+
+        <div class="ix1_right">
+            <div class="btns">
+                <a href="{url member/reg}" title="免费注册">免费注册</a>
+                <a href="{url member/login}" title="快速登录">快速登录</a>
+                <a href="{url review/member/ac/add}" title="发表点评">发表点评</a>
+                <a href="{url item/member/ac/subject_add}" title="添加主题">添加主题</a>
+                <div class="clear"></div>
+            </div>
+            <ul class="comm">
+                <h2><a href="{url index/announcement/do/list}">网站公告</a></h2>
+                <!--{loop $gonggaolist $key $ggliat}-->
+                <li><div><a href="plugin.php?id=yiqixueba&submod=gonggao&ggid={$ggliat[gonggaoid]}">{$ggliat[gonggaoname]}</a></div></li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+
+    <div class="index_1">
+        <div class="ixf_left">
+            <!--{loop $mokuailists $mokuailist}-->
+				<!--{if $mokuailist[mokuainame] == 'dianping'}-->
+				<!--{eval include(template('yiqixueba:yiqixueba/juhuang/index_'.$mokuailist[mokuainame]));}-->
+				<!--{/if}-->
+			<!--{/loop}-->
+        </div>
+        <div class="ixf_right">
+             <!--{loop $mokuailists $mokuailist}-->
+				<!--{if $mokuailist[mokuainame] == 'dianping'}-->
+				<!--{eval include(template('yiqixueba:yiqixueba/juhuang/index_'.$mokuailist[mokuainame]));}-->
+				<!--{/if}-->
+			<!--{/loop}-->
+           
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="index_1">
+        <div class="ixf_left">
+            <!-- 最新图片 begin --->
+            <div class="ix_foo">
+                <div class="ix_picture">
+                    <div class="ix_left1_more"><span class="arrow-ico"><a href="{url item/allpic}">更多</a></span></div>
+                </div>
+                <div class="ix_left1_body" style="height:90px;">
+                    <ul class="index_pic">
+                    <!--{get:item val=picture(select/picid,title,thumb,sid/orderby/addtime DESC/rows/7/cachetime/1000)}-->
+                    <li><div><a href="{url item/detail/id/$val[sid]}"><img src="{URLROOT}/$val[thumb]" alt="$val[title]" title="$val[title]" /></a><b></b></div></li>
+                    <!--{/get}-->
+                    </ul>
+                </div>
+                <div class="ix_left1_bottom"></div>
+            </div>
+            <!-- 最新图片 end --->
+        </div>
+        <div class="ixf_right">
+            <!-- 最新标签 begin -->
+            <div class="ix_foo">
+                <div class="ix_right_top"></div>
+                <div class="ix_right_body">
+                    <h2><a href="{url item/tag}">最新标签</a></h2>
+                    <div class="ix_tag" style="height:92px;">
+                        {get:item val=tag(orderby/dateline DESC/row/20/cachetime/1000)}
+                        <span><a href="{url item/tag/tagid/$val[tagid]}"{if $val[total]} class="{print:item tagclassname(total/$val[total])}"{/if}>{sublen $val[tagname],6}</a></span>
+                        {/get}
+                    </div>
+                </div>
+                <div class="ix_right_bottom"></div>
+            </div>
+            <!-- 最新标签 end -->
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <!-- 友情链接 begin -->
+    
+    <div class="mainrail rail-border-3">
+        <div class="rail-h-bg-3">
+            <em>
+                <a href="{url link/apply}">申请链接</a>&nbsp;
+                <span class="arrow-ico"><a href="{url link/index}">更多</a></span>
+            </em>
+            <h2 class="rail-h-3">友情链接</h2>
+        </div>
+        <div class="index_links">
+            <div class="links">
+                {get:link val=links(type/char)}
+                <a href="$val[link]" title="$val[des]" target="_blank">$val[title]</a>
+                {/get}
+            </div>
+            <div class="line"></div>
+            <div class="links">
+                {get:link val=links(type/logo)}
+                <a href="$val[link]" title="$val[des]" target="_blank"><img src="$val[logo]" alt="$val[title]" /></a>
+                {/get}
+            </div>
+        </div>
+    </div>
+    
+    <!-- 友情链接 end -->
+
+</div>
+<div id="adv_1_content" style="display:none;">
+<!--{include display('adv:show','name/首页_中部广告')}-->
+</div>
+<script type="text/javascript">
+//加载广告
+replace_content('adv_1=adv_1_content');
+</script>
+
+
+{template yiqixueba:yiqixueba/juhuang/footer}

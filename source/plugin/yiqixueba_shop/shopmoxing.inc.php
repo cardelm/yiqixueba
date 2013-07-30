@@ -1,24 +1,5 @@
 <?php
 
-/**
-*	
-*	文件名：shopmoxing.inc.php 创建时间：2013-7-29 08:44  杨文
-*	修改时间：2013-7-29 08:44 杨文
-*/
-
-
-/**
-*
-*	文件名：shopmoxing.inc.php 创建时间：2013-7-26 16:13  杨文
-*	修改时间：2013-7-26 16:13 杨文
-*/
-
-
-/**
-*	商家展示-商家模型程序
-*	文件名：shopmoxing.inc.php 创建时间：2013-7-26 16:11  杨文
-*	修改时间：2013-7-26 16:11 杨文
-*/
 
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
@@ -153,6 +134,7 @@ if($subac == 'shopmoxinglist') {
 				<option value="color">'.cplang('plugins_edit_vars_type_color').'</option>
 				<option value="date">'.cplang('plugins_edit_vars_type_date').'</option>
 				<option value="datetime">'.cplang('plugins_edit_vars_type_datetime').'</option>
+				<option value="datetime">'.lang('plugin/yiqixueba_shop','type_edit').'</option>
 			</seletc>',
 			''
 		));

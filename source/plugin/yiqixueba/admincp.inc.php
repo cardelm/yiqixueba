@@ -26,14 +26,24 @@ foreach( $submenu_array as $k=>$v ){
 $admin_menu[] = array(array('menu'=>in_array(str_replace("manpro_","",$submod),$submenu_array)?lang('plugin/yiqixueba',$submod):lang('plugin/yiqixueba','manpro'),'submenu'=>$submenus),in_array(str_replace("manpro_","",$submod),$submenu_array)|| empty($submod));
 */
 
-$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_mokuai')." WHERE available=1 order by displayorder asc");
+$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available=1 order by displayorder asc");
 $menuk = 0;
 while($row = DB::fetch($query)) {
 
+	$setting = array();
 	$modules = dunserialize($row['modules']);
+	$setting = dunserialize($row['setting']);
 	$submods = $submenus = array();
 	$current_menu = '';
 	$menukk = 0;
+//	if(is_array($setting) &&  $menukk == 0 ){
+//		$submod = $row['identifier'].'_setting';
+//		$current_menu = 'setting';
+//		$current_group = $row['identifier'];
+//		$submods[] = $current_group.'_setting';
+//		$submenus[] = array(lang(),'plugins&identifier=yiqixueba&pmod=admincp&submod='.$row['identifier'].'_setting',$submod == $current_group.'_setting');
+//		$menukk++;
+//	}
 	foreach($modules as $k=>$v ){
 		if($v['type']==3){
 			//当使用yiqixueba_main插件的时候，需要使用以下内容

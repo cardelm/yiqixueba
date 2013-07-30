@@ -1,0 +1,22 @@
+<h1 class="mt">登录管理面板</h1>
+<div class="mbw">首次进入会员中心或空闲时间过长, 您输入密码才能进入。</div>
+<form method="post" autocomplete="off" action="plugin.php?id=yiqixueba:manage&man=login" class="exfm">
+<input type="hidden" name="formhash" value="{FORMHASH}">
+<input type="hidden" name="referer" value="{echo dreferer()}" />
+<input type="hidden" name="loginsubmit" value="yes">
+<input type="hidden" name="login_yiqixueba_manage" value="yes">
+<table cellspacing="0" cellpadding="5">
+	<tr>
+	<th width="60">用户名:</th>
+	<td>{$_G['username']}</td>
+	</tr>
+	<tr>
+	<th>密码:</th>
+	<td><input type="password" name="cppwd" id="cppwd" class="px" /></td>
+	</tr>
+	<tr>
+	<th>&nbsp;</th>
+	<td><button type="submit" name="loginsubmit" id="loginsubmit" class="pn" value="true"><strong>提交</strong></button></td>
+	</tr>
+</table>
+</form>

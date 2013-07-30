@@ -1,0 +1,159 @@
+{template common/header}
+<!--{template yiqixueba_pbl:css}-->
+<script src="static/js/forum_viewthread.js" type="text/javascript"></script>
+<script type="text/javascript" language="javascript" src="./source/plugin/yiqixueba_pbl/template/js/jquery.min.js"></script>
+<script type="text/javascript" language="javascript" src="./source/plugin/yiqixueba_pbl/template/js/jquery.masonry.min.js"></script>
+<script type="text/javascript" language="javascript" src="./source/plugin/yiqixueba_pbl/template/js/showdiv.js"></script>
+<script type="text/javascript" language="javascript" >
+var $17 = jQuery.noConflict(true);//此处为解决冲突
+var loads=0; 
+var loadsperpage={$loadsperpage};
+var space=10;
+var loading=false;
+var scrolltimer=null;
+
+<!--{if !empty($_GET[fid])}-->
+var fid={$_GET[fid]};
+<!--{else}-->
+var fid='';
+<!--{/if}-->
+
+<!--{if !empty($_GET[typeid])}-->
+var typeid={$_GET[typeid]};
+<!--{else}-->
+var typeid='';
+<!--{/if}-->
+
+<!--{if !empty($_GET[filter])}-->
+var filter={$_GET[filter]};
+<!--{else}-->
+var filter='';
+<!--{/if}-->
+
+<!--{if !empty($_GET[orderby])}-->
+var orderby={$_GET[orderby]};
+<!--{else}-->
+var orderby={$orderbydefault};
+<!--{/if}-->
+
+<!--{if !empty($_GET[page])}-->
+var page={$_GET[page]};
+<!--{else}-->
+var page='';
+<!--{/if}-->
+$17(document).ready(function(){
+	var container=$17('#yiqixueba_pbl');
+	container.masonry({
+		itemSelector:'.threadwrap',
+		isFitWidth: true,
+		columnWidth:{$columnwidth},
+		gutterWidth:space,
+		isAnimate:true
+	});
+	$17('#fidselect a').each(function(){
+		if (this.id=='fid'+fid) $17(this).addClass('selected');
+		if (this.id=='typeid'+typeid) $17(this).addClass('selected');
+	});
+	$17('#typeidselect a').each(function(){
+		if (this.id=='typeid'+typeid) $17(this).addClass('selected');
+	});
+	 $17('#filterselect a').each(function(){
+		if (this.id=='filter'+filter) $17(this).addClass('selected');
+	});
+	$17('#orderbyselect a').each(function(){
+		if (this.id=='orderby'+orderby) $17(this).addClass('selected');
+	});
+	yiqixueba_pbl();
+});
+
+$17(window).scroll(function(){
+	if (scrolltimer==null) {
+		scrolltimer=setTimeout(function(){
+			// 当滚动到最底部以上240像素时， 加载新内容	
+			if ((loads<loadsperpage)&&(!loading)&&($17(document).height() - $17(this).scrollTop() - $17(this).height()<240)) yiqixueba_pbl();
+			scrolltimer=null;
+		},320);	//320毫秒后执行一次
+	}	
+});
+
+function yiqixueba_pbl()
+{
+	loading=true;
+	loads=loads+1;
+	var container = $17('#yiqixueba_pbl');
+		
+	$17('#loading').show();
+	$17.ajax({
+		url : 'plugin.php?id=yiqixueba_pbl:threads',
+		data:{'fid':fid,'typeid':typeid,'filter':filter,'orderby':orderby,'page':page,'loads':loads},
+		success : function(data)
+		{		
+			var result=$17(data).find('.threadwrap');	
+			var newitems=result.css({opacity:0});
+			container.append(newitems);
+			var count=newitems.length;
+			var masonryed=0;//已经安排好位置的元素个数
+			var itemloaded=[];//标记每个元素是否装载完毕的数组
+			for (var i=0;i<count;i++) itemloaded[i]=false;
+			
+			var waittimer=setInterval(function(){
+				if (!loading) clearInterval(waittimer);
+				
+				for (var i=0;i<count;i++)
+				{
+					var curitem=$17(newitems[i]);
+					if (!itemloaded[i]){
+						
+						var imgsloaded=0;
+						var tmpimgs=curitem.find('.image img');
+						for(var m = 0, n = tmpimgs.length; m < n; m++)
+						{
+							tmpimgs[m].onerror=function (){ 
+								this.style.display='none';
+							};
+							imgsloaded+=(tmpimgs[m].complete)?1:0;	
+						}
+						if (imgsloaded==tmpimgs.length) itemloaded[i]=true;
+					}
+					
+					if ((itemloaded[i])&&(i==masonryed))
+					{
+						container.masonry('appended',curitem,true);
+						curitem.animate({opacity:1});
+						masonryed++;
+					}	
+				}
+				
+				if (masonryed==count) {
+					loading=false;
+					$17('#loading').hide();	
+				}	
+			},40);	//每隔40毫秒执行函数内的代码
+		}
+	});	
+	 	
+}
+
+</script>
+<!--{if ($navmode==1)}-->
+{template yiqixueba_pbl:navigate}
+<!--{/if}-->
+<!--{if ($navmode==4)}-->
+{template yiqixueba_pbl:navigate1}
+<!--{/if}-->
+<div id="threadlist">
+	<ul id="yiqixueba_pbl" class="cl">
+		<!--{if (($navmode==1)&&$fid&&$usetypeid&&count($typeidOfForum[$fid]))}-->
+			{template yiqixueba_pbl:handle1}
+		<!--{/if}-->
+		<!--{if ($navmode==2)}-->
+			{template yiqixueba_pbl:handle2}
+		<!--{/if}-->
+	</ul>
+	<div id="loading" style="display:none;">
+		<span><img src="{IMGDIR}/loading.gif" alt="" width="16" height="16" class="vm" />{lang yiqixueba_pbl:loading}</span>
+	</div>
+	<div id="mulpage" class="pages cl">{$mulpage}</div>
+</div>
+
+{template common/footer}

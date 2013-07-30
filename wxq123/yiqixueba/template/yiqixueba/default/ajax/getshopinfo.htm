@@ -1,0 +1,14 @@
+<!--{template common/header_ajax}-->
+<table class="tb tb2 ">
+<tr><td colspan="2" class="td27" s="1">具体商家:</td></tr><tr><td class="vtop rowform">
+<!--{if $shop_listsnum ==0}-->
+	</td><td class="vtop tips2" s="1">您输入的商家名称在联盟商家系统不存在，如果想加入该商家请到商家系统中添加！</td></tr>
+<!--{elseif $shop_listsnum ==1}-->
+	<input type="hidden" name="shopid" value="{$shoplist[shopid]}">可以成为商家</td><td class="vtop tips2" s="1">可以成为商家</td></tr></table>
+<!--{else}-->
+<!--{loop $shop_lists $shoplist}-->
+	<input type="radio" name="shopid" class="radio" value="{$shoplist[shopid]}">{$shoplist[shopname]}<br />
+<!--{/loop}-->
+</td><td class="vtop tips2" s="1">您输入的商家名称，有以下商铺存在，请选择具体的商家</td></tr></table>
+<!--{/if}-->
+<!--{template common/footer_ajax}-->

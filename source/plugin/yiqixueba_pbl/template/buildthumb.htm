@@ -1,0 +1,24 @@
+<p>{lang yiqixueba_pbl:thumbwidth}{$thumbwidth}</p>
+<p>{lang yiqixueba_pbl:thumbheight}{$thumbheight}</p>
+<div>
+<form action="admin.php?action=plugins&operation=config&do={$pluginid}&identifier=yiqixueba_pbl&pmod=buildthumb" method="post">
+<input type="hidden" name="formhash" id="formhash" value="{FORMHASH}" />
+<p>{lang yiqixueba_pbl:forums}
+<select id="fid" name="fid">
+<!--{loop $forums $val}-->
+<option value="{$val[fid]}">{$val[name]}</option>
+<!--{/loop}-->
+</select>
+<input type="text" id="pertask" name="pertask" value="100" />
+<input type="checkbox" id="allthread"  name="allthread" value="1" />{lang yiqixueba_pbl:recover}
+</p><p>
+<script type="text/javascript" src="static/js/calendar.js"></script>
+<input type="text" id="starttime" onclick="showcalendar(event, this)" value="" name="starttime" class="txt">
+ -- 
+<input type="text" id="endtime" onclick="showcalendar(event, this)" value="" name="endtime" class="txt">
+{lang yiqixueba_pbl:timerange}  &nbsp;&nbsp;
+
+<input type="submit" class="btn" id="buildthumb" name="buildthumb" value="{lang yiqixueba_pbl:submit}" />
+</p>
+</form>
+</div>

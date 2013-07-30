@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin Validator]]></item>
+	<item id="Version"><![CDATA[X3]]></item>
+	<item id="Data">
+		<item id="0"><![CDATA[source/plugin/yiqixueba_pbl/buildthumb.inc.php]]></item>
+		<item id="1"><![CDATA[source/plugin/yiqixueba_pbl/eachbuildthumb.inc.php]]></item>
+		<item id="2"><![CDATA[source/plugin/yiqixueba_pbl/function.inc.php]]></item>
+		<item id="3"><![CDATA[source/plugin/yiqixueba_pbl/main.class.php]]></item>
+		<item id="4"><![CDATA[source/plugin/yiqixueba_pbl/threads.inc.php]]></item>
+		<item id="5"><![CDATA[source/plugin/yiqixueba_pbl/thumb.class.php]]></item>
+		<item id="6"><![CDATA[source/plugin/yiqixueba_pbl/yiqixueba_pbl.class.php]]></item>
+		<item id="7"><![CDATA[source/plugin/yiqixueba_pbl/yiqixueba_pbl.inc.php]]></item>
+	</item>
+</root>

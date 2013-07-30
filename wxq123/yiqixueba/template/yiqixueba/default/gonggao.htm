@@ -1,0 +1,27 @@
+<!--{template common/header}-->
+<link rel="stylesheet" id="css_widthauto" type="text/css" href="data/cache/style_{STYLEID}_forum_forumdisplay.css?{VERHASH}" />
+<div id="wp" class="wp">
+	<div id="pt" class="bm cl">
+		<div class="z"><a href="./" class="nvhm" title="{lang home}">$_G[setting][bbname]</a><em>&raquo;</em><a href="plugin.php?id=yiqixueba">联盟商家</a><em>&raquo;</em>查看公告</div>
+	</div>
+</div>
+
+	<div id="ct" class="ct2 wp cl">
+		<div class="mn">
+			<div class="bm vw">
+			<div class="h hm">
+				<h1 class="ph mtw mbw">{$gonggaoinfo[gonggaoname]} </h1>
+			</div>
+			<div class="d">&nbsp;&nbsp;$gonggaoinfo[gonggaotext]</div>
+			
+			</div>
+		</div>
+		<div class="sd">
+			<div class="bmw">
+				<div class="hm bm_h"><h2 class="mbm xs2">提示信息</h2></div>
+				<div class="bm_c">{$_G['username']}，你好，{$msg_text}</div>
+			</div>
+		</div>
+	</div>
+
+<!--{subtemplate common/footer}-->

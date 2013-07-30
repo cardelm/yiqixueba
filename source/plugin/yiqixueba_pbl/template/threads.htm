@@ -1,0 +1,57 @@
+
+<ul id="yiqixueba_pbl">
+<!--{loop $threads $key $val}-->
+<li class="threadwrap">
+	<div class="thread" onmouseover="showDiv('opdiv{$val[tid]}')" onmouseout="hiddenDiv('opdiv{$val[tid]}')">
+		<div id="opdiv{$val[tid]}" class="operate-btns" style="display:none;">
+			<a href="home.php?mod=spacecp&amp;ac=favorite&amp;type=thread&amp;id={$val[tid]}" id="k_favorite" onclick="showWindow(this.id, this.href, 'get', 0);">{lang yiqixueba_pbl:favorite}<sup><span id="favoritenumber">{$val[favtimes]}</span></sup></a>
+			<a href="home.php?mod=spacecp&amp;ac=share&amp;type=thread&amp;id={$val[tid]}" id="k_share" onclick="showWindow(this.id, this.href, 'get', 0);" style="background:none;padding-left:0px;">{lang yiqixueba_pbl:share}<sup><span id="sharenumber">{$val[sharetimes]}</span></sup></a>
+		<div class="bkmask"></div>
+		</div>
+		<div class="top  cl">
+			<div class="image">
+				<a href="forum.php?mod=viewthread&tid={$val[tid]}" title="{$val[subject]}" target="_blank"> 
+				<!--{if ($val[thumb])}-->
+					<img src="{$val[thumb]}" border="0" alt="{$val[subject]}" width="{$picwidth}" style="max-height:{$picmaxheight}px;" />
+				<!--{elseif ($val[image])}-->
+					<img src="{$val[image]}" border="0" alt="{$val[subject]}" width="{$picwidth}" style="max-height:{$picmaxheight}px;" />
+				<!--{/if}-->
+				</a>
+			</div>
+			<div class="content">
+				<div class="sub"><a href="forum.php?mod=viewthread&tid={$val[tid]}" title="{$val[subject]}" target="_blank">{$val[subject]}</a></div>
+				<!--{if ($lengthforpost)}-->
+				<p class="msg">{$val[message]}</p>
+				<!--{/if}-->
+				<p class="stats">
+			<!--{if ($_G[uid])}-->
+				<a onclick="ajaxget('forum.php?mod=misc&amp;action=recommend&amp;do=add&amp;tid={$val[tid]}','');recadd('{$val[tid]}');this.onclick=function(){return false;};return false;" class="btn-love"><span><i id="recommend_add_{$val[tid]}">{$val[recommend_add]}</i>{lang yiqixueba_pbl:love}</span>
+ 				</a>
+			<!--{else}-->
+				<a onclick="showDialog('ÇëÏÈµÇÂ½»ò×¢²á£¡','notice','')" class="btn-love"><span><i id="recommend_add_{$val[tid]}">{$val[recommend_add]}</i>{lang yiqixueba_pbl:love}</span>
+ 				</a>
+			<!--{/if}--><span class="dot"></span>
+				<span>
+					<span>{$val[views]}{lang yiqixueba_pbl:views}</span><span class="dot"></span>
+					<span class="replies">{$val[replies]}{lang yiqixueba_pbl:replies}</span>
+				</span>
+				</p>
+				
+			</div>
+		</div>
+		<div class="down cl">
+			<div>
+				<a class="auth" href="home.php?mod=space&uid={$val[authorid]}">
+						<img src="{$val[avatar]}" onerror="this.onerror=null;this.src='{$noavatar}'"/>
+				</a>
+				<span  class="authinfo">
+						<a href="home.php?mod=space&uid={$val[authorid]}">{$val[author]}</a>&nbsp;{lang yiqixueba_pbl:on}&nbsp;{$val[dateline]}&nbsp;{lang yiqixueba_pbl:shareon}&nbsp;{$forums[$val[fid]][name]}
+				</span>
+			</div>	
+			
+		</div>
+	</div>
+</li>
+<!--{/loop}-->
+</ul>
+

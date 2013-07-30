@@ -1,0 +1,78 @@
+{template yiqixueba:yiqixueba/juhuang/header}
+
+
+<div id="body">
+	<div id="class_left">
+		<div class="mainrail">
+			<!--{loop $mainnav $k $val}-->
+            <div class="mainrail rail-border-3">
+                <h3 class="rail-h-3 rail-h-bg-3"><b><a href="plugin.php?id=yiqixueba&mokuaiid={$val[mokuaiid]}">$val[mokuaititle]</a></b></h3>
+                <ul class="class-ul">
+				<!--{if $mainnav[$k][subnav]}-->
+                    <!--{loop $mainnav[$k][subnav] $val1}-->
+                    <li><a href="{url item/list/catid/$val2[catid]}">$val1[sorttitle]</a></li>
+                    <!--{/loop}-->
+				<!--{else}-->
+					<li>暂无分类</li>
+				<!--{/if}-->
+                </ul>
+                <div class="class-finer">
+                    <ul class="class-finer-ul">
+                    <!--{if $mainnav[$k][shop]}-->
+						<!--{loop $mainnav[$k][shop] $val2}-->
+                        <li class="class-finer-subject">
+                            <div class="class-finer-subject-img">
+                                <a href="plugin.php?id=yiqixueba&submod=shopdisplay&shopid={$val2[shopid]}" title="{$val2[shopname]}">{$val2[shoplogo]}</a>
+                             </div>
+                            <div class="class-finer-subject-info">
+                                {if $val3[reviews]}<em>好评率<span class="font_1">{print round($val3[best]/$val3[reviews]*100)}%</span></em>{/if}
+                                <h3><a href="plugin.php?id=yiqixueba&submod=shopdisplay&shopid={$val2[shopid]}">{$val2[shopname]}</a></h3>
+                                <p>{$val2[shopintroduction]}<br /><a href="{url item/detail/id/$val3[sid]}#review">共$val3[reviews]条点评</a></p>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+						<!--{/loop}-->
+					<!--{else}-->
+						<li>暂无商家</li>
+					<!--{/if}-->
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+			<!--{/loop}-->
+		</div>
+	</div>
+
+    <div id="class_right">
+        <div class="mainrail rail-border-3">
+            <h3 class="rail-h-3 rail-h-bg-3">最新点评</h3>
+            <ul class="rail-list">
+				
+				<li style="border-bottom:1px dashed #ddd;">
+					<div class="category-review-title">
+					<!--{if $val[uid]}-->
+							<span class="member-ico"><a href="{url space/index/uid/$val[uid]}">{sublen $val[username],6}</a></span>
+					<!--{else}-->
+							<span class="font_3">游客()</span>
+					<!--{/if}-->
+					<span class="font_2">{if $val[best]}好评{else}差评{/if}</span>&nbsp;<a href="{url item/detail/id/$val[id]}">$val[subject]</a>
+					</div>
+					<div class="category-review-info">
+                        {if $val[title]}<h3><a href="{url review/detail/id/$val[rid]}">{sublen $val[title], 20}</a></h3>{/if}
+						{sublen $val[content],35,'...'}
+					</div>
+				</li>
+				
+            </ul>
+        </div>
+	</div>
+    <div class="clear"></div>
+</div>
+
+
+
+
+
+
+
+{template yiqixueba:yiqixueba/juhuang/footer}

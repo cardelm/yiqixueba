@@ -1,0 +1,34 @@
+<script type="text/javascript" language="javascript" src="./source/plugin/yiqixueba_pbl/template/js/jquery.min.js"></script>
+<script type="text/javascript">
+var $17 = jQuery.noConflict(true);
+var pertask={$pertask};
+var allthread={$allthread};
+var tasks={$tasks};
+var inx=0;
+var complete=0;
+
+for(;inx<tasks;inx++)
+{
+	task();
+}
+function task()
+{
+	$17.ajax({
+		url : 'plugin.php?id=yiqixueba_pbl:eachbuildthumb',
+		data:{'where':'{$where}','index':inx,'pertask':pertask,'allthread':allthread},
+		type:'POST',
+		success : function(data)
+		{		
+			complete=complete+1;
+			$17('#message').append('<p>{lang yiqixueba_pbl:finish}'+Math.round(complete*100/tasks)+'%.</p>');	
+			if (complete==tasks) 
+			{
+				$17('#message').append('<p>{lang yiqixueba_pbl:completed}</p>');
+				$17('#message').append("<p><a href='admin.php?action=plugins&operation=config&do={$pluginid}&identifier=yiqixueba_pbl&pmod=buildthumb'>·µ»Ø</a></p>");
+			}
+		}
+	});	
+}
+</script>
+<p>{lang yiqixueba_pbl:beginingcreatethumb}</p>
+<div id="message"></div>

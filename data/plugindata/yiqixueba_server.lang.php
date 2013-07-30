@@ -3,11 +3,12 @@
 /**
 *	一起学吧服务端语言包
 *	文件名：yiqixueba_server.lang.php 创建时间：2013-7-23 16:39  杨文
-*
+*	createtime:2013-7-30 15:38
 */
 $scriptlang['yiqixueba_server'] = array(
 	'mokuai_list_tips' => '<li>已转换模块是程序可以调用的模块</li><li>未转换的模块信息自动从yiqixueba_前缀的插件获得</li><li>点击提交刷新主程序</li>',
 	'mokuai_zhuanhuanen_list' => '已转换模块列表',
+	'displayorder' => '排序',
 	'pluginlang' => '语言包',
 	'huanyuan' => '还原',
 	'design' => '设计',

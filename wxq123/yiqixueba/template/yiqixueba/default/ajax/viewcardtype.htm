@@ -1,0 +1,15 @@
+<!--{template common/header_ajax}-->
+	<h3 class="flb">
+		<em id="return_$_GET[handlekey]">{$cardtypes[cardcatname]}会员卡种类介绍</em>
+		<!--{if $_G[inajax]}--><span><a href="javascript:;" onclick="hideWindow('$_GET[handlekey]');" class="flbc" title="{lang close}">{lang close}</a></span><!--{/if}-->
+	</h3>
+	<!--{loop $cardtype_list $ck $cardtypes}-->
+		<div class="bm_h cl"><h1 class="xs2">{$cardtypes[cardcatname]}</h1></div>
+		<!--{if $cardtypes[cardtype_text]}-->
+			<div style="padding: 10px 10px;width:450px;">{$cardtypes[cardtype_text]}</div>
+		<!--{else}-->
+			
+		<!--{/if}-->
+	<!--{/loop}-->
+
+<!--{template common/footer_ajax}-->
