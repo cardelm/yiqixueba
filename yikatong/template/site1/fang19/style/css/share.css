@@ -1,0 +1,194 @@
+/*
+*@Description: 我要分享插件
+*@Author:      hs
+*@Update:      share.css(2012-08-22)
+*/
+
+.J_share{padding:20px 15px;display:block;}
+		.J_share .q-mod,.J_share .q-bd{width:710px;border-radius:0;}
+		.J_share .q-bd textarea{width:700px;}
+		.J_share .dt-login .q-mod{width:100%;height:auto;}
+		.J_share .dt-login .q-bd {border-radius: 8px 8px 8px 8px;}
+		.J_share .share-brandName{position:relative;margin-bottom:10px;height:30px;font:400 12px/32px Simsun;color:#999;*z-index:20;}
+			.share-brandName span{float:left;display:inline-block;margin-right:10px;}
+			.share-brandName .name{position:relative;width:245px;height:30px;border:1px solid #ccc;}
+			.share-brandName input{position:absolute;top:1px;right:0;width:210px;height:22px;line-height:22px;border:none;}
+			.share-brandName .icon{position:absolute;display:block;top:0;left:0;width:28px;height:30px;background:#f5f5f5 url(images/icon.png) -138px -743px no-repeat;}
+			.share-brandName .shopname-des{display:none;position:absolute;top:35px;left:0;width:245px;border:1px solid #ccc;color:#999;background:#fff;z-index:20;}
+				.shopname-des p{padding:5px;width:235px;height:20px;font:400 12px/20px Simsun;}
+				.shopname-des p:hover,.shopname-des p.hover{cursor:pointer;width:235px;background:#f5f5f5;}
+		.J_share .q-mod{height:320px;}
+/*=S red buttton */
+.btn-b,.btn-b:visited {display:inline-block;color:#fff;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CD3131', endColorstr='#9F1515');background-image:linear-gradient(top, rgb(207,50,50) 0%, rgb(157,20,20) 100%);background-image:-o-linear-gradient(top, rgb(207,50,50) 0%, rgb(157,20,20) 100%);background-image:-moz-linear-gradient(top, rgb(207,50,50) 0%, rgb(157,20,20) 100%);background-image:-webkit-linear-gradient(top, rgb(207,50,50) 0%, rgb(157,20,20) 100%);background-image:-ms-linear-gradient(top, rgb(207,50,50) 0%, rgb(157,20,20) 100%);background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(207,50,50)),color-stop(1,rgb(157,20,20)));border-radius:4px;}
+.btn-b:hover {color:#fff;text-decoration:none;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EC3A3A', endColorstr='#BE2B2B');background-image:linear-gradient(top, rgb(236,58,58) 0%, rgb(190,43,43) 100%);background-image:-o-linear-gradient(top, rgb(236,58,58) 0%, rgb(190,43,43) 100%);background-image:-moz-linear-gradient(top, rgb(236,58,58) 0%, rgb(190,43,43) 100%);background-image:-webkit-linear-gradient(top, rgb(236,58,58) 0%, rgb(190,43,43) 100%);background-image:-ms-linear-gradient(top, rgb(236,58,58) 0%, rgb(190,43,43) 100%);background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(236,58,58)),	color-stop(1, rgb(190,43,43)));}
+.btn-b {padding:0 18px;height:36px;font:400 16px/36px "Microsoft Yahei","SimHei";}
+.btn-s,.btn-s:visited {display:inline-block;color:#fff;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#AA4343', endColorstr='#961313');background-image:linear-gradient(top, rgb(170,67,67) 0%, rgb(150,19,19) 100%);background-image: -o-linear-gradient(top, rgb(170,67,67) 0%, rgb(150,19,19) 100%);background-image: -moz-linear-gradient(top, rgb(170,67,67) 0%, rgb(150,19,19) 100%);background-image: -webkit-linear-gradient(top, rgb(170,67,67) 0%, rgb(150,19,19) 100%);background-image: -ms-linear-gradient(top, rgb(170,67,67) 0%, rgb(150,19,19) 100%);background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(170,67,67)),	color-stop(1, rgb(150,19,19)));border-radius:4px;}
+.btn-s:hover {color:#fff;text-decoration:none;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CE5353', endColorstr='#BE1616');background-image:linear-gradient(top, rgb(206,83,83) 0%, rgb(190,22,22) 100%);background-image:-o-linear-gradient(top, rgb(206,83,83) 0%, rgb(190,22,22) 100%);background-image:-moz-linear-gradient(top, rgb(206,83,83) 0%, rgb(190,22,22) 100%);background-image:-webkit-linear-gradient(top, rgb(206,83,83) 0%, rgb(190,22,22) 100%);background-image:-ms-linear-gradient(top, rgb(206,83,83) 0%, rgb(190,22,22) 100%);background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0, rgb(206,83,83)),	color-stop(1, rgb(190,22,22)));}
+.btn-s {padding:0 10px;height:26px;font:400 14px/26px "Microsoft Yahei","SimHei";}
+.btn-n,.btn-n:visited {display:inline-block;color:#666;background:#EAEAEA;border-radius:4px;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e7e7e7');background-image:linear-gradient(top, #f9f9f9 0%, #E9E9E9 100%);background-image: -o-linear-gradient(top, #f9f9f9 0%, #E9E9E9 100%);background-image: -moz-linear-gradient(top, #f9f9f9 0%, #E9E9E9 100%);background-image: -webkit-linear-gradient(top, #f9f9f9 0%, #E9E9E9 100%);border:1px solid #E1E1E1;}
+.btn-n:hover {text-decoration:none;color:#666;background:#f5f5f5;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E7E7E7', endColorstr='#ffffff');background-image:linear-gradient(top, #fff 0%, #F5F5F5 100%);background-image: -o-linear-gradient(top, #fff 0%, #F5F5F5 100%);background-image: -moz-linear-gradient(top, #fff 0%, #F5F5F5 100%);background-image: -webkit-linear-gradient(top, #fff 0%, #F5F5F5 100%);background-image: -ms-linear-gradient(top, #fff 0%, #F5F5F5 100%);}
+.btn-n {padding:0 10px;height:24px;font:400 14px/24px "Microsoft Yahei","SimHei";}
+/*=E red buttton*/
+
+/*=S q-mod*/
+.q-mod {width:940px;}
+.q-mod .avtar-65,.share-hd .avtar {float:left;width:65px;text-align:center;}
+.avtar-65 img {display:block;margin-bottom:3px;width:65px;height:65px;border-radius:5px;}
+.q-bd {position:relative;float:right;width:850px;background:#fff;border:1px solid #DADADA;border-radius:8px;}
+	.q-bd textarea {margin:5px;width:840px;height:72px;line-height:24px;border:1px solid #fff;outline:none;}
+	.q-bar {padding:2px 3px 0 8px;height:28px;background:#f5f5f5;border-top:1px solid #ECECEC;border-bottom-left-radius:6px;border-bottom-right-radius:6px;}
+	.q-bd .left-arrow {top:20px;left:-17px}
+	.q-bd .q-sub{position:absolute;left:0;bottom:-40px;}
+	.q-bar .share-qq,.q-bar .share-weibo {_top:0;}
+	.reply-smile,.reply-link{display:inline-block;_display:block;_zoom:1;width:30px;height:24px;background:url(images/icon.png) no-repeat;}
+	.reply-smile{margin-right:5px;background-position:-121px -35px;}
+	.reply-link{background-position:-170px -488px;}
+.wd-750 {*zoom:1;}
+	.wd-750 .q-mod {width:750px;}
+	.wd-750 .q-bd {width:660px;}
+	.wd-750 .q-bd textarea {width:650px;}
+	.q-login {padding:45px 0 50px 35px;font: 700 18px/24px "Microsoft Yahei","SimHei";color:#666;}
+	.q-share  {padding-bottom:30px;}
+	.q-tag {position:absolute;left:0;bottom:-45px;color:#999;}
+	.q-tag  label {height:30px;line-height:30px;color:#666;font-size:14px;}
+	.q-tag .q-tag-wrap {height:30px;}
+	.q-tag .txt {padding:0 8px;width:290px;height:28px;line-height:28px;}
+	.q-share .q-sub {bottom:-90px;}		
+/*=E q-mod*/
+
+/*=S 表情 */			
+.smiley-mod {position:absolute;top:25px;left:0;padding:10px 0 10px 10px;width:274px;border:1px solid #D9E6BB;background:#FFF;}
+	.smiley-hd {display:none;position:absolute;right:-74px;bottom:0;border:1px solid #B5CE85;background-color:#FFF;}
+		.smiley-hd p {display:table-cell;*display:block;width:64px;height:64px;vertical-align:middle;text-align:center;*font-size:55px;}
+	.smiley-bd {overflow:hidden;}
+		.smiley-mod .smiley-bd li {cursor:pointer;display:inline;float:left;margin:0 8px 8px 0;padding:0;width:auto;clear:none;background-color:#FFF;}
+		.smiley-mod .smiley-bd a {display:table-cell;*display:block;width:24px;height:24px;vertical-align:middle;text-align:center;*font-size:21px;border:1px solid #FFF;}
+		.smiley-mod .smiley-bd a:hover {border-color:#B5CE85;}
+	.smiley-ft {clear:both;margin:5px 10px 0 0;text-align:right;line-height:16px;overflow:hidden;}
+		.smiley-ft a {display:inline-block;_display:inline;_zoom:1;margin-left:5px;padding:1px 5px;font-family:"Arial";border:1px solid;font-family:Arial;color:#8F8F8F;border-color:#DDD;background-color:#FFF;}
+		.smiley-ft a.select, .smiley-ft a:hover {text-decoration:none;color:#FFF;border-color:#839B1B;background-color:#839B1B;}
+/*=E 表情 */
+
+/*=S smiley | link */
+.post-pop-smiley,.post-pop-link {position:relative;display:none;top:2px;z-index:1;}
+.smiley-mod ,.link-mod{top:3px;border-color:#999;}
+.link-mod{position:absolute;padding:10px;border:1px solid #999;font:400 12px/16px Simsun;color:#999;background:#fff;}
+	.link-mod input{margin-right:10px;width:250px;height:18px;color:#999;}
+	.link-mod  .close-btn{position:absolute;display:block;top:4px;right:10px;width:15px;height:15px;background:url(images/icon.png) -153px -496px no-repeat;}
+.smiley-ft a.select, .smiley-ft a:hover {border-color:#666;background-color:#666;}
+.post-pop-smiley .post-pop-arrow ,.post-pop-link .post-pop-arrow {position:absolute;top:-6px;padding-top:11px;width:15px;height:0;background:url(images/icon.png) -185px 0 no-repeat;overflow:hidden;}
+.post-pop-smiley .post-pop-arrow {left:11px;}
+.post-pop-link .post-pop-arrow {left:42px;}
+/*=E smiley | link */
+
+/*=S upattach-mod */
+.upattach-mod {}
+.upattach-hd {display: none;padding-left:15px;height:25px;line-height:26px;border-bottom:1px solid #CFD8DB;background-color:#F5F5F5;}
+.upattach-bd {overflow:hidden;_zoom:1;}
+.upattach-bd li {position:relative;margin-bottom:10px;overflow: hidden;_zoom:1;}
+  .up-msg {float:left;position: relative;margin-right: 15px;padding: 10px;overflow:hidden;_zoom:1;border: 1px solid #eee;z-index: 1;background-color: #FFF;box-shadow:0 0 4px #aaa;}
+        /* .up-img {float:left;margin:8px 10px 0 0;width:50px;height:50px;background-position:0 -91px;overflow:hidden;} */
+      .upattach-mod .up-img{width: 120px;height: 120px;line-height: 120px;text-align: center;overflow: hidden;background:#fff;*font-size:108px;}
+    .upattach-mod .up-img img{width: auto !important;height: auto !important;}
+
+        .up-info {position: absolute;top:10px;left: 10px;padding-top: 40px;width:120px;text-align: center;word-wrap:break-word;overflow:hidden;_zoom:1;}
+            .up-name {height:20px;overflow:hidden;}
+        .up-hasImg {position: relative;background:none;z-index: 1;}
+  .up-describe {float:left;width:400px;overflow:hidden;}
+    .description, .description-txt {margin: 0;padding: 0;width:100%;height:115px;font:14px "microsoft yahei";color:#666;border: none;}
+        .description {display: none;}
+        .description-hover {background:#FFFFE1;}
+  /* .upStatus {float:left;margin:27px 0;width:90px;height:10px;background-color:#F1F1F1;overflow:hidden;} */
+  /*   .upStatus em {display:block;height:10px;background:url(images/bg_SWFUpload.png) repeat-x;overflow:hidden;zoom:1;} */
+
+	.upStatus {float: left;margin-top: 15px;width:90px;height:14px;background:#DCDCDC;overflow:hidden;}
+	.upStatus em {display: block;height:14px;background:#B82525;background:-webkit-linear-gradient(#CF3232, #9E1515);background:-moz-linear-gradient(#CF3232, #9E1515);}
+.upattach-ft {display: none;padding:0 10px;height:24px;line-height:25px;border-top:1px solid #DDD;background-position:0 -22px;background-repeat:repeat-x;}
+    .upattach-ft #photoTip {display:none;}
+  .upattach-ft #limitUploadNum {display:none;}
+    .upattach-ft #AttachInsertAll {float:right;padding-left:15px;background:url(images/post_icon.png) no-repeat 0 -353px;}
+.appraise-mod{margin-bottom: 20px;_zoom:1;}
+.appraise-mod li {margin-bottom:30px;}
+  .appraise-img {float:left;margin-right:8px;padding:10px 0 0 10px;width:210px;height:210px;background:#fff;box-shadow:0 0 4px #aaa;}
+  .appraise-img div {width:200px;height:200px;overflow:hidden;}
+  .appraise-img p {display:table-cell;*display:block;width:200px;height:200px;vertical-align:middle;text-align:center;background:#fff;*font-size:175px;overflow:hidden;}
+  .up-describe{position:relative;float:left;margin-right:10px;padding:10px;width:440px;height:115px;background:#fff;border:1px solid #DADADA;border-radius:6px;}
+    .up-describe .left-arrow {border-style:solid solid dashed dashed;border-color:#DADADA #DADADA transparent transparent;}
+  .appraise-opt,.appraise-progress {float:left;margin-top:15px;}
+    .up-option{float: left;}
+    .up-option a {display:block;margin-bottom:10px;padding-top: 28px;width:30px;height: 0;background-image:url(images/icon.png);background-repeat:no-repeat;cursor:pointer;overflow: hidden;}
+    .up-option .addToEditor {display: none;}
+    .up-option .upMove {background-position:0 -282px;}
+    .up-option .downMove {background-position:-34px -282px;}
+    .up-option .delAttach {background-position:0 -247px;}
+	.up-option .checkSingle {width:24px;background-position:-139px -697px;}
+	.up-option .checkSingleTrue {background-position:-139px -722px;}
+    
+/*=E upattach-mod */
+
+/*=S upshare-mod*/
+.upshare-mod{background:#f5f5f5;overflow:hidden;}
+	.upshare-mod .upshare-ft{position:relative;padding:10px;*margin-top:-20px;line-height:30px;_line-height:35px;overflow:hidden;}
+	.upshare-mod #uploading,.upshare-mod #uploading Object{position:absolute;top:5px;left:5px;width:90px;height:32px;vertical-align:middle;z-index:12;}
+	.upshare-mod #photoBtn{display:none;}
+	.upshare-mod #uploadBtn{margin-right:15px;padding:10px 10px 10px 30px;height:10px;line-height:10px;color:#fff;border-radius:5px;background:#AF1111 url(images/icon.png) -178px -185px no-repeat;z-index:0;}
+	.upshare-mod li{margin-bottom:0;padding:10px;}
+		.upshare-mod .up-msg{padding:5px;}
+		.upshare-mod .up-img{width:64px;height:64px;line-height:64px;}
+		.upshare-mod .up-info{top:5px;left:5px;padding:0;width:64px;}
+		.upshare-mod .description,.upshare-mod .description-txt{height:54px;color:#999;}
+		.upshare-mod .up-describe{width:535px;height:54px;border-radius:0;}
+		.upshare-mod .up-option a{padding-top:18px;}
+		.upshare-mod .upMove{background-position:-131px -782px;}
+		.upshare-mod .downMove{background-position:-131px -810px;}
+		.upshare-mod .delAttach{background-position:-131px -835px;}
+/*=S upshare-mod*/
+
+/*=S 提示 */
+.tips-mod strong, .tips-mod i {background:url(images/bg_common.png) no-repeat;_background:url(images/bg_common_ie6.png) no-repeat;}
+.tips-mod, .tips-mod strong, .tips-mod i, .tips-mod em {display:inline-block;_display:inline;_zoom:1;height:73px;}
+.tips-mod {position:fixed;top:40%;left:0;width:100%;font:400 16px/73px "Microsoft Yahei","SimHei";text-align:center;z-index:100;}
+	.tips-mod strong {position:relative;margin:0 auto;background-repeat:repeat-x;background-position:0 -908px;}
+	.tips-mod em {padding-left:45px;background:url(images/icon_common.png) no-repeat 0 -1834px;color:#333;font-weight:400;}
+	.tips-mod .tips-warn, .tips-mod .tips-error {background-position:0 -1906px;color:#C0880F;}
+	.tips-mod i {position:absolute;top:0;left:-20px;width:20px;background-position:0 -835px;text-indent:-999px;overflow:hidden;}
+	.tips-mod .tips-rs {left:auto;right:-20px;background-position:-34px -835px;}	
+	.g-mask {position:fixed;_position:absolute;left:0;top:0;width:100%;background:#000;background:-webkit-radial-gradient(center,rgba(0,0,0,0.3),rgba(0,0,0,1) 80%);background:-moz-radial-gradient(center,rgba(0,0,0,0.3),rgba(0,0,0,1) 80%);background:radial-gradient(center,rgba(0,0,0,0.3),rgba(0,0,0,1) 80%);opacity:.6;filter:alpha(opacity=40);z-index:99;}
+/*=E 提示 */
+
+/*=S 弹窗 */
+/* win-table */
+.win-table th, .win-table td {padding:5px 0;}
+	.win-table th {width:80px;font-weight:normal;text-align:right;vertical-align:top;}
+	.win-table textarea {width:240px;height:60px;}
+	.win-table label {margin-right:5px;}
+	.win-table label input {vertical-align:-2px;}
+
+/* 通用数据列表 */
+.win-data {_zoom:1;overflow:hidden;}
+	.win-data li {float:left;width:110px;height:20px;line-height:20px;overflow:hidden;}
+	.win-data-long li {width:150px;}
+
+
+.win {position:relative;z-index:99;}
+.win-mod {position:absolute;width:350px;overflow:hidden;z-index:1002}
+	.win-hd, .win-bd {filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#33333333', endColorstr='#33333333');background:rgba(51,51,51,0.2);zoom:1}
+    :root .win-hd, :root .win-bd {filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#00000000', endColorstr='#00000000');}
+	.win-hd {position:relative;padding:7px 7px 0 7px;border-top-left-radius:4px;border-top-right-radius:4px;}
+		.win-hd h3 {cursor:move;text-indent:10px;height:31px;font:700 14px/31px "Simsun";color:#334F67;background:url(images/repeat_common.gif) repeat-x;}
+		.win-hd .close {position:absolute;top:15px;right:15px;}
+	.win-bd {padding:0 7px 7px 7px;border-bottom-left-radius:4px;border-bottom-right-radius:4px;}
+		.win-cont, .win-btn {background-color:#FFF;overflow:hidden;}
+			.win-cont {padding:10px;}
+				.win-form {}
+					.win-form li {height:22px;line-height:23px;}
+					.win-form .lab {float:left;width:70px;height:22px;font-weight:normal;text-align:right;}
+				.win-alert {position:relative;padding-left:68px;height:46px;}
+					.win-alert .smiley {position:absolute;top:0;left:0;}
+					.win-alert .msg {display:inline-block;font-size:14px;font-weight:bold;color:#334F67;}
+					.win-alert .tip {font:100 12px/30px "Simsun";}
+			.win-btn {padding-bottom:10px;text-align:center;}
+				.win-btn a {margin-right:10px;}
+			.win-tip {color:#FC6D02;}
+	.win-mask {position:absolute;top:0;left:0;filter:alpha(opacity=50);opacity:0.5;background-color:#333;z-index:1001}
+/*=E 弹窗 */

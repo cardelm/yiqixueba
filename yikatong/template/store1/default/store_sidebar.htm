@@ -1,0 +1,44 @@
+<div class="sidebar">
+	<div class="jiontime">加盟年月： {$jiamengdate}</div>
+	<div class="box" id="shop_base_info">
+		<h3>商家基本信息</h3>
+		<div class="shop_base_info">
+			<h4 class="name">{$shopinfo[subject]}</h4>
+			<h5 class="name">(店主 :<a href="/home.php?mod=space&uid=9&do=profile"> {$shopinfo[username]}</a>)</h5>
+
+			<ul style="border:none;"></ul>
+
+			<table><tr>
+			<th>认证： </th>
+			<td><img title="钻石商家" src="{$plugin_config['imagespath']}/common/group_diamond.gif" /></td>
+			</tr>
+			<tr>
+			<th>地址： </th>
+			<td><div>{$shopinfo[address]}</div></td>
+			</tr>
+			<tr>
+			<th>电话： </th>
+			<td><div>{$shopinfo[tel]}</div></td>
+			</tr>
+			<tr>
+			<th>QQ： </th>
+			<td><div>{$shopinfo[applicantqq]}</div></td>
+			</tr>
+			<tr>
+			<th>分类： </th>
+			<td><div>{$fenlei}</div></td>
+			</tr>
+
+			</table>
+		</div>
+	</div>
+	<div class="box">
+		<h3><span>总访问 {$viewnum} 次</span>最近访客</h3>
+		
+		<!--{loop $viewrecords $viewrecord}-->
+		<div class="avt z" style="width:48px;height:70px;text-align: center;padding: 5px;"><a href="home.php?mod=space&uid=$viewrecord"><!--{avatar($viewrecord[uid],small)}--></a>$viewrecord[username]</div>
+		<!--{/loop}-->
+		
+	</div>
+</div>
+

@@ -1,0 +1,63 @@
+<!--{template common/header}-->
+
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em>
+		<a href="plugin.php?id={$plugin_config['plugin_name']}:brand">∆∑≈∆ø’º‰</a> <em>&rsaquo;</em>
+		<a href="plugin.php?id={$plugin_config['plugin_name']}:shopadmin">µÍ∆Ãπ‹¿Ì</a> <em>&rsaquo;</em>
+		<a href="plugin.php?id={$plugin_config['plugin_name']}:shopadmin&mod=shopedit">±‡º≠µÍ∆Ã</a>
+	</div>
+</div>
+
+<div id="ct" class="ct2_a wp cl">
+	<div class="mn">
+		<form action="plugin.php?id={$plugin_config['plugin_name']}:shopadmin&mod=shopedit" method="post" enctype="multipart/form-data" autocomplete="off" target="frame_profile" onsubmit="clearErrorInfo();">
+			<input type="hidden" value="863b5bd8" name="formhash" />
+			<table cellspacing="0" cellpadding="0" class="tfm" id="profilelist">
+				<tr>
+					<td colspan="3">«Î—°‘ÒµÍ∆Ã&nbsp;&nbsp;{$shop_list}</td>
+				</tr>
+				<tr>
+					<th>µÍ∆Ã√˚≥∆</th>
+					<td><input type="text" name="shopselected"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>&nbsp;</th>
+					<td colspan="2">
+					<input type="hidden" name="shopselectsubmit" value="true" />
+					<button type="submit" name="shopselectsubmitbtn" id="shopselectsubmitbtn" value="true" class="pn pnc" /><strong>±£¥Ê</strong></button>
+					<span id="submit_result" class="rq"></span>
+					</td>
+				</tr>
+			</table>
+		</form>
+
+	
+	
+	
+	</div>
+	<div class="appl">
+		<!--{template yikatong:site/default/shopadmin_nav}-->
+	</div>
+</div>
+
+<script type="text/javascript">
+function checkPushSubmit(form){
+	var arr = [];
+	var checkbox = form.getElementsByTagName('input');
+	for(var i = 0; i<checkbox.length; i++){
+		if (checkbox[i].name == 'aids[]' && checkbox[i].checked) arr.push(checkbox[i].value);
+	}
+	if (arr.length == 0) {
+		alert('{lang article_not_choose}');
+		return false;
+	}
+	if(!$('op_trash').checked && !$('op_delete').checked && !$('op_move').checked) {
+		alert('{lang action_invalid}');
+		return false;
+	}
+	return true;
+}
+</script>
+<!--{template common/footer}-->

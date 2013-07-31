@@ -1,0 +1,53 @@
+<!--{template common/header}-->
+
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em>
+		<a href="plugin.php?id={$plugin_config['plugin_name']}:brand">品牌空间</a> <em>&rsaquo;</em>
+		<a href="plugin.php?id={$plugin_config['plugin_name']}:shopadmin">店铺管理</a> <em>&rsaquo;</em>
+		<a href="plugin.php?id={$plugin_config['plugin_name']}:shopadmin&mod=member">会员管理</a> <em>&rsaquo;</em>
+		
+	</div>
+</div>
+
+<div id="ct" class="ct2_a wp cl">
+	<div class="mn">
+		<br />
+		<table summary="{lang get_credit_histroy}" cellspacing="0" cellpadding="0" class="dt">
+			<tr>
+				<th class="xw1" width="120">会员卡号</th>
+				<th class="xw1" width="60">会员姓名</th>
+				<th class="xw1" width="90">手机号码</th>
+				<th class="xw1" width="60">账户余额</th>
+				<th class="xw1" width="60">累积消费</th>
+				<th class="xw1" width="90">最近消费</th>
+				<th class="xw1" width="60">账户积分</th>
+				<th class="xw1" width="100">电子邮箱</th>
+				<th class="xw1">办卡时间</th>
+			</tr>
+			<!--{eval $i = 0;}-->
+			<!--{loop $members $key $member}-->
+			<!--{eval $i++;}-->
+			<tr{if $i % 2 == 0} class="alt"{/if}>
+				<td>$member[cika]</a></td>
+				<td>$member[zhanghao]</td>
+				<td>$member[shouji]</td>
+				<td>$member[jine]</td>
+				<td>$member[ljxf]</td>
+				<td>$member[zjxf]</td>
+				<td>$member[jifen]</td>
+				<td>$member[email]</td>
+				<td>$member[kttime]</td>
+			</tr>
+			<!--{/loop}-->
+		</table>
+		<!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
+	
+	
+	
+	</div>
+	<div class="appl">
+		<!--{template yikatong:site/default/shopadmin_nav}-->
+	</div>
+</div>
+<!--{template common/footer}-->

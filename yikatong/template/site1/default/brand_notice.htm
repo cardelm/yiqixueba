@@ -1,0 +1,137 @@
+<!--{template common/header}-->
+
+<div id="wp" class="wp"><script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/jquery.js"></script>
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/i.js"></script>
+<script charset="utf-8" type="text/javascript">var jq = jQuery.noConflict();</script>
+<style id="diy_style" type="text/css"></style><!--在模板文件中添加存放CSS代码的标签-->
+
+<link type="text/css" rel="stylesheet" href="{$plugin_config['csspath']}/common.css" />
+
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+
+<div class="wrap cl">
+	<div class="main">
+	<div id="pt"> <a title="商家联盟" class="nvhm" id="fjump" href="./">商家联盟</a>
+	<em>&rsaquo;</em><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=notice">商情</a>
+	</div>
+	<div class="selection mbm">
+	<div class="search">
+	<div class="y">
+	<form id="form_search_goods" method="get" action="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=notice">
+	<input class="px" type="text" name="keyword" id="keyword" maxlength=50 value="" />
+	<input type="hidden" name="catid" value="0" />
+	&nbsp;
+	<button type="submit">搜索</button>
+	</form>
+	</div>共查找到 <strong>3</strong> 个商情</div>
+	<dl class="cl">
+	<dt>选择分类</dt>
+	<dd class="cl" style="border: none;">
+	<ul>
+	<li><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=notice&catid=5&keyword=" >促销信息 (1)</a></li>
+	<li><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=notice&catid=137&keyword=" >哈哈 </a></li>
+	<li><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=notice&catid=130&keyword=" >本店资讯 (2)</a></li>
+	</ul>
+	</dd>
+	</dl></div><div class="bm mbm">
+	<div class="bm_h">
+	<ul class="filter cl">
+	<li class="order y">
+	<a href="#" onclick="updateListView('notice', 'sort', 'default');"  style="">默认</a>
+	<span class="pipe">|</span>
+	<a href="#" onclick="updateListView('notice', 'sort', 'view');" style="">浏览量</a>
+	<span class="pipe">|</span>
+	<a href="#" onclick="updateListView('notice', 'sort', 'today');" style="">今天</a>
+	<span class="pipe">|</span>
+	<a href="#" onclick="updateListView('notice', 'sort', 'lastthreeday');" style="">三天内</a>
+	<span class="pipe">|</span>
+	<a href="#" onclick="updateListView('notice', 'sort', 'lastweek');" style="">一周内</a>
+	</li>
+	</ul>
+	</div>
+	<div class="bm_c cl">
+	<ul class="viewlist cl">
+	<li style=" height:110px;">
+	<div class="thumb">
+	<a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=7&action=notice&xid=3"><img src="source/plugin/yikatong/static/image/nophoto.gif" alt="蓝钻汽车美容"></a>
+	<p style="margin:auto;text-align:center;"><a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=7&action=notice&xid=3">蓝钻汽车美容</a></p>
+	</div>
+	<div class="info" style="width:400px;">
+	<h3 class="xi2"><a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=7&action=notice&xid=3" title="搞活动咯 ~~~"><font color="black" ><b>[促销信息]</b></font> <b>搞活动咯 ~~~</b></a></h3>
+	<p><font color="#999">发布日期： </font>2012-09-11 &nbsp;&nbsp;<font color="#999">浏览人次： </font>34  &nbsp;&nbsp;<font color="#999">回复次数： </font>0</p>
+	<p class="xg1" style="">搞活动咯 ~~~搞活动咯 ~~~搞活动咯 ~~~</p>
+	</div><div style="float:right; margin-right:50px;" >
+	<span class="s2 xg1">	<a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=7&action=notice&xid=3"><img style="max-width: 100px; max-height: 100px; width: expression(this.width > 100 && this.width>=this.height ? 100 : true); height: expression(this.height > 100 && this.width<=this.height ? 100 : true);" src="http://www.17xue8.cn/brand/attachments/2012/09/68_201209111727531JbrC.jpg.thumb.jpg" alt="搞活动咯 ~~~"></a></span>
+	</div></li>
+	<li style=" height:110px;">
+	<div class="thumb">
+	<a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=4&action=notice&xid=2"><img src="source/plugin/yikatong/static/image/nophoto.gif" alt="小小家具店"></a>
+	<p style="margin:auto;text-align:center;"><a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=4&action=notice&xid=2">小小家具店</a></p>
+	</div>
+	<div class="info" style="width:400px;">
+	<h3 class="xi2"><a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=4&action=notice&xid=2" title="大家好！网店开张了"><font color="black" ><b>[本店资讯]</b></font> <b>大家好！网店开张了</b></a></h3>
+	<p><font color="#999">发布日期： </font>2012-09-05 &nbsp;&nbsp;<font color="#999">浏览人次： </font>18  &nbsp;&nbsp;<font color="#999">回复次数： </font>0</p>
+	<p class="xg1" style=""></p>
+	</div></li>
+	<li style=" height:110px;">
+	<div class="thumb">
+	<a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=2&action=notice&xid=1"><img src="source/plugin/yikatong/static/image/nophoto.gif" alt="discuz插件"></a>
+	<p style="margin:auto;text-align:center;"><a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=2&action=notice&xid=1">discuz插件</a></p>
+	</div>
+	<div class="info" style="width:400px;">
+	<h3 class="xi2"><a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=2&action=notice&xid=1" title="开业了"><font color="black" ><b>[本店资讯]</b></font> <b>开业了</b></a></h3>
+	<p><font color="#999">发布日期： </font>2012-09-02 &nbsp;&nbsp;<font color="#999">浏览人次： </font>35  &nbsp;&nbsp;<font color="#999">回复次数： </font>0</p>
+	<p class="xg1" style=""></p>
+	</div></li>
+	</ul>
+	<div class="mtm cl">
+	</div>
+	</div>
+	</div></div>
+	<div class="side"><div class="bm">
+	<div class="bm_h">
+	<h3>热门商品</h3>
+	</div>
+	<div class="bm_c">
+	<ul class="tlist cl">
+	<li class="cl">
+	<div class="thumb"><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=2&action=good&xid=1" target="_blank"><img src="http://www.17xue8.cn/brand/attachments/temp/aa757dca6a656d12.temp.jpg" alt="商家联盟一卡通" /></a></div>
+	<p><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=2&action=good&xid=1" target="_blank">商家联盟一卡通</a></p>
+	<p class="xi1">6000.00 元</p>
+	</li><li class="cl">
+	<div class="thumb"><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=4&action=good&xid=2" target="_blank"><img src="http://www.17xue8.cn/brand/attachments/temp/aef2c1dbedc6865c.temp.jpg" alt="刷碗机" /></a></div>
+	<p><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=4&action=good&xid=2" target="_blank">刷碗机</a></p>
+	<p class="xi1">1200.00 元</p>
+	</li></ul>
+	</div>
+	</div><div class="bm" id="rdconsume">
+	<div class="bm_h">
+	<h3>热门消费券</h3>
+	</div>
+	<div class="bm_c">
+	<ul class="tlist tlbp cl"><li class="cl a">
+	<div class="thumb">
+	<a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=2&action=consume&xid=1" title="消费券">
+	<img src="http://www.17xue8.cn/brand/attachments/temp/102dd05aff1d2f3f.temp.jpg" alt="消费券"/>
+	</a>
+	</div>
+	<p><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=2&action=consume&xid=1" target="_blank">消费券</a></p>
+	<p class="xg1">有效期：  2012-09-02 至 2013-07-02</p>
+	</li><li class="cl">
+	<div class="thumb">
+	<a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=7&action=consume&xid=2" title="免费洗车">
+	<img src="http://www.17xue8.cn/brand/attachments/temp/80e57aeaaaf7f232.temp.jpg" alt="免费洗车"/>
+	</a>
+	</div>
+	<p><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid=7&action=consume&xid=2" target="_blank">免费洗车</a></p>
+	<p class="xg1">有效期：  2012-09-11 至 2013-07-11</p>
+	</li></ul>
+	</div>
+	</div>
+	<script>
+	jq("#rdconsume").find("li").mouseover(function(){jq("#rdconsume").find("li").removeClass("a"); jq(this).addClass("a");});
+	</script></div>
+	</div>
+</div>
+<!--{subtemplate common/footer}-->
+

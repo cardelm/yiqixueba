@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+/**
+ *      [品牌空间] (C)2001-2010 Comsenz Inc.
+ *      This is NOT a freeware, use is subject to license terms
+ *
+ *      $Id: groupbuy.css 4333 2010-09-06 02:51:12Z yanghuan $
+ */
+/*#consumer .content {
+	border-top: 1px solid #CCCCCC;
+	background: url("../../../static/image/sellerbox_bg.png") repeat-x;
+}
+*/
+
+
+
+.streetsearch span span {
+	color:#1F5790
+}
+
+#consumerlist .content dt span {
+	background-image:
+		url(../../../templates/site/blue/image/btn_consumer.gif);
+}
+
+#consumerlist .content dl {
+	color:#2C5F94;
+	background: url(../../site/blue/image/bg_consumer.png) no-repeat -230px
+		0;
+}
+
+#consumerlist .content dd h4 a {
+	color:#2C5F94;
+}
+
+#consumerlist .content dl.thison dd {
+	background: url(../../site/blue/image/bg_consumer.png) no-repeat 0
+		bottom;
+}

@@ -1,0 +1,108 @@
+<!--{subtemplate common/header_common}-->
+	<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/jquery.js"></script>
+	<script charset="gbk" type="text/javascript">var jq = jQuery.noConflict();</script>
+	<script type="text/javascript" src="{$_G[setting][jspath]}common.js?{VERHASH}"></script>
+	<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/common.js?{VERHASH}"></script>
+	<script type="text/javascript" src="{$_G[setting][jspath]}common.js?{VERHASH}"></script>
+<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/common.js?{VERHASH}"></script>
+<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/viewgoodspic.js?{VERHASH}"></script>
+	<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/jquery.cycle.lite.min.js?{VERHASH}"></script>
+	<script charset="gbk" type="text/javascript" src="{$plugin_config['store_jspath']}/store_index.js?{VERHASH}"></script>
+
+	<link type="text/css" rel="stylesheet" href="$plugin_config['store_csspath']/common_store.css?{VERHASH}" />
+	<link rel="stylesheet" type="text/css" href="$plugin_config['store_csspath']/store.css?{VERHASH}" />
+	<link type="text/css" rel="stylesheet" href="$plugin_config['store_csspath']/index.css?{VERHASH}" />
+	<!--{if $_GET['diy'] == 'yes' && $_G[adminid] == 1 && $action == 'index'}-->
+	<link rel="stylesheet" type="text/css" id="diy_common" href="data/cache/style_{STYLEID}_css_diy.css?{VERHASH}" />
+	<!--{/if}-->
+
+</head>
+
+<body id="store" onkeydown="if(event.keyCode==27) return false;">
+<div id="append_parent"></div>
+	<div id="ajaxwaitid"></div>
+	<!--{if $_GET['diy'] == 'yes' && $_G[adminid] == 1 && $action == 'index'}-->
+		<!--{template common/header_diy}-->
+	<!--{/if}-->
+
+
+
+<!--{if $myshops }-->
+	<ul id="myshopmenu_menu" class="nav_msglist" style="position:absolute; display:none; width:135px;">
+		<!--{loop $myshops $myshop}-->
+			<li onmouseout="this.className='mout'" onmouseover="this.className='mover'"><a href="plugin.php?id=yikatong:brand&mod=store&sid={$myshop['itemid']}" title="{$myshop[subjecttext]}" target="_blank">{$myshop[subject]}</a></li>
+		<!--{/loop}-->
+	</ul>
+<!--{/if}-->
+
+<div id="append_parent"></div>
+<div class="topnav cl">
+	<div style="width:960px; margin:auto;">
+		<!--{if $_G['uid']}-->
+			<div class="y">
+				<a href="home.php?mod=space&uid=$_G[uid]" class="xw1" target="_blank" title="{lang visit_my_space}">{$_G[member][username]}</a>
+				<!--{if $myshops }-->
+				<span class="pipe"> | </span>
+				<a target="_blank" href="store&sid=1" id="myshopmenu" onmouseover="showMenu(this.id)" class="showmenu">我的店铺</a>
+				<!--{/if}-->
+				<!--{hook/global_usernav_extra1}-->
+				<span class="pipe"> | </span><a href="home.php?mod=spacecp">{lang setup}</a>
+				<span class="pipe"> | </span><a href="home.php?mod=space&do=pm" id="pm_ntc" target="_blank"{if $_G[member][newpm]} class="new"{/if}>{lang pm_center}<!--{if $_G[member][newpm]}-->($_G[member][newpm])<!--{/if}--></a>
+				<span class="pipe"> | </span><a href="home.php?mod=space&do=notice" id="myprompt" target="_blank"{if $_G[member][newprompt]} class="new"{/if}>{lang remind}<!--{if $_G[member][newprompt]}-->($_G[member][newprompt])<!--{/if}--></a><span id="myprompt_check"></span>
+				<!--{if $_G['group']['allowmanagearticle'] || $_G['group']['allowdiy']|| getstatus($_G['member']['allowadmincp'], 4) || getstatus($_G['member']['allowadmincp'], 2) || getstatus($_G['member']['allowadmincp'], 3) || in_array($_G['uid'], $_G['setting']['ext_portalmanager'])}--><span class="pipe"> | </span><a href="portal.php?mod=portalcp">{lang portal_manage}</a><!--{/if}-->
+				<!--{if $_G['uid'] && $_G['group']['radminid'] > 1}--><a href="forum.php?mod=modcp&fid=$_G[fid]" target="_blank">{lang forum_manager}</a><!--{/if}-->
+				<!--{if $_G['uid'] && ($_G['group']['radminid'] == 1 || getstatus($_G['member']['allowadmincp'], 1))}--><span class="pipe"> | </span><a href="admin.php" target="_blank">{lang admincp}</a><!--{/if}-->
+				<!--{hook/global_usernav_extra2}-->
+				<span class="pipe"> | </span><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}">{lang logout}</a>
+				<!--{if $_G[adminid] == 1 && $action == 'index'}--><span class="pipe"> | </span><a id="diy-tg" href="javascript:openDiy();" title="装扮店铺">DIY</a><!--{/if}-->
+			</div>
+		<!--{elseif !empty($_G['cookie']['loginuser'])}-->
+			<div class="y">
+				<a id="loginuser" class="xw1">$_G['cookie']['loginuser']</a>
+				<span class="pipe"> | </span><a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href)">{lang activation}</a>
+				<span class="pipe"> | </span><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}">{lang logout}</a>
+			</div>
+		<!--{elseif $_G['connectguest']}-->
+			<div class="y">
+				{lang connect_fill_profile_to_view}
+			</div>
+		<!--{else}-->
+			<div class="y">
+				<a href="member.php?mod={$_G[setting][regname]}">$_G['setting']['reglinkname']</a>
+				<span class="pipe"> | </span><a href="member.php?mod=logging&action=login" onclick="showWindow('login', this.href)">{lang login}</a>
+			</div>
+		<!--{/if}-->
+		<div class="z">
+			<a href="./" title="$_G['setting']['bbname']" class="xw1">$_G['setting']['bbname']</a><span class="pipe"> | </span>
+			<a href="{$_G[siteurl]}plugin.php?id={$plugin_config[plugin_name]}:brand">{$navtitle1}</a><span class="pipe"> | </span>{$shopinfo[subject]}
+		</div>
+	</div>
+</div>
+
+
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+
+<div id="wp" class="wp cl">
+	<div class="bg_banner">
+		<img src="{$banner}" width="980" height="150" />
+	</div>
+	<div id="header" class="layout">
+		<h2  style="">{$shopinfo[subject]}</h2>
+		<h4>{$shopinfo[subject]}</h4>
+		<div class="siteurl">
+			<a title="复制链接" href="javascript:;" onclick="javascript:setCopy('plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}');"><img src="{$plugin_config['imagespath']}/icon_siteinfo.gif" alt="复制链接"></a>
+			<a title="加入收藏" href="javascript:;" onclick="javascript:addBookmark('{$shopinfo[subjecttext]}', 'plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}');"><img src="{$plugin_config['imagespath']}/icon_add.gif" alt="加入收藏"></a>
+			<a title="商户地址： " href="{$_G[siteurl]}plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}">{$_G[siteurl]}plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}</a>
+		</div>
+
+		<ul class="menu">
+			<li<!--{if $action==index}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}" title="店铺首页" ><span >店铺首页</span></a></li>
+			<li<!--{if $action==intro}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}&action=intro" title="店铺资料" ><span >店铺资料</span></a></li>
+			<!--
+			<li<!--{if $action==good}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}&action=good" title="商品" ><span >商品</span></a></li>
+			<li<!--{if $action==consume}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}&action=consume" title="消费券" ><span >消费券</span></a></li>
+			<li<!--{if $action==groupbuy}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}&action=groupbuy" title="团购" ><span >团购</span></a></li>
+			-->
+		</ul>
+	</div>
+</div>

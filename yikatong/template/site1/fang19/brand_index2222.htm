@@ -1,0 +1,317 @@
+{template yikatong:site/fang19/brand_header}
+
+    <div class="hd-fnav">
+        <div class="layout-980">
+            <ul class="hd-fnav-hd hd-index-nav">
+                    <li class="select"><span>首页</span></li>
+                    <!--<li><a rel="nofollow" href="./">整站首页</a></li>-->
+					<!--{eval $cat_count = 0;}-->
+					<!--{eval $cat_num = count($shopcategories);}-->
+					<!--{loop $shopcategories $cat}-->
+					<!--{if $cat[upid] == 0}-->
+					<!--{eval $cat_count ++;}-->
+					<!--{if $cat_num ==4 or $cat_num >4 and $cat_count < 4}-->
+                    <li><a rel="nofollow" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=street&catid={$cat['catid']}">{$cat['name']}</a></li>
+					<!--{/if}-->
+					<!--{if $cat_count == 1}-->
+	               <li class="hd-hshare ">
+						<dl>
+							<dd><a href="#" target=_blank>待定</a> 
+							<a href="#" target=_blank>待定</a> </dd>
+							<dd><a href="#" target=_blank>待定</a> 
+							<a href="#" target=_blank>待定</a> </dd>
+						</dl>
+	               </li>
+					<!--{/if}-->
+					<!--{/if}-->
+					<!--{/loop}-->
+					<!--{if $cat_num >4}-->
+					
+					<li class="hd-it-nav ">
+						<dl>
+							<dt><a id="hdGuang" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=street&catid=0">更多<span class="icon"></span></a>
+							</dt>
+							<dd style="display: none;" class="hd-hguang-bd">
+							<!--{eval $cat_count = 0;}-->
+							<!--{loop $shopcategories $cat}-->
+							<!--{if $cat[upid] == 0}-->
+							<!--{eval $cat_count ++;}-->
+							<!--{if $cat_count > 4}-->
+								<p><a rel="nofollow" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=street&catid={$cat['catid']}">{$cat['name']}</a></p>
+							<!--{/if}-->
+							<!--{/if}-->
+							<!--{/loop}-->
+							</dd>
+						</dl>
+					</li>
+					<!--{/if}-->
+            </ul>
+             <div class="dasao fr" title="亲，打开微信扫描二维码，即可添加好店为微信好友！"><span style="_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{$plugin_config['imagespath']}/bg_index_dasao.png',sizingMethod='crop');">扫我试试看</span></div>
+       </div>
+        <script type="text/javascript">
+            
+                var bd = jq(".hd-hguang-bd"), guang = jq(".hd-it-nav");
+                guang.find("a").hover(function () {
+                    bd.show()
+                });
+                bd.hover(function () {
+                }, function () {
+                    jq(this).hide();
+                });
+                guang.siblings().hover(function () {
+                    bd.hide();
+                });
+          
+        </script>
+   </div>
+
+</div>
+    <!-- header nav END -->
+    
+<div id="content" class="layout-980">
+    <div class="index-mod clearall">
+        <div class="index-left try-eat">
+			<dl class=clearall>
+				<dt class=fl>
+					<div class="index-slide" style="width:280px;height:200px;">
+						<!--{block/1546}-->
+						<span class=explore-btn>今日话题</span>
+					</div>
+				</dt>
+				<dd class="fl ml20">
+					<h3 class=" fw400 ff-yh f20 mb10"><a href="http://www.19lou.com/forum-464698-thread-4601352976411209-1-1.html" target=_blank>{$sitenoticelist[subject]}</a></h3>
+					<p class=mb10><span class=offer>发起者：<a href="home.php?mod=space&uid={$sitenoticelist[uid]}" target=_blank><em>{$noticeusername}</em></a></span> <span style="display: none">体验名额：<em>0个</em></span></p>
+					<div class="acti-explain mb10"><p><!--{eval echo cutstr(strip_tags($sitenoticelist[message]),100);}--></p></div>
+					<div class=appli-btn><a class="ff-yh f16 mr10" href="plugin.php?id=yikatong:brand&mod=sitenotice&noticeid={$sitenoticelist['noticeid']}" target=_blank>点击查看</a><span>(想了解更多，请点击)</span></div>
+				</dd>
+			</dl>
+		</div>
+
+
+		<div class="index-right login-r">
+			<div class="login-area">
+				<div class="col_right">
+				<!--{if $_G[uid]==0}-->
+					<div class="loginform">
+						<script src="static/js/logging.js?i76" type="text/javascript"></script>
+						<form method="post" autocomplete="off" id="lsform" action="member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit();">
+						<span id="return_ls" style="display:none"></span>
+						<div class="row">
+							<label for="savepwd" id="lbl_autologin"><input type="checkbox" value="2592000" name="cookietime" id="savepwd">自动登录</label>
+							<label id="lbl_reg"><a href="member.php?mod=zhuce">注册成为会员<span class="logintip"></span></a></label>
+							&nbsp;&nbsp;<label id="lbl_forget"><a href="member.php?mod=logging&amp;action=login&amp;viewlostpw=1">找回密码</a></label>
+						</div>
+						<div class="row">
+							<span onclick="document.getElementById('username').focus();" class="hint">帐号:</span>
+							<input type="text" class="input username" name="username" id="ls_username" autocomplete="off" tabindex="901" >
+						</div>
+						<div class="row">
+							<span onclick="document.getElementById('password').focus();" class="hint">密码:</span>
+							<input type="password" class="input password" name="password" id="ls_password" tabindex="902" >
+							<button type="submit" class="submit">登录</button>
+						</div>
+						<div class="row" id="login_asset">
+							<!--<label id="lbl_sina"><a href="member.php?mod=connect" class="ubtn_fastpost" rel="nofollow">商家入驻</a></label>-->
+							<label id="lbl_sina"><a href="/plugin.php?id=yikatong:shopadmin&amp;mod=login"><i></i>卡通登陆</a></label>
+							<label id="lbl_qq"><a href="connect.php?mod=login&op=init&referer=index.php&statfrom=login_simple"><i></i>QQ登录</a></label>
+						</div>
+						<input type="hidden" name="quickforward" value="yes" />
+						<input type="hidden" name="handlekey" value="ls" />
+						</form>
+						<script type="text/ecmascript">document.getElementById('ls_username').focus();</script>
+					</div>
+				<!--{else}-->
+					<div class="loginform">
+						<a onclick="return false;" href="#useravatar" hidefocus="true" class="logintip"></a>
+						<div class="avatar_info" id="useravatar">
+							<div class="uavatar"><a href="home.php?mod=space&uid=$_G[uid]"><!--{avatar($_G[uid],small)}--></a></div>
+							<div class="uname"><a href="javascript:;" class="username">{$_G[member][username]}你好！</a><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}">{lang logout}</a></div>
+							<div class="ulevel">{lang usergroup}: <a href="home.php?mod=spacecp&ac=usergroup"{if $upgradecredit !== 'false'} id="g_upmine" class="xi2" onmouseover="delayShow(this, showUpgradeinfo)"{/if}>$_G[group][grouptitle]</a></div>
+						</div>
+						<div class="umymenu">
+							<a href="forum.php?mod=guide&amp;view=my">帖子</a>
+							<a href="home.php?mod=space&amp;do=pm">私信</a>
+							<a href="home.php?mod=space&amp;do=notice">提醒</a>
+							<a href="home.php?mod=task">任务</a>
+						</div>
+						<div class="ufastlink"><a href="plugin.php?id=yikatong:brand&mod=member" class="ubtn_center" rel="nofollow">会员中心</a><a href="plugin.php?id=yikatong:shopadmin" class="ubtn_fastpost" rel="nofollow">商家管理</a></div>
+					</div>
+				<!--{/if}-->
+
+				</div>
+				<!--
+					<div class="appli-btn tac" ><a class="ff-yh f16 mr10" href="http://www.19lou.com/forum-464698-thread-4601352976411209-1-1.html" target=_blank>商家入驻</a><a class="ff-yh f16 mr10" href="http://www.19lou.com/forum-464698-thread-4601352976411209-1-1.html" target=_blank>商家入驻</a></div>
+					-->
+				
+				<div class="user-login"> <p class="f20 ff-yh" style="color:#fff;">&nbsp;&nbsp;已有会员{$membernum}人</p> <p class="f20 ff-yh tar" style="color:#fff;">为会员节省{$jiesheng}元&nbsp;&nbsp;</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="index-mod clearall">
+		<div class="index-left evaluate">
+			<div class=index-hd>
+				<h3><strong>签约</strong>商家</h3><a class=more-share href="forum.php?mod=forumdisplay&fid={$commentforum}" target=_blank>更多分享&gt;&gt;</a> 
+			</div>
+	<div class=index-bd>
+	<ul class="viewlist cl">
+	<!--{loop $cardshops $shopinfo}-->
+		<li>
+			<div class="thumb">
+				<a target="_blank" href="plugin.php?id=yikatong:brand&mod=store&sid={$shopinfo[itemid]}">
+				<img src="{$shopinfo[subjectimage]}" alt="{$shopinfo[subjecttext]}" />
+				</a>
+			</div>
+			<div class="info">
+				<h3 class="xi2"><a target="_blank" href="plugin.php?id=yikatong:brand&mod=store&sid={$shopinfo[itemid]}" title="{$shopinfo[subjecttext]}">{$shopinfo[subject]}</a>
+				<img title="会员卡商家" src="{$plugin_config['imagespath']}/ico_vip.gif" class="vm" />&nbsp;
+				<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=11111111&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$shopinfo[applicantqq]}:46" alt="点击这里给我发消息" title="点击这里给我发消息" class="vm"></a></h3>
+				<p>地址：{$shopinfo[address]}</p>
+				<p class="tar" ><img src="{$plugin_config['imagespath']}/tel.gif" width="25" height="20"/><span class="f18 tvc-m ff-yh" style="color:#336600;"><strong>{$shopinfo[tel]}</strong></span></p>
+				<p></p>
+			</div>
+			<div class="attribute cl" style="background:url(images/1.png) no-repeat 0 0px;">
+				<span class="s1 point" style="text-align:center;margin-top:20px;height:40px;">&nbsp;</span>
+				
+				<span style="text-align:center;width:120px;margin-top: 2px;"><img src="{$plugin_config['imagespath']}/safe_img1.gif" title="一卡通折扣" /></span>
+				<span style="text-align:center;width:120px;float: right;margin-top: 2px;"><strong>持一卡通享受</strong></span>
+				<span style="text-align:center;width:120px;position:relative;;top: -45px;left:60px; font-weight: bold;color: #ff0000;"><strong>{$shopinfo[zhekou]}</strong></span>
+			</div>
+		</li>
+	<!--{/loop}-->
+	</ul>
+	</div>
+		</div>
+		<div class="index-right shop-search">
+			<div class=index-hd>
+				<h3><strong>新店</strong>入驻</h3><a href="http://haodian.19lou.com/shoplist/21/0/0/1/30/none/none/1" target=_blank>更多好店&gt;&gt;</a> 
+			</div>
+			<div class="index-bd clearall">
+				<!--{loop $recommendshops $tuijian}-->
+					<a class="shop-searlist clearall" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=store&sid={$tuijian[itemid]}" target="_blank" title="">
+					<dl>
+					<dt><img class="fl mr10" src="{$tuijian[subjectimage]}" width=80 height=80></dt>
+					<dd class=fl>
+					<h4>{$tuijian[subject]}</h4>
+					<p class=mb10>{$tuijian[subjecttext]}</p></dd><span class=go-btn>进去看看</span> </dl></a>
+				<!--{/loop}-->
+				<div class=searbtn-area><a class=shop-owner href="plugin.php?id=yikatong:brand&mod=attend" target=_blank><span></span>我是店主我自荐</a><!--<a class=my-like href="plugin.php?id=yikatong:brand&mod=attend" target=_blank><span></span>推荐我喜欢的店</a>--></div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="index-mod clearall">
+		<div class=index-left>
+			<div class=index-hd>
+				<h3><strong>吃喝玩乐</strong>看这里</h3>
+			</div>
+			<style id="diy_style" type="text/css"></style>
+
+	<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+
+		<div class=index-bd>
+		<ul class=index-share>
+		<li>
+		<!--{block/1538}-->
+		</li>
+
+		<li>
+		<!--{block/1541}-->
+		</li>
+		</ul>
+		</div>
+		</div>
+		<div class=index-right>
+			<div class=index-hd><h3><strong>今日</strong>话题</h3></div>
+			<div class=index-bd>
+				<div class=index-topic-box>
+					<!--{block/1539}-->
+					<h3 class=border-bottom><strong>往期</strong>回顾 <span class=arrow></span></h3>
+					<!--{block/1540}-->
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="index-mod clearall">
+		<div class=index-left>
+			<div class=index-hd><h3><strong>爱生活，</strong>爱逛街</h3></div>
+			<div class=index-bd>
+				<div class=index-live>
+					<div class=index-live-mod>
+						<div style="width: 200px; height: 380px" class=index-live-bd>
+							<div class="next img-btn"><a href="javascript:;">下一条</a></div>
+							<div class="prev img-btn"><a href="javascript:;">上一条</a></div>
+							<div class=index-live-img><!--start 婚庆-->
+						    <!--{block/1543}--> 
+						    <!--end 婚庆--></div>
+						</div>
+						<div class="index-live-hd index-bg">
+							<dl>
+							<dt>婚庆</dt>
+							<dd><a href="http://haodian.19lou.com/profile/111201339102275576" target=_blank>百合</a> <a href="http://haodian.19lou.com/profile/112101339102280564" target=_blank>大漠</a> </dd>
+							<dd><a href="http://haodian.19lou.com/profile/116101339102277814" target=_blank>哥伦布</a> <a href="http://haodian.19lou.com/profile/108901339102279154" target=_blank>印象789</a> </dd>
+							</dl>
+							<h3>get married</h3>
+						</div>
+					</div>
+					<div class=index-live-mod>
+						<div class="index-live-hd index-bg">
+							<dl>
+							<dt>家居</dt>
+							<dd><a href="http://haodian.19lou.com/shoplist/16/0/0/1/30/none/none/1" target=_blank>家装</a> <a href="http://haodian.19lou.com/shoplist/16/0/0/1/30/none/none/1" target=_blank>建材</a> </dd>
+							<dd><a href="http://haodian.19lou.com/shoplist/16/0/0/1/30/none/none/1" target=_blank>设计</a> <a href="http://haodian.19lou.com/shoplist/16/0/0/1/30/none/none/1" target=_blank>家电</a> </dd></dl>
+							<h3>home furnishing</h3></div>
+							<div style="width: 200px; height: 380px" class=index-live-bd>
+							<div class="next img-btn"><a href="javascript:;">下一条</a></div>
+							<div class="prev img-btn"><a href="javascript:;">上一条</a></div>
+							<div class=index-live-img><!--start 家居-->
+							  <!--{block/1544}--> 
+							  <!--end 家居--></div>
+						</div>
+					</div>
+					<div class=index-live-mod>
+						<div style="width: 200px; height: 380px" class=index-live-bd>
+							<div class="next img-btn"><a href="javascript:;">下一条</a></div>
+					<div class="prev img-btn"><a href="javascript:;">上一条</a></div>
+					<div class=index-live-img><!--start 亲子-->
+					  <!--{block/1545}--> 
+					  <!--end 亲子--></div>
+						</div>
+					<div class="index-live-hd index-bg">
+					<dl>
+					<dt>亲子</dt>
+					<dd><a href="http://haodian.19lou.com/profile/110301339102279814" target=_blank>童梦奇缘</a> <a href="http://haodian.19lou.com/profile/233501342057850849" target=_blank>贝乐</a> </dd>
+					<dd><a href="http://haodian.19lou.com/profile/114501339102277128" target=_blank>龙宝贝</a> <a href="http://haodian.19lou.com/profile/107801339102278664" target=_blank>爱你宝贝</a> </dd></dl>
+					<h3>parenting</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class=index-right>
+		<div class=index-hd><h3><strong></strong>消费记录</h3></div>
+			<div class=index-bd>
+				<ul class=index-share-user>
+				<!--{loop $xiaofeijilus $xiaofeijilu}-->
+				<li><a href="home.php?mod=space&uid={$xiaofeijilu[uid]}&do=profile" target=_blank><!--{avatar($xiaofeijilu[uid],small)}--><strong>{$xiaofeijilu[username]}</strong> <span class=color6>在 {$xiaofeijilu[subject]}</span> <span class=color9>消费   获得{$xiaofeijilu[jifen]}积分</span> </a></li>
+				<!--{/loop}-->
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/index.js"></script>
+
+<div id="footer" class="link9">
+	<div class="footer link6 color6" style="float:none;width:auto;">
+		<div class="footer-bar"></div>
+		<div class="footer-link clearall">
+			<a target="_blank" href="http://support.19lou.com/" title="19楼之家" class="fl foot-home"><img src="http://att3.citysbs.com/no/hangzhou/2012/05/24/20/205704_duauualm_fef2fc1d360336e24248af439fde6ec6.png"></a> <div class="fl"><p><a class="fb">联系19楼杭州站</a> <i class="pipe">|</i> <a target="_brank" rel="nofollow" href="http://club.19lou.com/">网友中心</a> <i class="pipe">|</i> <a target="_brank" rel="nofollow" href="http://www.19lou.com/forum-1919-1.html">咨询投诉</a> <i class="pipe">|</i> <a target="_brank" rel="nofollow" href="http://www.19lou.com/forum-1919-1.html">斑竹竞聘</a> <i class="pipe">|</i> <a target="_brank" rel="nofollow" href="http://www.19lou.com/corp/contact">营销合作</a> <i class="pipe">|</i> <a target="_brank" href="http://www.19lou.com/corp/friendlink">友情链接</a> <i class="pipe">|</i> <a href="http://www.19lou.com/corp/sitemap">社区地图</a> </p><p><a class="fb">联系19楼总部</a> <i class="pipe">|</i> <a target="_brank" rel="nofollow" href="http://support.19lou.com/">19楼之家</a> <i class="pipe">|</i> <a target="_brank" rel="nofollow" href="http://support.19lou.com/forum-10-1.html">服务投诉</a> <i class="pipe">|</i> <a target="_brank" href="http://support.19lou.com/forum-1-1.html">产品建议</a> <i class="pipe">|</i> <a target="_brank" rel="nofollow" href="http://support.19lou.com/forum-2-1.html">战略合作</a> <i class="pipe">|</i> <a target="_brank" rel="nofollow" href="http://support.19lou.com/forum-3-1.html">加入19楼</a> <i class="pipe">|</i> <a href="http://support.19lou.com/forum-4-1.html">19楼故事</a> <i class="pipe">|</i> <a href="http://support.19lou.com/forum-32-thread-191301335407644886-1-1.html">法律声明</a> <i class="pipe">|</i> <a href="http://support.19lou.com/forum-4-thread-191201336540727494-1-1.html">使用帮助</a> <i class="pipe">|</i> </p></div></div><p>SBS社区平台技术由<a target="_brank" rel="nofollow" href="http://support.19lou.com">杭州十九楼网络传媒有限公司</a>提供 ICP证：浙B2-20120002</p><p class="foot-logo"><a target="_blank" rel="nofollow" href="http://www.pingpinganan.gov.cn"><img src="http://att3.citysbs.com/no/shaoxing/2012/05/28/20/205824_umcmdokd_493dffb4ef9056cb0ca4391bd95e1566.gif" alt="杭州网络警察" title="杭州网络警察"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" rel="nofollow" href="http://z.hangzhou.com.cn/11wmbwgy/index.htm"><img src="http://att3.citysbs.com/no/shaoxing/2012/05/28/20/205953_umcmdokd_fe3a4c311e297111eaac858fd542a32b.gif" alt="文明办网" title="文明办网"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" rel="nofollow" href="http://zjnet.zjaic.gov.cn/credit/gsCreditMessage.action?nbxh=3301000000107101"><img src="http://att3.citysbs.com/no/shaoxing/2012/05/28/21/210028_umcmdokd_208729ac095ad45054c75f665da98dc3.gif" alt="浙江省网络经济服务监管网" title="浙江省网络经济服务监管网"></a> &nbsp;&nbsp;&nbsp;&nbsp; </p>
+		</div>
+	</div>
+</div>
+</body>
+</html>

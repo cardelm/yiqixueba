@@ -1,0 +1,59 @@
+<!--{subtemplate common/header}-->
+<link rel="stylesheet" type="text/css" href="template/yktfanghd/style/images/body.css?{VERHASH}" />
+<script type="text/javascript" src="template/yktfanghd/style/images/jquery.min.js"></script>  
+<script type="text/javascript">
+	var jq = jQuery.noConflict(); 
+</script>
+<div class="cl alliance">
+	<div id="pt" class="bm cl" style="width:960px; float:left;">
+		<div class="z">
+			<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a><em>&raquo;</em><a href="forum.php?mod=forumdisplay&fid={$shop_fid}">商家首页</a><em>&raquo;</em>我的商家
+		</div>
+	</div>
+	<div class="wpLeft z">
+		<div class="haodian_search">
+			<dl>您目前已经有 <em>{$shop_num}</em> 家店铺&nbsp;&nbsp;&nbsp;&nbsp;</dl>
+		</div>
+		<div class="indexList">
+			<div id="fenleis"><img src="template/yktfanghd/style/images/slist.png" /></div>	
+			<h3><strong>我的商家列表</strong></h3>
+			<div class="listSj cl" id="bh">
+				<!--{if $sortvalue}-->
+				<!--{loop $sortvalue $key $list}-->
+				<!--{eval $img_url_info = dunserialize($list[$sort_dis[ykt_logo]]);}-->
+					<dl>
+						<ol></ol>
+						<dt>
+							<!--{if $img_url_info[url]!=''}-->
+								<a href="forum.php?mod=viewthread&tid={$list[tid]}" target="_blank"><img src="{$img_url_info[url]}" width="120" height="120" /></a>
+							<!--{else}-->
+								<a href="forum.php?mod=viewthread&tid={$list[tid]}" target="_blank"><img src="template/yktfanghd/style/images/over.jpg" /></a>
+							<!--{/if}-->
+						</dt>
+						<dd class="xx">
+							<strong><a href="plugin.php?id=yikatong:yktmanage&mod=goods&shopid={$list[tid]}">{$list[subject]}</a></strong>
+							<p>商品个数：<a href="plugin.php?id=yikatong:yktmanage&mod=goods&shopid={$list[tid]}">{$list[goods_num]}</a>个，<a href="forum.php?mod=post&action=newthread&fid={$goods_fid}&sortid={$goods_sortid}&shopid={$list[tid]}">增加商品</a></p>
+							<p>团购个数：<a href="plugin.php?id=yikatong:yktmanage&mod=groupbuy&shopid={$list[tid]}">{$list[groupbuy_num]}</a>个，<a href="forum.php?mod=post&action=newthread&fid={$groupbuy_fid}&sortid={$groupbuy_sortid}&shopid={$list[tid]}">增加团购</a></p>
+							<p>优惠卷个数：<a href="plugin.php?id=yikatong:yktmanage&mod=consume&shopid={$list[tid]}">{$list[consume_num]}</a>个，<a href="forum.php?mod=post&action=newthread&fid={$consume_fid}&sortid={$consume_sortid}&shopid={$list[tid]}">增加优惠卷</a></p>
+						</dd>
+						<dd class="ss"><a href="forum.php?mod=post&action=edit&fid={$list[fid]}&tid={$list[tid]}&pid={$list[pid]}" target="_blank">编辑</a>&nbsp;&nbsp;<a href="">删除</a></dd> 
+					</dl>
+				<!--{/loop}-->
+				<!--{else}--> 
+				   <ul class="cl erroe">SORRY!暂无任何商家...<a href="forum.php?mod=post&action=newthread&fid={$shop_fid}&sortid={$shop_sortid}">登记入住</a></ul>
+				<!--{/if}-->
+
+			</div>
+		</div>
+	</div>
+	
+	<div class="wpRight y">
+		<div id="chicknew"><a href="forum.php?mod=post&action=newthread&fid={$shop_fid}&sortid={$shop_sortid}" class=\"xis\">马上登记入住</a></div>
+		<div id="xfjl"><a href="plugin.php?id=yikatong:yktmanage&mod=xfjl&goodsid=$goodsid&shopid=$shopid" >查看消费记录</a></div>
+	</div>
+
+
+</div>
+
+
+{template common/footer}

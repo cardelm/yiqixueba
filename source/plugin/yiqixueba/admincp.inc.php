@@ -10,7 +10,7 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-require_once DISCUZ_ROOT.'source/plugin/'.$plugin['identifier'].'/function.func.php';
+require_once DISCUZ_ROOT.'source/plugin/'.$plugin['directory'].'function.func.php';
 
 $submod = getgpc('submod');
 
@@ -26,7 +26,7 @@ foreach( $submenu_array as $k=>$v ){
 $admin_menu[] = array(array('menu'=>in_array(str_replace("manpro_","",$submod),$submenu_array)?lang('plugin/yiqixueba',$submod):lang('plugin/yiqixueba','manpro'),'submenu'=>$submenus),in_array(str_replace("manpro_","",$submod),$submenu_array)|| empty($submod));
 */
 
-$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available=1 order by displayorder asc");
+$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_mokuai')." WHERE available=1 order by displayorder asc");
 $menuk = 0;
 while($row = DB::fetch($query)) {
 

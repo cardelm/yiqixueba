@@ -1,0 +1,10 @@
+<!--{template common/header}-->
+<!--{if !empty($distlist)}-->
+<select id="distid" name="distid" onchange="ajaxget('plugin.php?id=yikatong:brand&mod=ajax&action=community&upid='+ this.value, 'community');"  class="small_select"><option value="-1">«Î—°‘Ò</option>
+	<!--{loop $distlist $dist}-->
+	<option value="{$dist['id']}" >{$dist['name']}</option>
+	<!--{/loop}-->
+</select>
+
+<!--{/if}-->
+<!--{template common/footer}-->

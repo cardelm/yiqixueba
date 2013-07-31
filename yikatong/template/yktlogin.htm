@@ -1,0 +1,64 @@
+<!--{template common/header}-->
+<div class="bm" id="main_message">
+
+
+<div class="bm_h bbs" id="main_hnav">
+<span class="y">
+
+</span>
+<h3 id="layer_reginfo_t" class="xs2">
+一卡通登陆</h3>
+</div>
+
+
+<form method="post" autocomplete="off" name="register" id="registerform" action="plugin.php?id=yikatong:shopadmin&mod=login">
+<div id="layer_reg" class="bm_c">
+<input type="hidden" name="loginsubmit" value="yes" />
+<input type="hidden" name="formhash" value="{FORMHASH}" />
+<div class="mtw">
+<div id="reginfo_a">
+<div class="rfm">
+<table>
+<tr>
+<th><span class="rq">*</span><label for="f7O1IM">一卡通卡号:</label></th>
+<td><input type="text" id="f7O1IM" name="cardno" value="" class="px" tabindex="1" autocomplete="off" size="25" maxlength="15" required /></td>
+<td class="tipcol"><i id="tip_f7O1IM" class="p_tip">用户名由 3 到 15 个字符组成</i><kbd id="chk_f7O1IM" class="p_chk"></kbd></td>
+</tr>
+</table>
+</div>
+
+<div class="rfm">
+<table>
+<tr>
+<th><span class="rq">*</span><label for="ePFfp6">登陆密码:</label></th>
+<td><input type="password" id="ePFfp6" name="cardpass"  value="" size="25" tabindex="1" class="px" required /></td>
+<td class="tipcol"><i id="tip_ePFfp6" class="p_tip">请填写密码, 最小长度为 3 个字符</i><kbd id="chk_ePFfp6" class="p_chk"></kbd></td>
+</tr>
+</table>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="layer_reginfo_b">
+<div class="rfm mbw bw0">
+<table width="100%">
+<tr>
+<th>&nbsp;</th>
+<td>
+<span id="reginfo_a_btn">
+<em>&nbsp;</em><button class="pn pnc" id="registerformsubmit" type="submit" name="logsubmit" value="true" tabindex="1"><strong>登陆</strong></button>
+</span>
+</td>
+<td></td>
+</tr>
+</table>
+</div>
+</div>
+</form>
+
+</div>
+<!--{template common/footer}-->

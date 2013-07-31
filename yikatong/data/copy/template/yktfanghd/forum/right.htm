@@ -1,0 +1,94 @@
+
+<div class="shangTopright cl">
+	<div class="shangVier cl">
+		<div class="users">
+			<dl>
+				<dt>
+				<h2></h2>
+				<div class="rate">
+					<div class="big_rate">
+						<span rate="2">&nbsp;</span>
+						<span rate="4">&nbsp;</span>
+						<span rate="6">&nbsp;</span>
+						<span rate="8">&nbsp;</span>
+						<span rate="10">&nbsp;</span>
+						<div style="width:45px;" class="big_rate_up"></div>
+					</div>
+					<p><span id="s" class="s"></span><span id="g" class="g"></span></p>
+					<div id="my_rate"></div>
+				</div>  
+				</dt>
+				<dd id="user_v">
+					<strong><!--{avatar($shop_uid,small)}--></strong>
+					<span>
+						<p id="names"><b>店主：</b>
+						<!--{if !empty($shop_uid)}-->
+							<!--{eval echo DB::result_first("SELECT username FROM ".DB::table('common_member')." WHERE uid='".$shop_uid."'");}-->
+							<a target="_blank" href=tencent://message/?uin={$shop_qq}&Site=$_G['setting'][siteurl]&Menu=yes><img src=http://wpa.qq.com/pa?p=5:{$shop_qq}:17 alt="点击这里给我发消息" border="0" align="absmiddle"></a><!--{/if}--></p>
+							<p id="namex">
+						<!--{if $shop_uid == $_G['uid'] || $_G['adminid'] == 1 }-->
+							<!--{if $_GET['mod'] == 'forumdisplay' }-->
+								<!--{if $_G['fid'] == $goods_fid }-->
+									<a href="forum.php?mod=post&action=newthread&fid=$goods_fid&sortid=$goods_sortid&shopid={$shopid}">增加商品</a>
+								<!--{elseif $_G['fid'] == $groupbuy_fid }-->
+									<a href="forum.php?mod=post&action=newthread&fid=$groupbuy_fid&sortid=$groupbuy_sortid&shopid={$shopid}">增加团购</a>
+								<!--{elseif $_G['fid'] == $consume_fid }-->
+									<a href="forum.php?mod=post&action=newthread&fid=$consume_fid&sortid=$consume_sortid&shopid={$shopid}">增加优惠卷</a>
+								<!--{/if}-->
+							<!--{/if}-->
+							<!--{if $_GET['mod'] == 'viewthread' }-->
+								<!--{if $_G['fid'] == $goods_fid }-->
+									<a href="forum.php?mod=post&action=edit&fid=$_G[fid]&shopid=$shopid&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page">编辑商品</a>
+									<a href="javascript:;" onclick="modthreads(3, 'delete')">删除商品</a>
+								<!--{elseif $_G['fid'] == $groupbuy_fid }-->
+									<a href="forum.php?mod=post&action=edit&fid=$_G[fid]&shopid=$shopid&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page">编辑团购</a>
+									<a href="javascript:;" onclick="modthreads(3, 'delete')">删除团购</a>
+								<!--{elseif $_G['fid'] == $consume_fid }-->
+									<a href="forum.php?mod=post&action=edit&fid=$_G[fid]&shopid=$shopid&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page">编辑优惠卷</a>
+									<a href="javascript:;" onclick="modthreads(3, 'delete')">删除优惠卷</a>
+								<!--{/if}-->
+									
+							<!--{/if}-->
+						<!--{/if}-->
+						<!--{if $shop_uid != $_G['uid'] }-->
+						<a href="home.php?mod=space&uid={$shop_uid}&do=profile" target="_black">去他空间</a><a class="xi2" onclick="showWindow(this.id, this.href, 'get', 0);" id="a_poke_1" href="home.php?mod=spacecp&amp;ac=poke&amp;op=send&amp;uid={$shop_uid}&amp;handlekey=propokehk_1">打招呼</a>
+						<!--{/if}-->
+						</p>
+					</span>
+				</dd>
+				<dd id="user_x">
+					<p><a id="shoucang" style="margin-right:15px" onclick="AddFavorite();return false" rel="sidebar">收藏店铺</a></p>
+					<p><!--<a id="yrenling">已被认领</a><a href="javascript:;" onclick="showWindow('renling', 'plugin.php?id=dz55625_haodian:attclass&action=getrling&mod=view&sid={$_G[gp_sid]}', 'get', 0)" id="renling">认领店铺</a>--></p>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<script>
+		function AddFavorite() {
+			stitle = "{$mythread[title]}", 
+			note = "加入收藏夹失败鸟亲~请使用Ctrl+D进行添加！";
+			try {
+				window.external.addFavorite(document.location.href, stitle);
+			}
+			catch (e) {
+				try {
+					window.sidebar.addPanel(stitle, document.location.href, "");
+				}
+				catch (e) {
+					alert(note);
+				}
+			}
+		}
+	</script>
+    <div class="shangVier cl">
+		<!--{if !empty($shop_weixin)}-->
+			<img src="$shop_weixin" width="298" height="298" border="0" alt="">
+		<!--{else}-->
+			<img src="$_G['style']['styleimgdir']/weixin.jpg" width="298" height="298" border="0" alt="">
+		<!--{/if}-->
+	</div>
+
+	<input type="hidden" name="ykt_xzuobiao" id="ykt_xzuobiao" value="{$shop_xzuobiao}">
+    <input type="hidden" name="ykt_yzuobiao" id="ykt_yzuobiao" value="{$shop_yzuobiao}">
+     <div id="maps"><iframe id="baidumapboa" src="plugin.php?id=yikatong:baidumap&tt=viewmap" width="300" height="350" frameborder="0" ></iframe></div>
+ </div>

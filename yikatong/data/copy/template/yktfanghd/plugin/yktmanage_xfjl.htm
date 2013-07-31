@@ -1,0 +1,72 @@
+<!--{subtemplate common/header}-->
+<link rel="stylesheet" type="text/css" href="template/yktfanghd/style/images/body.css?{VERHASH}" />
+<script type="text/javascript" src="template/yktfanghd/style/images/jquery.min.js"></script>  
+<script type="text/javascript">
+	var jq = jQuery.noConflict(); 
+</script>
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="./" class="nvhm" title="首页">衢城网</a><em>&raquo;</em><a href="forum.php?mod=forumdisplay&fid={$shop_fid}">商家首页</a><em>&raquo;</em>我的商家 <!--{if $shopid }-->【{$shop_name}】<!--{if $goodsid }-->——【<a href="plugin.php?id=yikatong:yktmanage&mod=xfjl&shopid={$shopid}&goodsid={$goodsid}">{$goods_name}</a>】<!--{/if}--><!--{/if}--> 消费记录
+</div>
+</div>
+<div class="wp cl">
+	<div class="pgs mbm cl pbm bbs">
+		<div class="pgt"></div>
+		<dl><span >现金消费：<font color="#ff0000"><strong>{$p1}</strong></font>&nbsp;&nbsp;积分消费：<font color="#ff0000"><strong>{$p3}</strong></font>&nbsp;&nbsp;余额消费：<font color="#ff0000"><strong>{$p2}</strong></font>元&nbsp;&nbsp;总让利：<font color="#ff0000"><strong>{$r1}</strong></font>元&nbsp;&nbsp;</span></dl>
+	</div>
+	<h2 class="mt bbda">消费记录</h2>
+	<script type="text/javascript" src="{$_G[setting][jspath]}calendar.js?{VERHASH}"></script>
+	<form method="post" action="plugin.php?id=yikatong:yktmanage&mod=xfjl&goodsid={$goodsid}">
+	<div class="exfm" style="margin-top: 0;">
+	<table cellspacing="0" cellpadding="0">
+		<tr>
+		<td>开始时间：<input type="text" name="starttime" onclick="showcalendar(event, this)" readonly="readonly" value="{$_POST[starttime]}"></td><td>消费类型：{$search_xflx}</td><td>门店搜索：<input type="text" name="sssj"  value="{$_POST[sssj]}"></td><td>&nbsp;&nbsp;<button type="submit" class="pn" name="search" value="true"><strong>搜索</strong></button>&nbsp;&nbsp;</td><td><a href="forum.php?mod=post&action=newthread&fid={$shop_fid}&sortid={$shop_sortid}"><img src="template/yktfanghd/style/images/rz1.png" width="86" height="37" border="0" alt=""></a>&nbsp;&nbsp;<a href="plugin.php?id=yikatong:yktmanage&mod=xfjl&goodsid={$goodsid}&shopid={$shopid}"><img src="template/yktfanghd/style/images/xf1.png" width="86" height="37" border="0" alt=""></a></td>
+		<tr>
+		<tr>
+		<td>结束时间：<input type="text" name="endtime" onclick="showcalendar(event, this)" readonly="readonly"  value="{$_POST[endtime]}"></td><td>操作员：<input type="text" name="czy" value="{$_POST[czy]}"></td><td>会员卡号：<input type="text" name="hykh" value="{$_POST[hykh]}"></td><td></td><td></td>
+		<tr>
+	</table>
+	</form>
+	<br />
+	<!--{if $xiaofeijilu}-->
+	<table width="100%" cellspacing="0" cellpadding="0"  class="dt">
+	<tr>
+		<th>消费类型</th>
+		<th>订单号</th>
+		<th>商品名称</th>
+		<th>价格</th>
+		<th>件数</th>
+		<th>交易时间</th>
+		<th>会员卡号</th>
+		<th>操作员</th>
+		<th>所属商家</th>
+		<th>状态</th>
+		<th>让利</th>
+	</tr>
+	<!--{loop $xiaofeijilu $key $list}-->
+	<tr>
+		<td>{$list[xflx]}</td>
+		<td>{$list[ddh]}</td>
+		<td>{$list[spmc]}</td>
+		<td>{$list[jg]}</td>
+		<td>{$list[js]}</td>
+		<td>{$list[jysj]}</td>
+		<td>{$list[hykh]}</td>
+		<td>{$list[czy]}</td>
+		<td>{$list[sssj]}</td>
+		<td>{$list[zt]}</td>
+		<td>{$list[rangli]}元</td>
+	</tr>
+	<!--{/loop}-->
+	</table>
+	<!--{else}--> 
+	   <ul class="cl erroe">SORRY!暂无任何消费记录...</ul>
+	<!--{/if}-->
+	</div>
+	<br />
+	<div class="pgs mbm cl pbm bbs y">$multi</div>
+</div>
+
+<br /><br />
+
+{template common/footer}

@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>小小家具店 - 商家联盟</title>
+<meta name="description" content="" />
+<meta name="keywords" content="小小家具店," />
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/jquery.js"></script>
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/common.js"></script>
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/viewgoodspic.js"></script>
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/jquery.cycle.lite.min.js"></script>
+
+<link type="text/css" rel="stylesheet" href="{$plugin_config['csspath']}/common.css" />
+<link type="text/css" rel="stylesheet" href="{$plugin_config['csspath']}/common_store.css" /><link rel="stylesheet" type="text/css" href="{$plugin_config['csspath']}/store.css" /><link type="text/css" rel="stylesheet" href="{$plugin_config['csspath']}/index.css" /><script type="text/javascript">var cookiepre = '5trU_2132_', cookiedomain = '', cookiepath = '/';</script>
+</head>
+
+<body><div class="topnav cl"><p class="y navinf">
+<a href="javascript:;" onclick="return show_message('', '登录', 2, 'plugin.php?id=yikatong:brand&bication=batch.login&action=login' );">登录</a><span class="pipe"> | </span>
+<a target="_blank" href="http://www.17xue8.cn/member.php?mod=yiqixuebazhuce">注册会员</a></p><ul class="cl">
+<li class="navlogo"><a href="http://17xue8.cn/">商家联盟</a></li>
+<li><span>&nbsp;&nbsp;小小家具店</span></li>
+</ul>
+</div>
+
+<div id="append_parent"></div>
+<div class="bg_banner">
+<img src="{$plugin_config['imagespath']}/shopbanner.gif" width="980" height="150" />
+</div>
+<div id="header" class="layout"><h2  style="">小小家具店</h2>
+<h4>小小家具店</h4>
+<div class="siteurl">
+<a title="复制链接" href="javascript:;" onclick="javascript:setCopy('http://17xue8.cn/plugin.php?id=yikatong&biaction=store&sid=4');"><img src="{$plugin_config['imagespath']}/icon_siteinfo.gif" alt="复制链接"></a>
+<a title="加入收藏" href="javascript:;" onclick="javascript:addBookmark('小小家具店', 'http://17xue8.cn/plugin.php?id=yikatong&biaction=store&sid=4');"><img src="{$plugin_config['imagespath']}/icon_add.gif" alt="加入收藏"></a>
+<a title="商户地址： " href="http://17xue8.cn/plugin.php?id=yikatong&biaction=store&sid=4">http://17xue8.cn/plugin.php?id=yikatong&biaction=store&sid=4</a>
+</div>
+
+<ul class="menu">
+<li class="mouseover"><a href="plugin.php?id=yikatong:brand&bication=store&sid=4" title="店铺首页" ><span >店铺首页</span></a></li>
+<li><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=intro" title="店铺资料" ><span >店铺资料</span></a></li>
+<li><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=notice" title="商情" ><span >商情</span></a></li>
+<li><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=album" title="相册" ><span >相册</span></a></li>
+<li><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=good" title="商品" ><span >商品</span></a></li>
+<li><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=consume" title="消费券" ><span >消费券</span></a></li>
+<li><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=groupbuy" title="团购" ><span >团购</span></a></li>
+</ul></div><!-- Header 结束 -->
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/effect_common.js"></script>
+<script type="text/javascript">
+function addupcid(upcid) {
+$("#upcid").val(upcid);
+document.getElementById("reply").style.display = "";
+document.getElementById("replyname").innerHTML= document.getElementById('comauth_'+upcid).innerHTML;
+document.getElementById("commentmessage").focus();
+}
+</script><div id="seller" class="main layout store">
+<div class="content"><div class="shop_notice">
+<span>橱窗商情</span><ul id="shop_notice">
+<li></li>
+</ul></div><div class="showpic">
+<img src="{$plugin_config['imagespath']}/shopwindow.gif" width="710" height="220">
+<h4>品牌文化</h4>
+<div>
+<p></p>
+</div>
+</div><div class="sellerbox">
+<h3>最新活动</h3>
+<div style="display: none;" id="publishnew"></div>
+<ul class="menu" id="newmovementmenu"><li class="mouseover" id="coinauction"><a href="javascript:void(0);" title=""><span>消费券</span></a></li><li class="" id="coinauction"><a href="javascript:void(0);" title=""><span>团购</span></a></li></ul>
+<div id="menulist"><div class="movement">
+<!--shop new consume-->
+</div><div class="movement">
+<!--shop new groupbuy-->
+</div></div>
+</div><div class="sellerbox newproduct">
+<h3>店铺相册</h3>
+<!-- new tab -->
+<ul id="hotgoods" class="menu">
+<li id="allGoodsList" class="mouseover"><a  href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=album"><span>全部</span></a></li>
+<span style="float:right;"><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=album">更多&gt;&gt;</a></span>
+</ul><!--photo-->
+<div id="albumlist">
+<ul id="albumlist"  style="display: block;">
+</ul>
+<!-- new tab content -->
+</div>
+</div><div class="sellerbox newproduct">
+<h3>热门新品</h3>
+<!-- new tab -->
+<ul id="hotgoods" class="menu">
+<li id="allGoodsList" class="mouseover"><a title="全部商品列表" href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=good"><span>全部</span></a></li>
+<span style="float:right;"><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=good">更多&gt;&gt;</a></span>
+</ul><!-- new tab End --><!--shop new good--><div id="productlist">
+<ul class="productlist" >
+<li>
+<div class="thumb">
+<a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=good&xid=2" target="_blank"><img alt="" src="{$plugin_config['imagespath']}/nophoto.gif"></a>
+</div>
+<p><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=good&xid=2" target="_blank">刷碗机</a></p><p>会员价格： <strong class="price">1000 元</strong></p></li>
+</ul>
+<!-- new tab content -->
+</div></div><div class="sellerbox bbs"><script type="text/javascript" charset="utf8">
+function deletecomm(cid,score) {
+if(score) {
+var from = 'remark';
+} else {
+var from = 'comm';
+}
+if (confirm("确认要删除吗?")){
+$("#delitemid")[0].value = cid;
+$("#delMegForm_"+from).submit();
+}
+return false;
+}
+</script>
+<div class="message"><h3>咨询</h3><div class="c h10"></div>
+
+<div id="postlistreply">
+</div>
+<!--comment form-->
+<script type="text/javascript" charset="utf8">
+var hdrewardid = "commentscorestr";
+function setreward(rewardid,value) {
+var hdreward = document.getElementById(hdrewardid);
+if(hdreward.value.indexOf("@" + rewardid +"@") > -1 ) {
+var reg = new RegExp("@" + rewardid +"@\\d");
+hdreward.value = hdreward.value.replace(reg,"@" + rewardid +"@" + value);
+} else {
+hdreward.value += "@" + rewardid +"@" + value;
+}
+return false;
+}
+// onmouseover change the style
+function star_hover(rewardid,cur){
+for(var i = 1;i<6;i++) {
+var oldclick = document.getElementById("reward"+i+"_"+rewardid);
+if(i < (cur+1)) {
+oldclick.src = "static/image/star_yellow.gif";
+}else{
+oldclick.src = "static/image/star_grey.gif";
+}
+}
+}
+// onmouseout restore the style
+function star_restore(rewardid){
+var hdreward = document.getElementById(hdrewardid).value;
+var reg = new RegExp("@" + rewardid +"@(\\d)");
+oldscore = reg.exec(hdreward);
+if(oldscore == null || oldscore[1]==null){
+star_hover(rewardid,0);
+}else{
+star_hover(rewardid,parseInt(oldscore[1]));
+}
+
+}
+</script>
+<form id="msgForm_comm" action="viewcomment.php" method="post">
+<script charset="utf-8" language="javascript" type="text/javascript" src="batch.formhash.php?rand=386481"/></script>
+<div class="writemessage">
+<h5 id="reply" style="display:none;">回复： <span id="replyname"></span></h5>
+<h5>咨询： <span id="span_commentmessage">(2-250个字)</span></h5>
+<label>
+<textarea cols="10" rows="5" id="commentmessage" name="commentmessage" ></textarea>
+</label><div id="ajax_status_display"></div>
+<div class="action">
+<span id="span_score"></span>
+<input id="submitMsgForm" name="searchbtn" value="咨询" type="submit" onclick="bindform('msgForm');return comsubmitcheck();"><input id="isprivate" name="isprivate" class="checkbox" value="1" type="checkbox" style="border:none; background:none;" />仅店长可见<input type="hidden" value="submit" name="submitcomm" />
+<input type="hidden" id="itemid" name="itemid" value="4" />
+<input type="hidden" id="upcid" name="upcid" value="" size="5" />
+<input type="hidden" id="type" name="type" value="shop" size="5" />
+<input type="hidden" value="1" name="ismodle" id="ismodle">
+<input type="hidden" value="plugun.php?id=yikatong:brand&biaction=store&sid=4&op=view" name="stuffurl">
+<input type="hidden" value="1" name="page">
+</div>
+</div>
+</form></div>
+<script type="text/javascript" charset="utf8">
+//	bindform('msgForm');
+</script></div></div>
+
+<div class="sidebar">
+<div class="jiontime">加盟年月： 2012年09月</div>
+<div class="box" id="shop_base_info"><h3>商家基本信息</h3>
+<div class="shop_base_info">
+<h4 class="name">小小家具店</h4>
+<h5 class="name">(店主 : 学吧会员)</h5>
+
+<ul style="border:none;"></ul>
+
+<table><tr>
+<th>认证： </th>
+<td><img title="钻石商家" src="{$plugin_config['imagespath']}/common/group_diamond.gif" /></td>
+</tr><tr>
+<th>客服： </th>
+<td>
+<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=41785641&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:41785641:41" alt="点击这里给我发消息" title="点击这里给我发消息"></a>
+</td>
+</tr>				<tr>
+<th>电话： </th>
+<td><div>0311-12345678</div></td>
+</tr><tr>
+<th>地址： </th>
+<td><div>河北省石家庄市新华路158号</div></td>
+</tr>
+<tr>
+<th>分类： </th>
+<td><div>整体厨房</div></td>
+</tr></table>
+
+<div class="shop_opt">
+<span class="btn_nomal" id="iwantcorrect" onclick="showWindow('correctinfo', 'shop', '4', '纠错信息');">我要纠错</span><span class="btn_nomal" id="iwantclaime" onclick="showWindow('claimshop', 'shop', '', '店铺认领');">我要认领</span><div class="c"></div>
+</div>
+</div>
+</div><div class="box">
+<h3><span><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&action=notice">查看全部&gt;&gt;</a></span>商情</h3>
+<ul><li><a href="plugin.php?id=yikatong:brand&bication=store&sid=4&amp;action=notice&amp;xid=2" target="_blank" title="">大家好！网店开张了</a></li>
+</ul>
+</div></div>
+</div>
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/store_index.js"></script><div id="ft" class="wrap">
+<div style="float:left; width:230px; text-align:left;">
+<p>Powered by Brand 2.0</p>
+<p>&copy; 2009-2011 <a href="http://www.comsenz.com" target="_blank">Comsenz Technology Ltd. </a></p>
+</div>
+<div style="float:right; text-align:right;overflow:hidden;">
+<p>
+服务热线：  13113890911<span class="pipe">|</span>客服QQ：  41875641</p>
+<p>冀ICP备12013434号</p>
+<p></p>
+</div>
+<div style="float:right;width:950px;text-align:right;"></div>
+</div>
+
+</body>
+</html>

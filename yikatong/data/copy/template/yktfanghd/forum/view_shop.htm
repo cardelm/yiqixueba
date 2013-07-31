@@ -1,0 +1,345 @@
+<div class="shangTopleft">
+		<div class="Contentboxz"> 
+		
+		<div id="con_ss_1">
+		<div style="width:650px;" class="cl">
+		<div class="shangTop cl">
+			<span id="vips"></span>
+			<h2>
+				<!--{if !empty($threadsortshow['optionlist']['ykt_logo']['value'])}-->
+					$threadsortshow['optionlist']['ykt_logo']['value']
+					<!--{else}-->
+					<img src="$_G['style']['styleimgdir']/over3.jpg" />
+				<!--{/if}-->
+			</h2>
+			<ul>
+				<li><strong>$_G[forum_thread][subject]</strong><!--{if !empty({$mythread[taobao]})}-->[ <a href="{$mythread[taobao]}" target="_blank" style="color:#06F">网上店铺</a> ]<!--{/if}--></li>
+				<li><span>店铺地址：</span> {$threadsortshow['optionlist']['ykt_dizhi']['value']}</li>
+				<li><span>店铺电话：</span> {$threadsortshow['optionlist']['ykt_dpdh']['value']}</li>
+				<li><span>营业时间：</span> {$threadsortshow['optionlist']['ykt_yysj']['value']}</li>
+			</ul>
+			
+		</div>
+
+		<!--{if $threadsortshow['optionlist']['ykt_zhekou']['value']>'0'}-->
+			
+			<div class="shangZop cl">
+				<ul>
+					<p id="Suser"><span>会员折扣 </span><em>{$threadsortshow['optionlist']['ykt_zhekou']['value']}</em></p>
+					<p id="Stext"><strong>折扣说明：</strong>{$threadsortshow['optionlist']['ykt_shuomin']['value']}</p>
+				</ul>
+			</div>
+			
+			
+		<!--{/if}-->  
+
+		<div class="shangTopx cl">
+		<ul>
+		<DIV class=bshare-custom><A class=bshare-qzone href="javascript:void(0);"></A><A class=bshare-sinaminiblog href="javascript:void(0);"></A><A class=bshare-renren href="javascript:void(0);"></A><A class=bshare-qqmb href="javascript:void(0);"></A><A class=bshare-douban href="javascript:void(0);"></A><A class=bshare-qqxiaoyou href="javascript:void(0);"></A><A class=bshare-qqshuqian href="javascript:void(0);"></A><A class=bshare-itieba href="javascript:void(0);"></A><A class=bshare-51 href="javascript:void(0);"></A><A class=bshare-tianya href="javascript:void(0);"></A><A class=bshare-sohuminiblog href="javascript:void(0);"></A><A class=bshare-neteasemb href="javascript:void(0);"></A><A class=bshare-kaixin001 href="javascript:void(0);"></A><A class="bshare-more bshare-more-icon more-style-sharethis" buttonIndex="0"></A><SPAN class="BSHARE_COUNT bshare-share-count">0</SPAN></DIV>
+		<SCRIPT type=text/javascript charset=utf-8 src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=fba4e86d-5fec-4493-b554-d7b3b4736eb4&amp;pophcol=2&amp;lang=zh"></SCRIPT>
+
+		<SCRIPT type=text/javascript charset=utf-8 src="http://static.bshare.cn/b/bshareC0.js"></SCRIPT>
+		<dl><a onclick="showWindow('miscreport', 'misc.php?mod=report&amp;url='+REPORTURL);return false;" href="javascript:;">不良信息举报</a></dl>
+		</ul>
+		</div>
+		</div>
+
+
+		
+		
+		
+		
+		
+		
+		<div id="con_ss_8" class="cl">
+		<h3><strong>商家介绍</strong><!--{hook/viewthread_top}--><span>
+		<!--{eval //dump($postlist);}-->
+			<!--{loop $postlist $post}-->
+			
+			<!--{if $post[first]==1}-->
+			<!--{eval $shop_message = $post[message];}-->
+				<!--{if $_G['forum']['ismoderator']}-->
+					<!--{if $_G['group']['allowdelpost']}-->
+						<a href="javascript:;" onclick="modthreads(3, 'delete')">删除商家</a>
+					<!--{/if}-->
+				<!--{/if}-->
+					<!--{if $_G['setting']['magicstatus']}-->
+						<a href="javascript:;" id="mgc_post_$post[pid]" onmouseover="showMenu(this.id)" class="showmenu">{lang thread_magic}</a>
+						<ul id="mgc_post_$post[pid]_menu" class="p_pop mgcmn" style="display: none;">
+						<!--{if $post['first']}-->
+							<!--{if !empty($_G['setting']['magics']['zijian'])}-->
+								<li><a href="home.php?mod=magic&mid=zijian&idtype=tid&id=$_G[tid]" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/zijian.small.gif" />$_G['setting']['magics']['zijian']</a></li>
+							<!--{/if}-->
+							<!--{if !empty($_G['setting']['magics']['bump'])}-->
+								<li><a href="home.php?mod=magic&mid=bump&idtype=tid&id=$_G[tid]" id="a_bump" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/bump.small.gif" />$_G['setting']['magics']['bump']</a></li>
+							<!--{/if}-->
+							<!--{if !empty($_G['setting']['magics']['stick'])}-->
+								<li><a href="home.php?mod=magic&mid=stick&idtype=tid&id=$_G[tid]" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/stick.small.gif" />$_G['setting']['magics']['stick']</a></li>
+							<!--{/if}-->
+							<!--{if !empty($_G['setting']['magics']['close'])}-->
+								<li><a href="home.php?mod=magic&mid=close&idtype=tid&id=$_G[tid]" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/close.small.gif" />$_G['setting']['magics']['close']</a></li>
+							<!--{/if}-->
+							<!--{if !empty($_G['setting']['magics']['open'])}-->
+								<li><a href="home.php?mod=magic&mid=open&idtype=tid&id=$_G[tid]" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/open.small.gif" />$_G['setting']['magics']['open']</a></li>
+							<!--{/if}-->
+							<!--{if !empty($_G['setting']['magics']['highlight'])}-->
+								<li><a href="home.php?mod=magic&mid=highlight&idtype=tid&id=$_G[tid]" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/highlight.small.gif" />$_G['setting']['magics']['highlight']</a></li>
+							<!--{/if}-->
+							<!--{if !empty($_G['setting']['magics']['sofa'])}-->
+								<li><a href="home.php?mod=magic&mid=sofa&idtype=tid&id=$_G[tid]" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/sofa.small.gif" />$_G['setting']['magics']['sofa']</a></li>
+							<!--{/if}-->
+							<!--{if !empty($_G['setting']['magics']['jack'])}-->
+								<li><a href="home.php?mod=magic&mid=jack&idtype=tid&id=$_G[tid]" id="a_jack" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/jack.small.gif" />$_G['setting']['magics']['jack']</a></li>
+							<!--{/if}-->
+							<!--{hook/viewthread_magic_thread}-->
+						<!--{/if}-->
+						<!--{if !empty($_G['setting']['magics']['repent']) && $post['authorid'] == $_G['uid'] && !$rushreply}-->
+							<li><a href="home.php?mod=magic&mid=repent&idtype=pid&id=$post[pid]:$_G[tid]" id="a_repent_$post[pid]" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/bump.small.gif" />$_G['setting']['magics']['repent']</a></li>
+						<!--{/if}-->
+						<!--{if !empty($_G['setting']['magics']['anonymouspost']) && $post['authorid'] == $_G['uid']}-->
+							<li><a href="home.php?mod=magic&mid=anonymouspost&idtype=pid&id=$post[pid]:$_G[tid]" id="a_anonymouspost_$post[pid]" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/anonymouspost.small.gif" />$_G['setting']['magics']['anonymouspost']</a><li>
+						<!--{/if}-->
+						<!--{if !empty($_G['setting']['magics']['namepost'])}-->
+							<li><a href="home.php?mod=magic&mid=namepost&idtype=pid&id=$post[pid]:$_G[tid]" id="a_namepost_$post[pid]" onclick="showWindow(this.id, this.href)"><img src="{STATICURL}image/magic/namepost.small.gif" />$_G['setting']['magics']['namepost']</a><li>
+						<!--{/if}-->
+						<!--{hook/viewthread_magic_post $postcount}-->
+						</ul>
+						
+					<!--{/if}-->
+					<!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->
+						<a href="forum.php?mod=post&action=edit&fid=$_G[fid]&tid=$post[tid]&shopid=$_GET[shopid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page">{lang edit}</a>
+					<!--{elseif $_G['uid'] && $post['authorid'] == $_G['uid'] && $_G['setting']['postappend']}-->
+						<a href="forum.php?mod=misc&action=postappend&tid=$post[tid]&pid=$post[pid]&extra=$_GET[extra]&page=$page" onClick="showWindow('postappend', this.href, 'get', 0)">{lang postappend}</a>
+					<!--{/if}-->
+			<!--{/if}-->
+			<!--{/loop}--></span></h3>
+		<ul>
+			<!--{loop $postlist $post}-->
+			<!--{if $post[first]==1}-->
+			<!--{eval $shop_message = $post[message];}-->
+				<!--{if !empty($shop_message)}-->
+					$post[message]
+				<!--{else}-->
+					暂无任何内容介绍!
+				<!--{/if}-->
+				<!--{if !empty($aimgs[$post[pid]])}-->
+				<script type="text/javascript" reload="1">
+					aimgcount[{$post[pid]}] = [<!--{echo dimplode($aimgs[$post[pid]]);}-->];
+					attachimggroup($post['pid']);
+					<!--{if empty($_G['setting']['lazyload'])}-->
+						<!--{if !$post['imagelistthumb']}-->
+							attachimgshow($post[pid]);
+						<!--{else}-->
+							attachimgshow($post[pid], 1);
+						<!--{/if}-->
+					<!--{/if}-->
+					var aimgfid = 0;
+					<!--{if $_G['forum']['picstyle'] && ($_G['forum']['ismoderator'] || $_G['uid'] == $_G['thread']['authorid'])}-->
+						aimgfid = $_G[fid];
+					<!--{/if}-->
+					<!--{if $post['imagelistthumb']}-->
+						attachimglstshow($post['pid'], <!--{echo intval($_G['setting']['lazyload'])}-->, aimgfid, '{$_G[setting][showexif]}');
+					<!--{/if}-->
+				</script>
+				<!--{/if}-->
+			<!--{/if}-->
+			<!--{/loop}-->
+		</ul> 
+		</div>
+
+		<div id="con_ss_8" class="cl">
+		<h3><strong>商品列表</strong><span><a href="forum.php?mod=forumdisplay&fid={$goods_fid}&shopid={$shopid}">更多>></a></span></h3>
+	<!--{eval $sortoption_array = array('ykt_sptp','ykt_scjg','ykt_hyjg','ykt_shopid');}-->
+	<!--{eval foreach ($sortoption_array as $sokey=>$sovalue){}-->
+	<!--{eval $sort_dis[$sovalue] = DB::result_first("SELECT optionid FROM ".DB::table('forum_typeoption')." WHERE identifier='".$sovalue."'");}-->
+	<!--{eval }}-->
+	<!--{eval $goodscount = 0;}-->
+	<!--{eval $goodslist = array();}-->
+		<!--{eval $sql = "SELECT tid FROM ".DB::table('forum_typeoptionvar')." WHERE sortid = ".$goods_sortid." and optionid =".DB::result_first("SELECT optionid FROM ".DB::table('forum_typeoption')." WHERE identifier='ykt_shopid'")." and value=".$shopid." limit 6";}-->
+		<!--{eval $query = DB::query($sql);}-->
+		<!--{eval while($row = DB::fetch($query)) {}-->
+		<!--{eval $goods_ids[] = $row;}-->
+		<!--{eval }}-->
+		<!--{eval $goodsidscount = count($goods_ids);}-->
+	<!--{if $goodsidscount != 0}-->
+		<!--{loop $goods_ids $key $thread}-->
+			<!--{eval $query = DB::query("SELECT optionid,value FROM ".DB::table('forum_typeoptionvar')." WHERE sortid = ".$goods_sortid." and tid =".$thread['tid']);}-->
+			<!--{eval while($row = DB::fetch($query)) {}-->
+			<!--{eval $sortvalue[$row[optionid]] = $row[value];}-->
+			<!--{eval }}-->
+			<!--{if $sortvalue[$sort_dis[ykt_shopid]] == $shopid}-->
+				<!--{eval $goods_info = DB::fetch_first("SELECT * FROM ".DB::table('forum_thread')." WHERE tid=".$thread['tid']);}-->
+				<!--{eval $img_url_info = dunserialize($sortvalue[$sort_dis['ykt_sptp']]);}-->
+				<!--{eval $goodslist[$goodscount]['subject'] = $goods_info['subject'];}-->
+				<!--{eval $goodslist[$goodscount]['scjg'] = $sortvalue[$sort_dis['ykt_scjg']];}-->
+				<!--{eval $goodslist[$goodscount]['hyjg'] = $sortvalue[$sort_dis['ykt_hyjg']];}-->
+				<!--{eval $goodslist[$goodscount]['sptp'] = $img_url_info['url'];}-->
+				<!--{eval $goodslist[$goodscount]['highlight'] = $goods_info['highlight'];}-->
+				<!--{eval $goodslist[$goodscount]['isgroup'] = $goods_info['isgroup'];}-->
+				<!--{eval $goodscount++;}-->
+			<!--{/if}-->
+		<!--{/loop}-->
+	<!--{/if}-->
+
+<!--{if $goodscount != 0}-->
+<div class="Shoping">
+    <ul>
+		<!--{loop $goodslist $key $goods}-->
+          <dl>
+            <!--{if $goods[scjg]!='0' && $goods[scjg] > $goods[hyjg]}--><div class="c_ico"><img src="$_G['style']['styleimgdir']/c_ico.png"></div><!--{/if}-->
+            <dt><a href="forum.php?mod=viewthread&tid=$thread[tid]&shopid=$shopid" target="_blank"><img src="{$goods[sptp]}" /></a></dt> 
+            <dd><strong>{$goods[subject]}</strong><em><!--{if $goods[scjg]!='0' && $goods[scjg] > $goods[hyjg]}-->【￥{$goods[hyjg]}】<!--{else}-->【￥{$goods[scjg]}】<!--{/if}--></em></dd> 
+           </dl>
+	    <!--{/loop}-->
+    </ul>    
+</div>
+<!--{else}-->
+<div class="Shoping">
+
+	<ul style="padding:10px 0 0px 10px;">暂无发布任何信息&nbsp;&nbsp;<!--{if $threadsortshow['optionlist']['ykt_UID']['value'] == $_G['uid']}-->[ <a href="forum.php?mod=post&action=newthread&fid=$goods_fid&sortid=$goods_sortid&shopid={$shopid}" target="_blank">添加商品</a> ]<!--{/if}--></ul>  
+</div>
+<!--{/if}-->
+		</div>
+		<!--{if $display==0}--><div class="addkk" style="margin:0; padding:0"><h3>留言审核制度已开启,请勿发布国家法律不允许的言论以及攻击辱骂他人,否则将被封ID处理。</h3></div><!--{/if}-->  
+
+
+		<script type="text/javascript">
+		function checkLength(which) {
+			var maxChars = 140;
+			if (which.value.length > maxChars)
+			which.value = which.value.substring(0,maxChars);
+			var curr = maxChars - which.value.length;
+			document.getElementById("chLeft").innerHTML = curr.toString();
+		}
+		var jqp = jQuery.noConflict(); 	
+		var ltupper=["2","4","6","8","10"];
+		jqp(document).ready(function(){
+		
+		  jqp('.star_rating li a').each(function(){
+			  jqp(this).click(function(){
+			  if (jqp('#starszt').val()>0){
+				alert('您已经对改商家进行了评分');
+			  }else{
+				  var lt=getStars(jqp(this).attr('class'));
+				  jqp('#stars').val(lt);
+				  jqp('#selectStars').text(ltupper[lt-1]+'分');
+				  jqp('.star_rating li a').slice(0,lt).css({'background':'url($_G[style][styleimgdir]/yellow.jpg)'});
+				  jqp('.star_rating li a').slice(lt,5).css({'background':'url($_G[style][styleimgdir]/while.jpg)'});
+				}
+			  })
+		  })
+		  jqp('.star_rating li a').hover(function(){
+			  var lt=getStars(jqp(this).attr('class'));
+			  
+				  jqp('.star_rating li a').slice(0,lt).css({'background':'url($_G[style][styleimgdir]/yellow.jpg)'});
+				  jqp('.star_rating li a').slice(lt,5).css({'background':'url($_G[style][styleimgdir]/while.jpg)'});
+				  jqp('#selectStars').text(ltupper[lt-1]+'分');
+		  },function(){
+			  var lt=Number(jqp('#stars').val());
+			  if(lt==""){
+				 jqp('#selectStars').text('（为商家打分,最高为10分）');
+			  }else{
+				  jqp('#selectStars').text(ltupper[lt-1]+'分');
+			  }
+			  jqp('.star_rating li a').slice(0,lt).css({'background':'url($_G[style][styleimgdir]/yellow.jpg)'});
+			  jqp('.star_rating li a').slice(lt,5).css({'background':'url($_G[style][styleimgdir]/while.jpg)'});
+		  })
+		})
+		//通过类名判断星星数
+		function getStars(stars){
+			var re=1;
+			switch(stars){
+				case 'one_star':re=1;break;
+				case 'two_stars':re=2;break;
+				case 'three_stars':re=3;break;
+				case 'four_stars':re=4;break;
+				case 'five_stars':re=5;break;
+			}
+			return re;
+		}
+		</script>
+		<div id="con_ss_4" class="cl">
+		<h3><strong>会员留言</strong></h3>
+		<div id="pingluns" class="cl">
+		<dl>
+
+		<form method="post" autocomplete="off" id="fastpostform" action="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&extra=$_GET[extra]&replysubmit=yes{if $_GET['ordertype'] != 1}&infloat=yes&handlekey=fastpost{/if}{if $_GET[from]}&from=$_GET[from]{/if}"{if $_GET['ordertype'] != 1} onSubmit="return fastpostvalidate(this)"{/if}>
+			<input type="hidden" name="display" id="display" value="$goods[display]" />
+			<input type="hidden" name="sid" id="sid" value="{$goods[id]}" />
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<input type="hidden" name="posttime" id="posttime" value="{TIMESTAMP}" />
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<input type="hidden" name="usesig" value="$usesigcheck" />
+			<input type="hidden" name="subject" value="  " />
+				<dt>
+				 <!--{eval $ykt_pingfenzt = DB::result_first("SELECT count(*) FROM ".DB::table('brand_pingfen')." WHERE tid=".$_G[tid]." and pfuid=".$_G['uid']);}-->
+				<strong>
+				   <ul class="star_rating">
+					   <li><a href="javascript:void(0)" title="2 of 10 stars" class="one_star">2</a></li>
+					   <li><a href="javascript:void(0)" title="4 of 10 stars" class="two_stars">4</a></li>
+					   <li><a href="javascript:void(0)" title="6 of 10 stars" class="three_stars">6</a></li>
+					   <li><a href="javascript:void(0)" title="8 of 10 stars" class="four_stars">8</a></li>
+					   <li><a href="javascript:void(0)" title="10 of 10 stars" class="five_stars">10</a></li>
+					   <li style="display:none;"><input type="hidden" id="stars" name="ykt_pingfen" value="" /><input type="hidden" id="starszt" name="ykt_pingfenzt" value="{$ykt_pingfenzt}" /></li>
+					  </ul>
+					  <span id="selectStars" style="padding-left:10px;">（为商家打分,最高为10分）</span>
+				</strong>
+				<small>还可输入<span id="chLeft">140</span>个字</small>
+				   
+				  </dt>  
+				<dd id="textareas"><textarea rows="3" cols="40" name="message" class="pt" id="replymessage" onkeyup="checkLength(this);"></textarea></dd>
+			   <dd id="buttons"> <button type="submit" name="applysubmit" id="applysubmit" value="true" />提交信息</button></dd>
+		</form>
+		</dl> 
+		</div>
+
+		
+		<div class="pl cl">
+				{loop $postlist $post}
+					<!--{if $post[first]==0}-->
+					<dl class="cl">
+					<dt><!--{avatar($post[authorid],small)}--></dt>
+					<dd>
+						<p class="aui"><strong>$post[author]</strong><em>
+							<!--{if $post['invisible'] == 0}-->
+								<!--{if $allowpostreply && $post['allowcomment'] && (!$thread['closed'] || $_G['forum']['ismoderator'])}--><a href="forum.php?mod=misc&action=comment&tid=$post[tid]&pid=$post[pid]&extra=$_GET[extra]&page=$page{if $_G['forum_thread']['special'] == 127}&special=$specialextra{/if}" onclick="showWindow('comment', this.href, 'get', 0)">{lang comments}</a><!--{/if}-->
+								<!--{if (!$_G['uid'] || $allowpostreply) && !$needhiddenreply}-->
+									<!--{if $post['first']}-->
+										<a  href="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&reppost=$post[pid]&extra=$_GET[extra]&page=$page" onclick="showWindow('reply', this.href)">{lang reply}</a>
+									<!--{else}-->
+										<a  href="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&repquote=$post[pid]&extra=$_GET[extra]&page=$page" onclick="showWindow('reply', this.href)">{lang reply}</a>
+									<!--{/if}-->
+								<!--{/if}-->
+							<!--{/if}-->
+						
+						
+						
+						
+						
+					<!--{if (($_G['forum']['ismoderator'] && $_G['group']['alloweditpost'] && (!in_array($post['adminid'], array(1, 2, 3)) || $_G['adminid'] <= $post['adminid'])) || ($_G['forum']['alloweditpost'] && $_G['uid'] && ($post['authorid'] == $_G['uid'] && $_G['forum_thread']['closed'] == 0) && !(!$alloweditpost_status && $edittimelimit && TIMESTAMP - $post['dbdateline'] > $edittimelimit)))}-->
+						<a href="forum.php?mod=post&action=edit&fid=$_G[fid]&tid=$_G[tid]&pid=$post[pid]{if !empty($_GET[modthreadkey])}&modthreadkey=$_GET[modthreadkey]{/if}&page=$page">{lang edit}</a>
+					<!--{elseif $_G['uid'] && $post['authorid'] == $_G['uid'] && $_G['setting']['postappend']}-->
+						<a href="forum.php?mod=misc&action=postappend&tid=$post[tid]&pid=$post[pid]&extra=$_GET[extra]&page=$page" onClick="showWindow('postappend', this.href, 'get', 0)">{lang postappend}</a>
+					<!--{/if}-->
+
+						
+						
+						
+						
+						</em><span>发表于: $post[dateline]</span></p>
+						<p class="aum">$post[message]</p> 
+						<!--{if !empty($pl[nickback])}--><p class="ahf">店主回复： $pl[nickback]</p><!--{/if}-->   
+					</dd>
+				  </dl>
+				  <!--{/if}--> 
+				{/loop}
+		</div>
+		{$multi}
+		
+		</div>
+
+
+		</div>
+
+		</div>
+	</div>

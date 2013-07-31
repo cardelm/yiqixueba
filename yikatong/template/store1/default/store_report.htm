@@ -1,0 +1,29 @@
+
+
+<form id="reportform" action="report.php" name="reportform" method="post">
+	<table cellspacing="0" cellpadding="10" border="0" width="400" style="margin:10px;">
+			<tr>
+				<th style=" width:60px; text-align:right; font-size:12px;">$lang['resultmessage']</th>
+				<td style="border:none; text-align:left; padding-left:10px;">
+					<textarea name="reason" style="height:150px; width:300px;" id="reason" class="listarea"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th style="width: 60px; text-align: right; font-size: 12px;">$lang['report_type']</th>
+				<td style="border:none; padding-left:10px;">
+					<select name="reasonid">
+						<option value="" selected="selected">$lang['please_select']</option>
+						<!--{loop $reasonarr $reason}-->
+							<option value="$reason['rrid']">$reason['content']</option>
+						<!--{/loop}-->
+					</select>
+					<input type="hidden" value="$id" size="65" name="id" class="ucinput"/>
+					<input type="hidden" value="$type" size="65" name="type" class="ucinput"/>
+					<input type="hidden" value="$action" size="65" name="action" class="ucinput"/>
+					<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+					<input id="reportsubmit" type="hidden" name="reportsubmit" value="$lang['report']" />
+				</td>
+			</tr>
+	</table>
+	<p class="o pns"><span class="z xg1"></span><button type="submit" onclick="bindform('reportform', 'fwin_content_{$_G[gp_ajaxid]}');" id="fwin_dialog_submit" value="true" class="pn pnc"><strong>$lang['submit']</strong></button></p>
+</form>

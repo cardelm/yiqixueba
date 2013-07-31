@@ -1,0 +1,55 @@
+{template forum/header}
+<div class="cl alliance" style="margin-bottom:10px">
+<div class="shangTopwp">
+<div class="shangTopleft">
+<!--{eval $sortoption_array = array('ykt_tgtp','ykt_scjg','ykt_hyjg','ykt_shopid');}-->
+<!--{eval foreach ($sortoption_array as $sokey=>$sovalue){}-->
+<!--{eval $sort_dis[$sovalue] = DB::result_first("SELECT optionid FROM ".DB::table('forum_typeoption')." WHERE identifier='".$sovalue."'");}-->
+<!--{eval }}-->
+<!--{eval $consumecount = 0;}-->
+<!--{eval $consumelist = array();}-->
+<!--{if $_G['forum_threadcount'] != 0}-->
+	<!--{loop $_G['forum_threadlist'] $key $thread}-->
+		<!--{eval $query = DB::query("SELECT optionid,value FROM ".DB::table('forum_typeoptionvar')." WHERE sortid = ".$sortid." and tid =".$thread[tid]);}-->
+		<!--{eval while($row = DB::fetch($query)) {}-->
+		<!--{eval $sortvalue[$row[optionid]] = $row[value];}-->
+		<!--{eval }}-->
+		<!--{if $sortvalue[$sort_dis[ykt_shopid]] == $shopid}-->
+			<!--{eval $img_url_info = dunserialize($sortvalue[$sort_dis['ykt_tgtp']]);}-->
+			<!--{eval $consumelist[$consumecount]['subject'] = $thread['subject'];}-->
+			<!--{eval $consumelist[$consumecount]['tid'] = $thread['tid'];}-->
+			<!--{eval $consumelist[$consumecount]['scjg'] = $sortvalue[$sort_dis['ykt_scjg']];}-->
+			<!--{eval $consumelist[$consumecount]['hyjg'] = $sortvalue[$sort_dis['ykt_hyjg']];}-->
+			<!--{eval $consumelist[$consumecount]['sptp'] = $img_url_info['url'];}-->
+			<!--{eval $consumelist[$consumecount]['highlight'] = $thread['highlight'];}-->
+			<!--{eval $consumelist[$consumecount]['isgroup'] = $thread['isgroup'];}-->
+			<!--{eval $consumecount++;}-->
+		<!--{/if}-->
+	<!--{/loop}-->
+<!--{/if}-->
+<!--{if $consumecount != 0}-->
+<div class="Shoping">
+    <ul>
+		<!--{loop $consumelist $key $consume}-->
+          <dl>
+            <!--{if $consume[scjg]!='0' && $consume[scjg] > $consume[hyjg]}--><div class="c_ico"><img src="$_G['style']['styleimgdir']/c_ico.png"></div><!--{/if}-->
+            <dt><a href="forum.php?mod=viewthread&tid=$consume[tid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra&shopid=$shopid"$consume[highlight]{if $consume['isgroup'] == 1 || $thread['forumstick']} target="_blank"{else} onclick="atarget(this)"{/if}><img src="{$consume[sptp]}" /></a></dt> 
+            <dd><strong>{$consume[subject]}</strong><em><!--{if $consume[scjg]!='0' && $consume[scjg] > $consume[hyjg]}-->【￥{$consume[hyjg]}】<!--{else}-->【￥{$consume[scjg]}】<!--{/if}--></em></dd> 
+           </dl>
+	    <!--{/loop}-->
+    </ul>    
+</div>
+{$multipage}
+<!--{else}-->
+<div class="Shoping">
+	<ul style="padding:10px 0 0px 10px;">暂无发布任何信息</ul>  
+</div>
+<!--{/if}-->
+
+</div>
+{template forum/right}
+</div>
+</div>
+{template common/footer}
+       
+<script type="text/javascript" src="$_G['style']['styleimgdir']/jq.js"></script>

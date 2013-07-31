@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>{$navtitle} </title>
+<meta name="description" content="" />
+<meta name="keywords" content="{$shopinfo[subjecttext]}," />
+<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/jquery.js"></script>
+<script charset="gbk" type="text/javascript">var jq = jQuery.noConflict();</script>
+<script type="text/javascript">var STYLEID = '{STYLEID}', STATICURL = '{STATICURL}', IMGDIR = '{IMGDIR}', VERHASH = '{VERHASH}', charset = '{CHARSET}', discuz_uid = '$_G[uid]', cookiepre = '{$_G[config][cookie][cookiepre]}', cookiedomain = '{$_G[config][cookie][cookiedomain]}', cookiepath = '{$_G[config][cookie][cookiepath]}', showusercard = '{$_G[setting][showusercard]}', attackevasive = '{$_G[config][security][attackevasive]}', disallowfloat = '{$_G[setting][disallowfloat]}', creditnotice = '<!--{if $_G['setting']['creditnotice']}-->$_G['setting']['creditnames']<!--{/if}-->', defaultstyle = '$_G[style][defaultextstyle]', REPORTURL = '$_G[currenturl_encode]', SITEURL = '$_G[siteurl]', JSPATH = 'source/plugin/yikatong/template/site/default/style/js/';</script>
+<script type="text/javascript" src="{$_G[setting][jspath]}common.js?{VERHASH}"></script>
+<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/common.js?{VERHASH}"></script>
+<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/viewgoodspic.js?{VERHASH}"></script>
+<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/jquery.cycle.lite.min.js?{VERHASH}"></script>
+
+<link type="text/css" rel="stylesheet" href="$plugin_config['store_csspath']/common.css?{VERHASH}" />
+<link type="text/css" rel="stylesheet" href="$plugin_config['store_csspath']/common_store.css?{VERHASH}" />
+<link rel="stylesheet" type="text/css" href="$plugin_config['store_csspath']/store.css?{VERHASH}" />
+<link type="text/css" rel="stylesheet" href="$plugin_config['store_csspath']/index.css?{VERHASH}" />
+
+</head>
+
+<body><ul id="navmsg_menu" class="nav_msglist" style="display:none; width:90px;"><li onmouseout="this.className='mout'" onmouseover="this.className='mover'"><a href="pm.php?filter=systempm" target="_blank">系统消息()</a></li><li onmouseout="this.className='mout'" onmouseover="this.className='mover'"><a href="pm.php?filter=privatepm" target="_blank">私人消息()</a></li>
+<li onmouseout="this.className='mout'" onmouseover="this.className='mover'"><a href="pm.php?filter=announcepm" target="_blank">公共消息()</a></li>
+</ul>
+<!--{if $myshops }-->
+<ul id="myshopmenu_menu" class="nav_msglist" style="position:absolute; display:none; width:135px;">
+<!--{loop $myshops $myshop}-->
+<li onmouseout="this.className='mout'" onmouseover="this.className='mover'"><a href="plugin.php?id=yikatong:brand&mod=store&sid={$myshop['itemid']}" title="{$myshop[subjecttext]}" target="_blank">{$myshop[subject]}</a></li>
+<!--{/loop}-->
+
+</ul>
+<!--{/if}-->
+<div class="topnav cl">
+<div style="width:960px; margin:auto;">
+<!--{if $_G[uid]>0 }-->
+	<p class="y navinf">
+	<strong><span class="vwmy">{$_G[username]}</span></strong>
+	<!--{if $myshops }-->
+	<span class="pipe"> | </span>
+	<a target="_blank" href="store&sid=1" id="myshopmenu" onmouseover="showMenu(this.id)" class="showmenu">我的店铺</a>
+	<!--{/if}-->
+	<!--{if $_G['uid'] && getstatus($_G['member']['allowadmincp'], 1)}-->
+	<span class="pipe"> | </span><a target="_blank" href="admin.php">管理中心</a>
+	<!--{/if}-->
+	<span class="pipe"> | </span><a rel="nofollow" href="member.php?mod=logging&action=logout&formhash={FORMHASH}">退出</a>
+	<!--{if $_G[uid] == $shopinfo[uid] && $action == 'index'}--><span class="pipe"> | </span><a id="diy-tg" href="javascript:openDiy();" title="装扮店铺">DIY</a><!--{/if}-->
+	</p>
+<!--{/if}-->
+<!--{if $_G[uid]==0 }-->
+	<p class="y navinf">
+	<a href="javascript:;" class="xi2" onclick="lsSubmit()">登陆</a>
+	<span class="pipe"> | </span>
+	<a target="_blank" href="http://ycq.0434qq.com/account/register" >注册</a>
+	</p>
+
+<!--{/if}-->
+<ul class="cl">
+<li class="navlogo"><a href="{$_G[siteurl]}plugin.php?id={$plugin_config[plugin_name]}:brand">品牌空间</a></li>
+<li><span>&nbsp;&nbsp;{$shopinfo[subject]}</span></li>
+</ul>
+</div>
+</div>
+
+<div id="append_parent"></div>
+<div class="bg_banner">
+<img src="{$banner}" width="980" height="150" />
+</div>
+<div id="header" class="layout"><h2  style="">{$shopinfo[subject]}</h2>
+<h4>{$shopinfo[subject]}</h4>
+<div class="siteurl">
+<a title="复制链接" href="javascript:;" onclick="javascript:setCopy('plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}');"><img src="{$plugin_config['imagespath']}/icon_siteinfo.gif" alt="复制链接"></a>
+<a title="加入收藏" href="javascript:;" onclick="javascript:addBookmark('{$shopinfo[subjecttext]}', 'plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}');"><img src="{$plugin_config['imagespath']}/icon_add.gif" alt="加入收藏"></a>
+<a title="商户地址： " href="{$_G[siteurl]}plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}">{$_G[siteurl]}plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}</a>
+</div>
+
+<ul class="menu">
+<li<!--{if $action==index}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}" title="店铺首页" ><span >店铺首页</span></a></li>
+<li<!--{if $action==intro}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}&action=intro" title="店铺资料" ><span >店铺资料</span></a></li>
+<!--
+<li<!--{if $action==good}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}&action=good" title="商品" ><span >商品</span></a></li>
+<li<!--{if $action==consume}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}&action=consume" title="消费券" ><span >消费券</span></a></li>
+<li<!--{if $action==groupbuy}--> class="mouseover"<!--{/if}-->><a href="plugin.php?id={$plugin_config[plugin_name]}:brand&mod=store&sid={$shopinfo[itemid]}&action=groupbuy" title="团购" ><span >团购</span></a></li>
+-->
+</ul></div>
+<script charset="gbk" type="text/javascript" src="{$plugin_config['jspath']}/effect_common.js"></script>
+<script type="text/javascript">
+function addupcid(upcid,id) {
+jq("#upcid"+id).val(upcid);
+document.getElementById("upcid_"+id).value = upcid;document.getElementById("reply_"+id).style.display = "";
+document.getElementById("replyname_"+id).innerHTML= document.getElementById('comauth_'+upcid).innerHTML;
+document.getElementById("commentmessage_"+id).focus();
+
+}
+</script>

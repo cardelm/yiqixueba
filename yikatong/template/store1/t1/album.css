@@ -1,0 +1,66 @@
+@charset "utf-8";
+
+/**
+ *      [品牌空间] (C)2001-2010 Comsenz Inc.
+ *      This is NOT a freeware, use is subject to license terms
+ *
+ *      $Id: groupbuy.css 4333 2010-09-06 02:51:12Z yanghuan $
+ */
+
+#albumlist li {
+	background: url(../../../static/image/img_li_bg.gif) no-repeat scroll 0
+		0 transparent;
+}
+
+#albumlist li .album_desc {
+	color: #2C5F94;
+}
+
+#album_show_thumb_panel .prev a {
+	background-position: -95px -48px;
+}
+
+#album_show_thumb_panel .goodlist .curr_pic {
+	background: url(image/bg_targetpic_curr.gif) no-repeat scroll 0 0
+		transparent;
+}
+
+#album_show_thumb_panel .prev a,#album_show_thumb_panel .next a {
+	background: url(image/bg_navbtn.gif) no-repeat;
+}
+
+#album_show_thumb_panel .prev a {
+	background-position: -95px -48px;
+}
+
+#album_show_thumb_panel .next a {
+	background-position: -125px -48px;
+}
+
+/* photo ablum */
+
+.targetpic_prev a,.targetpic_next a {
+	background-image: url(image/bg_targetpic_curr.gif);
+}
+
+.targetpic_next a {
+	float: right;
+	background-position: -59px -37px
+}
+
+.targetpic_main {
+	width: 328px;
+}
+
+.targetpic_main p {
+	color: #3971AA;
+}
+
+/*.targetpic_main div a {
+	display: inline;
+	width: auto;
+	height: auto;
+	font-size: 12px;
+	padding: 0;
+	border: none;
+}*/

@@ -1,0 +1,86 @@
+{template yikatong:store/default/store_header}
+<link type="text/css" rel="stylesheet" href="source/plugin/yikatong/template/store/default/intro.css" />
+<div class="main layout">
+	<div class="l_p">
+		<div class="intro_base">
+			<h2 class="title">$shopinfo['subject']</h2>
+			<table class="base_info">
+			<!--{if $shopinfo['applicantqq']}-->
+			<tr>
+				<th>客服:</th>
+				<td><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$shop[applicantqq]}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$shopinfo[applicantqq]}:46" alt="{$lang[qq_1]}" title="{$lang[qq_2]}" class="vm"></a></td>
+			</tr>
+			<!--{/if}-->
+			<!--{if $shopinfo['isdiscount'] || $shopinfo['claimedshop']}-->
+				<tr>
+				<th>认证:</th>
+				<td>
+					<!--{if $shopinfo['isdiscount']}-->
+						<img src="{$plugin_config['imagespath']}/ico_vip.gif" /> 
+					<!--{/if}-->
+					<!--{if $shopinfo['claimedshop']}-->
+						<img src="{$plugin_config['imagespath']}/ico_claime.gif" />
+					<!--{/if}-->
+				</td>
+				</tr>
+			<!--{/if}-->
+			<tr>
+			<th>地址:</th>
+			<td>$shopinfo['address']</td>
+			</tr>
+			<tr>
+			<th>电话:</th>
+			<td>$shopinfo['tel']</td>
+			</tr>
+			<tr>
+			<th>分类:</th>
+			<td>
+				{$fenlei}</td>
+			</tr>
+			<tr>
+			<th>会员卡折扣:</th>
+			<td>$shopinfo['discount']</td>
+			</tr>
+			<tr>
+			<th>商家头条信息:</th>
+			<td>
+			<!--{loop $tips $tip}-->
+				$tip<br>
+			<!--{/loop}-->
+			</td>
+			</tr>
+			</table>
+			<div class="shop_logo">
+			<img src="{$subjectimage}" width="150" height="120" />
+			</div>
+			<div class="c"></div>
+		</div>
+		
+		<div class="intro_info mt10"  style="padding:5px;color:#000; border:none; border-bottom:#ccc 1px dashed;font-weight:normal;">
+			<h2 class="title">商家介绍</h2>
+			<div>
+				$shopinfo['message']
+			</div>
+		</div>
+		<!--{if !empty($customizeinfos)}-->
+			<div class="intro_other mt10">
+				<h2 class="title">其他信息</h2>
+				<table class="other_info">
+				<!--{loop $customizeinfos $key $value}-->
+					<tr>
+					<th>$cacheinfo['columns'][$key]['fieldtitle']:</th>
+					<td>$value</td>
+					</tr>
+				<!--{/loop}-->
+				</table>
+			</div>
+		<!--{/if}-->
+	</div>
+{template yikatong:store/default/store_sidebar}
+</div>
+
+<style>
+
+
+
+</style>

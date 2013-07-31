@@ -1,0 +1,67 @@
+<!--{template common/header}-->
+
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/jquery.js"></script>
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/i.js"></script>
+<script charset="utf-8" type="text/javascript">var jq = jQuery.noConflict();</script>
+<style id="diy_style" type="text/css"></style><!--在模板文件中添加存放CSS代码的标签-->
+
+<link type="text/css" rel="stylesheet" href="{$plugin_config['csspath']}/common.css" />
+
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+
+<div class="wrap cl">
+	<div class="main">
+		<div id="pt">
+			<a title="$_G['setting']['sitename']" class="nvhm" id="fjump" href="./">$_G['setting']['sitename']</a>
+			<em>&rsaquo;</em><a href="sitenotice.php">站点公告列表</a>
+		</div>
+		<!--{if empty($_GET[noticeid]) }-->
+		<div class="bm mbm">
+			<div class="bm_c">
+				<ul class="tlist cl">
+					<!--{loop $sitenoticelist $sitenotice}-->
+						<li>
+							<em>{$sitenotice['dateline']}</em>
+							<a target="_blank" href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=sitenotice&noticeid={$sitenotice[noticeid]}" title="{$sitenotice['subject']}">{$sitenotice['subject']}</a>
+						</li>
+					<!--{/loop}-->
+				</ul>
+				$multipage				
+			</div>
+		</div>
+		<!--{/if}-->
+		<!--{if $_GET[noticeid] }-->
+		<div class="bm mbm">
+			<div class="bm_c notice">
+				<div class="notice">
+					<h1>{$notice_info[subject]}</h1>
+					<div class="mbm">发布日期： $notice_info[dateline]<span class="pipe">|</span>发布者：  $notice_info[username]<span class="pipe">|</span>浏览次数：{$num} </div>
+					<div class="con mtm"><span style="font-size:medium;">$notice_info[message]</span></div>
+				</div>
+			</div>
+		</div>
+		<!--{/if}-->
+	</div>
+	<div class="side">
+		<div class="bm">
+			<div class="bm_h">
+				<h3>{$side_h}</h3>
+			</div>
+			<div class="bm_c">
+				<ul class="tlist tlbp cl">
+				<!--{loop $sitenoticelist $sitenotice}-->
+				<li class="cl">
+					<p><a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=sitenotice&noticeid={$sitenotice['noticeid']}" title="{$sitenotice['subject']}">{$sitenotice['subject']}</a></p>
+				</li>
+				<!--{/loop}-->
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+
+
+<!--{subtemplate common/footer}-->
+

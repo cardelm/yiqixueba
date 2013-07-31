@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" id="V" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no" />
+<meta name="Description" content="" />
+<title>微团购</title>
+<link rel="stylesheet" name="" type="text/css" href="/css/style.css?v=201301161908">
+<link rel="stylesheet" name="addStyle" id="addStyle" href="">
+<script type="text/javascript">
+var SERVER_HOST = 'http://w.gaopeng.com';
+</script>
+<script type="text/javascript" src="/js/wtg.ajax.min.js"></script>
+<script type="text/javascript" src="/js/common.js?v=201301051109"></script>
+<script type="text/javascript" src="/js/order_view.js"></script>
+<script type="text/javascript">
+</script>
+</head>
+<body>
+<div class="Fh_hbotno"></div>
+<section class="F_cqsmt box-shadow marg20">
+    <nav>
+        <i class="on">1</i><strong>填写订单</strong><span>●●●</span>
+        <i>2</i>确认支付<span>●●●</span>
+        <i>3</i>支付成功
+    </nav>
+	<h2>订单信息</h2>
+    <ul>
+    <li><strong>名称:</strong><span>保利DMC望京影城影票</span></li>
+    <li><strong>单价:</strong><span>￥9.9</span></li>
+    <li><strong>数量:</strong><div class="F_inpNum" style="background:#f8f8f2;"><a class="No_t" id="NumberLeftBtn">-</a><input type="number" name="number" value="1" id="AddOrderNumber" nummax="2" nummin="1" size="4"><a id="NumberRightBtn">+</a></div><b id="NumberTip" class="F_red2"></b></li>
+    <li><strong>总价:</strong><span class="F_red" id="AddOrderTotal" price="990">￥9.9</span></li>
+    </ul>
+    <p class="F_prompt"><strong>温馨提示：</strong>此团购不支持退款</p>
+	<div class="btn_box">
+		<button id="BtnBack" state_a="3001" state_s="1469" class="fc_btn fc_btn_o">返回</button>
+		<button id="BtnOrder" class="fc_btn" url="/order/add/153313?S=1469&A=3002&orderId=0">提交订单</button>
+	</div>
+</section>
+<div class="margb20"></div>
+<div id="loadingBox" style="display:none;"><p>加载中...</p><i></i></div>
+<div style="display: none">
+<script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fbe822fa5da0da4d3baeb4a4235398b6c' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+</body>
+</html>

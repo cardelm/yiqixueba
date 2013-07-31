@@ -297,7 +297,6 @@ function refresh_mokuai(){
 	return ;
 }//end func
 //浏览器友好的变量输出
-
 function dump($var, $echo=true,$label=null, $strict=true){
 	$label = ($label===null) ? '' : rtrim($label) . ' ';
 	if(!$strict) {

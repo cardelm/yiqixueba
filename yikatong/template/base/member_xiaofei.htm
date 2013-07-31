@@ -1,0 +1,89 @@
+<!--{template common/header}-->
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em>
+		<a href="plugin.php?id=yikatong:brand&mod=member">会员中心</a> <em>&rsaquo;</em>
+		<a href="plugin.php?id={$plugin_config['plugin_name']}:brand&mod=member&op=xiaofei"></a>消费记录
+		
+	</div>
+</div>
+
+<div id="ct" class="ct2_a wp cl">
+	<div class="mn">
+		<div class="bm bw0">
+			<h1 class="mbm xs2">消费记录</h1>
+			<br /><p class="tbmu bw0">获得积分：{$p1} 积分   节省：{$p2} 元</p>
+			<script type="text/javascript" src="{$_G[setting][jspath]}calendar.js?{VERHASH}"></script>
+			<form method="post" action="plugin.php?id=yikatong:brand&mod=member&op=xiaofei">
+			<div class="exfm" style="margin-top: 0;">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+				<td>起始时间：<input type="text" name="starttime" onclick="showcalendar(event, this)" readonly="readonly" value="{$_POST[starttime]}">--<input type="text" name="endtime" onclick="showcalendar(event, this)" readonly="readonly"  value="{$_POST[endtime]}"></td><td>消费类型：{$search_xflx}</td><td>门店搜索：<input type="text" name="sssj"  value="{$_POST[sssj]}"></td><td rowspan="2">&nbsp;&nbsp;<button type="submit" class="pn" name="search" value="true"><strong>搜索</strong></button>&nbsp;&nbsp;</td>
+				</tr>
+			</table>
+			</form>
+			</div>
+		</div>
+		<table summary="{lang get_credit_histroy}" cellspacing="0" cellpadding="0" class="dt">
+			<tr>
+				<th class="xw1" width="160" colspan="2">商品信息</th>
+				<th class="xw1" width="160">交易情况</th>
+				<th class="xw1" width="120">积分赠送</th>
+				<th class="xw1" >操作员</th>
+			</tr>
+			<!--{if $xflu_num >0}-->
+			<!--{eval $i = 0;}-->
+			<!--{loop $xiaofeijilu $key $member}-->
+			<!--{eval $i++;}-->
+			<tr{if $i % 2 == 0} class="alt"{/if}>
+				<td width="38">
+				<!--{if $member[xflx] == '快速消费'}-->
+					<img src="{$member[img]}" width="36" height="36">
+				<!--{else}-->
+					<a href="forum.php?mod=viewthread&tid={$member[sptid]}" target="_black"><img src="{$member[img]}" width="36" height="36"></a>
+				<!--{/if}-->
+					
+				</td>
+				<td>
+					<div>
+					<!--{if $member[xflx] == '快速消费'}-->
+						<strong>{$member[spmc]}</strong>【{$member[sssj]}】
+					<!--{else}-->
+						<a href="forum.php?mod=viewthread&tid={$member[sptid]}" target="_black"><strong>{$member[spmc]}</strong>【{$member[sssj]}】</a>
+					<!--{/if}-->
+					</div>
+					<div>时间：{$member[jysj]}</div>
+					<div>订单号：{$member[ddh]}</div>
+				</td>
+				<td>
+					<div>价格：{$member[jg]}&nbsp;&nbsp;数量：{$member[js]}</div>
+					<div>实付：<strong><font color="#ff0000">{$member[jine]}</font></strong>
+					<!--{if $member[xflx] == '积分消费'}-->
+						积分
+					<!--{else}-->
+						元
+					<!--{/if}-->
+					</div>
+					<div>消费类型：{$member[xflx]}</div>
+				</td>
+				<td>{$member[jifen]}积分</td>
+				<td>{$member[czy]}</td>
+			</tr>
+			<!--{/loop}-->
+			<!--{else}-->
+			<tr>
+				<td colspan="5">暂时没有消费记录</td>
+			</tr>
+			<!--{/if}-->
+		</table>
+		<!--{if $multi}--><div class="pgs cl mtm">$multi</div><!--{/if}-->
+		<br />
+	
+	
+	
+	</div>
+	<div class="appl">
+		<!--{template yikatong:base/member_nav}-->
+	</div>
+</div>
+<!--{subtemplate common/footer}-->

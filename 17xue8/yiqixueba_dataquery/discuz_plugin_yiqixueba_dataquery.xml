@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X2.5]]></item>
+	<item id="Time"><![CDATA[2013-04-28 15:19]]></item>
+	<item id="From"><![CDATA[一起学吧 (http://www.17xue8.cn/)]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[数据查询]]></item>
+			<item id="identifier"><![CDATA[yiqixueba_dataquery]]></item>
+			<item id="description"><![CDATA[网友“飞翔的猪”定制的开班信息查询插件，5月1日前完成]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[yiqixueba_dataquery/]]></item>
+			<item id="copyright"><![CDATA[17xue8.cn]]></item>
+			<item id="version"><![CDATA[V1.0]]></item>
+		</item>
+		<item id="version"><![CDATA[X2.5]]></item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+	</item>
+</root>

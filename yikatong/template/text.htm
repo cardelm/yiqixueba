@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<style type="text/css">
+body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+#l-map{height:88%;width:100%;float:left;border-right:2px solid #bcbcbc;}
+#r-result{height:10%;width:85%;float:left;}
+#mapbutton{height:10%;width:15%;float:left;}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<title>一卡通店铺地图</title>
+</head>
+<body>
+<div id="r-result"></div><div id="mapbutton"><input type="button" onclick="biaozhu();" value="添加标注"></div>
+<div id="l-map"></div>
+</body>
+</html>
+<script type="text/javascript">
+	var xzb = parent.document.getElementById("typeoption_ykt_xzuobiao").value;
+	var yzb = parent.document.getElementById("typeoption_ykt_yzuobiao").value;
+	xzb = xzb==''?116.331398:xzb;
+	yzb = yzb==''?39.897445:yzb;
+	var map = new BMap.Map("l-map");
+	var point = new BMap.Point(xzb,yzb);
+	map.centerAndZoom(point,14);
+	biaozhu();
+
+	function myFun(result){
+		var cityName = result.name;
+		map.setCenter(cityName);
+		map.addControl(new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP,BMAP_HYBRID_MAP]}));     
+		map.addControl(new BMap.ScaleControl());                    // 添加默认比例尺控件
+		map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+	}
+
+	var myCity = new BMap.LocalCity();
+	myCity.get(myFun);
+
+	function biaozhu(){
+		//parent.tt();
+		var p = map.getCenter();
+		var sContent ="<h4 style='margin:0 0 5px 0;padding:0.2em 0'>填写店铺信息</h4>" + 
+		"<textarea name='' rows='' cols=''></textarea>" + 
+		"<input type='submit'>" + 
+		"</div>";
+
+		var marker = new BMap.Marker(p), px = map.pointToPixel(p);
+		map.addOverlay(marker);
+		marker.enableDragging();    
+		//创建信息窗口
+		var infoWindow1 = new BMap.InfoWindow(sContent);
+		p = marker.getPosition();
+		//document.getElementById("r-result").innerHTML = "您的位置是" + p.lng + '和' + p.lat  ;
+		parent.document.getElementById("typeoption_ykt_xzuobiao").value = p.lng ;
+		parent.document.getElementById("typeoption_ykt_yzuobiao").value = p.lat  ;
+		marker.addEventListener("click", function(){
+			this.openInfoWindow(infoWindow1);
+			p = marker.getPosition();  
+			//document.getElementById("r-result").innerHTML = "您的位置是" + p.lng + '和' + p.lat  ;
+			parent.document.getElementById("typeoption_ykt_xzuobiao").value = p.lng ;
+			parent.document.getElementById("typeoption_ykt_yzuobiao").value = p.lat  ;
+		});
+		marker.addEventListener("dragend", function(){
+			p = marker.getPosition();  
+			//document.getElementById("r-result").innerHTML = "您的位置是" + p.lng + '和' + p.lat  ;
+			parent.document.getElementById("typeoption_ykt_xzuobiao").value = p.lng ;
+			parent.document.getElementById("typeoption_ykt_yzuobiao").value = p.lat  ;
+
+		});
+	}
+</script>

@@ -1,0 +1,67 @@
+<!--{subtemplate common/header}-->
+<link rel="stylesheet" type="text/css" href="template/yktfanghd/style/images/body.css?{VERHASH}" />
+<script type="text/javascript" src="template/yktfanghd/style/images/jquery.min.js"></script>  
+<script type="text/javascript">
+	var jq = jQuery.noConflict(); 
+</script>
+<div class="wp">
+	<div id="pt" class="bm cl" >
+		<div class="z">
+			<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a><em>&raquo;</em><a href="forum.php?mod=forumdisplay&fid={$shop_fid}">商家首页</a><em>&raquo;</em>增加店员
+		</div>
+	</div>
+	<div class="bm cl">
+		<form action="plugin.php?id=yikatong:yktmanage&mod=adddianyuan&shopid={$shopid}" method="post" autocomplete="off">
+		<input type="hidden" value="01f397e6" name="{FORMHASH}" /><input type="hidden" name="dyid" value="{$_GET['dyid']}">
+			<table cellspacing="0" cellpadding="0" class="tfm" id="profilelist">
+				<tr>
+					<th>店员姓名</th>
+					<td><input type="text" name="name" class="px" value="{$dianyuan_info[name]}" tabindex="1" /><p class="d"></p></td>
+				</tr>
+				<tr>
+					<th>店员帐号</th>
+					<td><input type="text" name="zhanghao" class="px" value="{$dianyuan_info[zhanghao]}" tabindex="1" /><p class="d"></p></td>
+				</tr>
+				<tr>
+					<th>店员密码</th>
+					<td><input type="password" name="mima" class="px" value="{$dianyuan_info[mima]}" tabindex="1" /><p class="d"></p></td>
+				</tr>
+				<tr>
+					<th>店员电话</th>
+					<td><input type="text" name="dhhm" class="px" value="{$dianyuan_info[dhhm]}" tabindex="1" /><p class="d"></p></td>
+				</tr>
+				<tr>
+					<th>门店</th>
+					<td><input type="text" name="mendian" class="px" value="{$dianyuan_info[mendian]}" tabindex="1" /><p class="d"></p></td>
+				</tr>
+				<tr>
+					<th>门店地址</th>
+					<td><input type="text" name="mddz" class="px" value="{$dianyuan_info[mddz]}" tabindex="1" /><p class="d"></p></td>
+				</tr>
+				<tr>
+					<th>&nbsp;</th>
+					<td>
+						<input type="hidden" name="submit" value="true" />
+						<button type="submit" name="submitbtn" value="true" class="pn pnc" /><strong>保存</strong></button>
+						<span id="submit_result" class="rq"></span>
+					</td>
+				</tr>
+			</table>
+
+
+
+
+	</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+{template common/footer}

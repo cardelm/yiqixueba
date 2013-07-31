@@ -1,0 +1,47 @@
+<div class="shangTopleft">
+	<div class="Contentboxz"> 
+		<div id="con_ss_6">
+			<ul>
+				<div class="Shopins">
+				
+					<h4><strong>{$post[subject]}</strong><!--<span><a onclick="showDialog('确认给予好评?', 'confirm', '确认信息', function () { window.location.href='plugin.php?id=dz55625_hshop:shop&option=haoping&sp=2&sid=13'; return false; })" id="haoping">给予好评</a> | <a onclick="showDialog('确认给予差评?', 'confirm', '确认信息', function () { window.location.href='plugin.php?id=dz55625_hshop:shop&option=chaping&sp=2&sid=13'; return false; })" id="chaping">给予差评</a></span>--></h4>
+					<!--{eval DB::update('forum_typeoptionvar',array('value'=>intval($threadsortshow['optionlist']['ykt_scjg']['value']*100)),array('tid'=>$_GET['tid'],'optionid'=>DB::result_first("SELECT optionid FROM ".DB::table('forum_typeoption')." WHERE identifier= 'ykt_canshu1'")));}-->
+					
+					<dl>
+						<dt>{$threadsortshow['optionlist']['ykt_tgtp']['value']}</dt>
+						<dd>
+							<p><strong>会员价格:</strong> <em>{$threadsortshow['optionlist']['ykt_hyjg']['value']}</em> 元</p>
+							<p><strong>市场价格:</strong> <em>{$threadsortshow['optionlist']['ykt_scjg']['value']}</em> 元</p>
+							<p><strong>已经销售:</strong>{$threadsortshow['optionlist']['ykt_yxs']['value']}</p>
+							<p><strong>积分价格:</strong> <!--{eval echo intval($threadsortshow['optionlist']['ykt_scjg']['value']*100)}--></p>
+							<p><strong>库存数量:</strong> {$threadsortshow['optionlist']['ykt_kucun']['value']} 件</p>
+							<p><strong>联系购买:</strong> <a target="_blank" href=tencent://message/?uin={$threadsortshow['optionlist']['ykt_kfqq']['value']}&Site=$_G['setting'][siteurl]&Menu=yes><img src=http://wpa.qq.com/pa?p=5:{$threadsortshow['optionlist']['ykt_kfqq']['value']}:16 alt="点击这里给我发消息" border="0" align="absmiddle"></a></p>
+							<p><strong>最后更新:</strong> <em style="color: #999; font-family:Arial; font-size:12px">{$post[dateline]}</em></p>
+						</dd>
+					</dl>
+					<h5><strong><img src="$_G['style']['styleimgdir']/h5_ico.jpg" /></strong></h5>
+					<ol>$post[message]</ol>
+					<script type="text/javascript" reload="1">
+					aimgcount[{$post[pid]}] = [<!--{echo dimplode($aimgs[$post[pid]]);}-->];
+					attachimggroup($post['pid']);
+					<!--{if empty($_G['setting']['lazyload'])}-->
+						<!--{if !$post['imagelistthumb']}-->
+							attachimgshow($post[pid]);
+						<!--{else}-->
+							attachimgshow($post[pid], 1);
+						<!--{/if}-->
+					<!--{/if}-->
+					var aimgfid = 0;
+					<!--{if $_G['forum']['picstyle'] && ($_G['forum']['ismoderator'] || $_G['uid'] == $_G['thread']['authorid'])}-->
+						aimgfid = $_G[fid];
+					<!--{/if}-->
+					<!--{if $post['imagelistthumb']}-->
+						attachimglstshow($post['pid'], <!--{echo intval($_G['setting']['lazyload'])}-->, aimgfid, '{$_G[setting][showexif]}');
+					<!--{/if}-->
+				</script>
+
+				</div>
+			</ul>
+		</div>
+	</div>
+</div>

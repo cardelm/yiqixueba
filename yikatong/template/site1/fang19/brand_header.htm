@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset={CHARSET}" />
+	<title><!--{if !empty($navtitle)}-->$navtitle - <!--{/if}--><!--{if empty($nobbname)}--> $_G['setting']['bbname'] - <!--{/if}--> Powered by Discuz!</title>
+
+	$_G['setting']['seohead']
+
+	<meta name="keywords" content="{if !empty($metakeywords)}{echo dhtmlspecialchars($metakeywords)}{/if}" />
+	<meta name="description" content="{if !empty($metadescription)}{echo dhtmlspecialchars($metadescription)} {/if}{if empty($nobbname)},$_G['setting']['bbname']{/if}" />
+	<meta name="generator" content="Discuz! $_G['setting']['version']" />
+	<meta name="author" content="Discuz! Team and Comsenz UI Team" />
+	<meta name="copyright" content="2001-2012 Comsenz Inc." />
+	<meta name="MSSmartTagsPreventParsing" content="True" />
+	<meta http-equiv="MSThemeCompatible" content="Yes" />
+	
+
+
+<link rel="stylesheet" type="text/css" href="{$plugin_config['csspath']}/portal_style.css?v={VERHASH}" />
+<link rel="stylesheet" type="text/css" href="{$plugin_config['csspath']}/brand-mod.css?v={VERHASH}" />
+<link rel="stylesheet" type="text/css" href="{$plugin_config['csspath']}/brand.css?v={VERHASH}" />
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/jquery.js"></script>
+<script charset="utf-8" type="text/javascript" src="{$plugin_config['jspath']}/i.js"></script>
+<script charset="utf-8" type="text/javascript">var jq = jQuery.noConflict();</script>
+<script type="text/javascript" src="{$_G[setting][jspath]}common.js?{VERHASH}"></script>
+
+<script type="text/javascript" src="{$_G[setting][jspath]}portal_div.js?{VERHASH}"></script>
+
+<script type="text/javascript" src="{$_G[setting][jspath]}portal_div_data.js?{VERHASH}"></script>	
+</head>
+<body style="background:url({$plugin_config['imagespath']}/bg_index.jpg) repeat">
+<div id="main">
+    <!-- header nav START -->
+<div id="hdHeader" class="clearall mb20">
+    <div class="layout-980 clearall">
+         <div id="loginInfo" class="hd-login">
+            <a href="index.php" >网站首页</a> |<a href="plugin.php?id=yikatong:brand&mod=attend" rel="nofollow" target="_blank">新店报名</a>
+        </div>
+      
+        <div class="hd-logo">
+            <a href="#" class="front-logo" title="一卡通首页"
+               style="_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{$plugin_config['imagespath']}/094514_kikdccoc_cda423916612a9dc201540504348c93d.jpg',sizingMethod='scale');"><img
+                    src="{$plugin_config['imagespath']}/logo.jpg"></a>
+            <a rel="nofollow" href="forum.php?mod=forumdisplay&fid={$commentforum}" class="create-shop"><span
+                    class="add-icon">分享我喜欢的</span></a>
+        </div>
+         <div class="hd-fsearch">
+            <p><input type="text" value="" placeholder="输入关键词 寻找好店" class="txt keyword"><a class="search" name="brandSearch">搜索</a></p>
+        </div>
+	</div>
+       
+

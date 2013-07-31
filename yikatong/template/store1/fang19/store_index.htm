@@ -1,0 +1,58 @@
+{template yikatong:store/fang19/store_header}
+		<div class="detail-bd">
+			<div class="box-mod">
+				<div class="box-bd">
+					<div class="linkw">
+						<h2>联系方式</h2>
+						<div class="linkw-item mt10">
+                            <p class="link-red owner mb10"><i></i><strong class="color6">店铺创建人：</strong><!--{avatar($shopinfo[uid],small)}--><span class="mr10">{$shopinfo[username]}</span><a class="mr10" target="_blank" href="home.php?mod=space&uid={$shopinfo[uid]}&do=profile">[点击进入TA的个人空间]</a></p>
+							<p class="address mb10"><i></i><strong class="color6">店铺地址：</strong>{$shopinfo[address]}</p>
+							<p class="phone mb10"><i></i><strong class="color6">店铺电话：</strong><em class="word-bk">{$shopinfo[tel]}</em></p>
+							<p style="font-size:22px;"><strong class="color6">持一卡通享受<font color="red">{$shopinfo[zhekou]}</font>折</strong></p>
+							<img src="{$weixin}" alt="">
+							
+					</div>
+					<div class="">
+						 <div id="map" style='width:650px;height:400px;'></div>			
+					</div>
+				</div>
+			</div>          
+		  </div>
+	   </div>
+	</div>
+ </div>
+	
+</div>
+<!-- 品牌头部公用js -->
+<script type="text/javascript">
+    var bds_config = {'bdText':''};
+AM.ready('http://js2.citysbs.com/0.5.23.14-hd-app/brand/brandspace/HD.common.js','http://js2.citysbs.com/0.5.23.14-hd-app/brand/brandspace/HD.myshare.js','http://js2.citysbs.com/0.5.23.14-hd-app/brand/brandspace/HD.map.js','showWin','showTips','validate','ajax',function() {
+    window.onload=function(){
+        myshare.shareTop({share:0,customer:1,'height':'75px'});
+    }
+});
+</script>
+<script type="text/javascript">
+    AM(function(){
+        $("#logout").click(function(){
+            $.getJSON("http://www.19lou.com/logout",
+                function(res){
+                    DelCookie("sbs_auth_uid");
+                });
+            //删除
+            function DelCookie(name)
+            {
+            var exp = new Date();
+            exp.setTime (exp.getTime() - 1);
+            var cval = GetCookie (name);
+            document.cookie = name + "=" + cval + "; expires="+ exp.toGMTString();
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+var channel='hangzhou';
+var _o2_Protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _o2_Protocol + "o1.19lou.com/dm2011_city.js%3F0.5.21.0223' type='text/javascript'%3E%3C/script%3E"));
+</script>
+{template yikatong:store/fang19/store_footer}

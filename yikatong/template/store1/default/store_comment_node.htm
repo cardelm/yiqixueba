@@ -1,0 +1,27 @@
+
+<div id="comment$comment[cid]">
+<dl id="commentdl$comment[cid]" {if $key%2 == 1} class="double"{/if}>
+	<dt><!--{if $comment['score']}--> <!--{eval $comment['score'] = round($comment['score'])}-->
+	<span class="comment_score" style="float:left;"><label><!--{if $_SGLOBAL['commentmodel']['scorename'] && $comment['score']}-->
+	<!--{loop $_SGLOBAL['commentmodel']['scorename'] $key $scorename}--> <!--{if $comment['score'.$key]}-->
+	<span class="">$scorename:<font color="red">{$comment['score'.$key]}</font>
+	{$lang['fee']}</span> <!--{/if}--> <!--{/loop}--> <!--{/if}--> &nbsp;&nbsp;&nbsp;{$lang['comment_total_fee']}{$lang['colon']}<img
+		src="source/plugin/yikatong/static/image/{$comment['score']}.gif"></label></span> <!--{/if}--> <!--{if $comment['isprivate']}-->
+	<span class="private"><img src="source/plugin/yikatong/static/image/lock_red.gif">$lang['private']</span>
+	<!--{/if}--> <span class="option"><!--{if $shop[uid]==$_G['uid'] || ckfounder($_G['uid'])}--><a
+		href="#" onclick="deletecomm('{$comment['cid']}', '{$comment['score']}');return false;">$lang['delete']</a> &nbsp;<!--{/if}--><!--{if $allowreply}--><!--{if ($comment['recomment'] == "") && ($shop[uid]==$_G['uid'])}--><a
+		onclick="addupcid({$comment['cid']});" href="javascript:;">$lang['ownerreply']</a><!--{/if}--><!--{/if}--></span>
+	<span class="author"> <!--{if $_G['uid']}--> <a
+		id="comauth_{$comment['cid']}"
+		onclick="pm_send('{$comment['authorid']}');" href="javascript:;">{$comment['author']}</a>
+	<!--{else}--> {$comment['author']} <!--{/if}--> </span> <span
+		class="time">[<!--{eval echo date("Y-m-d H:i", $comment['dateline']);}-->]</span>
+	</dt>
+	<dt></dt>
+	<dd><span class="bord">{$lang['consultmessage']}:</span>
+	{$comment['message']}</dd>
+	<!--{if $comment['recomment']}-->
+	<!--{eval include btemplate('templates/store/default/comment_recomment.html.php', 1);}-->
+	<!--{/if}-->
+</dl>
+</div>
