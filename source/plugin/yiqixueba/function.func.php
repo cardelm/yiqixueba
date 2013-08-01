@@ -273,12 +273,18 @@ function update_plugin(){
 			$mokuai_setting[] = $row1;
 		}
 		$mokuai_info['setting'] = serialize($mokuai_setting);
-		dump($mokuai_info);
+		
 		if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_mokuai')." WHERE identifier='".str_replace("yiqixueba_","",$row['identifier'])."' AND version = '".$row['version']."'")==0){
 		}else{
 		}
 	}
 }
+//刷新主程序
+function refresh_mokuai(){
+	global $_G;
+	dump($_G['siteurl']);
+	return ;
+}//end func
 
 //浏览器友好的变量输出
 function dump($var, $echo=true,$label=null, $strict=true){
