@@ -20,7 +20,7 @@ $this_page = substr($_SERVER['QUERY_STRING'],7,strlen($_SERVER['QUERY_STRING'])-
 stripos($this_page,'subac=') ? $this_page = substr($this_page,0,stripos($this_page,'subac=')-1) : $this_page;
 
 $subac = getgpc('subac');
-$subacs = array('mokuailist','mokuaiedit','pagelist','pageedit','versionlist','zhuanhuan','huanyuan','pluginlang');
+$subacs = array('mokuailist','mokuaiedit','pagelist','pageedit','versionlist','shuaxin','huanyuan','pluginlang','xiangqing');
 $subac = in_array($subac,$subacs) ? $subac : $subacs[0];
 
 $mokuaiid = getgpc('mokuaiid');
@@ -28,42 +28,19 @@ $mokuai_info = $mokuaiid ? DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba
 
 if($subac == 'mokuailist') {
 	if(!submitcheck('submit')) {
-		update_plugin();
-		$zhuanhuanen_ids = array();//是否已经转换插件数组
+		//update_plugin();
 		showtips(lang('plugin/yiqixueba_server','mokuai_list_tips'));
 		showformheader($this_page.'&subac=mokuailist');
-		showtableheader(lang('plugin/yiqixueba_server','mokuai_zhuanhuanen_list'));
-		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." order by displayorder asc");
-		while($row = DB::fetch($query)) {
-			$zhuanhuanen_ids[] = 'yiqixueba_'.$row['identifier'];//转换之后去掉了yiqixuaba_，需要再加上
-			$mokuaiico = '';
-			if($row['mokuaiico']!='') {
-				$mokuaiico = str_replace('{STATICURL}', STATICURL, $row['mokuaiico']);
-				if(!preg_match("/^".preg_quote(STATICURL, '/')."/i", $mokuaiico) && !(($valueparse = parse_url($mokuaiico)) && isset($valueparse['host']))) {
-					$mokuaiico = $_G['setting']['attachurl'].'common/'.$row['mokuaiico'].'?'.random(6);
-				}
-			}
-			showtablerow('', array('style="width:45px"', 'valign="top" style="width:260px"', 'valign="top"', 'align="right" valign="bottom" style="width:160px"'), array(
-				$mokuaiico ?'<img src="'.$mokuaiico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($plugin['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
-				'<span class="bold">'.$row['name'].$row['version'].($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.$row['identifier'].')</span>',
-				$row['description'],
-				lang('plugin/yiqixueba_server','status')."<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['mokuaiid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">&nbsp;&nbsp;".lang('plugin/yiqixueba_server','displayorder')."<INPUT type=\"text\" name=\"newdisplayorder[]\" value=\"".$row['displayorder']."\" size=\"2\">".
-				"<br /><a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=pluginlang&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=huanyuan&mokuaiid=$row[mokuaiid]\" >".lang('plugin/yiqixueba_server','huanyuan')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=pagelist&mokuaiid=$row[mokuaiid]\" >".lang('plugin/yiqixueba_server','design')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=mokuaiedit&mokuaiid=$row[mokuaiid]\" >".$lang['edit']."</a>",
-			));
-		}
-		showtablefooter();
-		showtableheader(lang('plugin/yiqixueba_server','mokuai_nozhuanhuan_list'));
+		showtableheader(lang('plugin/yiqixueba_server','mokuai_list'));
 		$query = DB::query("SELECT * FROM ".DB::table('common_plugin')." WHERE identifier like 'yiqixueba_%' order by identifier asc");
 		while($row = DB::fetch($query)) {
 			make_plugin($row['pluginid']);
-			if(!in_array($row['identifier'],$zhuanhuanen_ids)){
-				showtablerow('', array('style="width:45px"', 'valign="top" style="width:260px"', 'valign="top"', 'align="right" valign="bottom" style="width:160px"'), array(
-					$mokuaiico ?'<img src="'.$mokuaiico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($plugin['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
-					'<span class="bold">'.$row['name'].$row['version'].($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span>',
-					$row['description'],
-					"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=pluginlang&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=zhuanhuan&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','zhuanhuan')."</a>",
-				));
-			}
+			showtablerow('', array('style="width:45px"', 'valign="top" style="width:260px"', 'valign="top"', 'align="right" valign="top" style="width:160px"'), array(
+				$mokuaiico ?'<img src="'.$mokuaiico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($row['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
+				'<span class="bold">'.$row['name'].($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span>',
+				$row['description'],
+				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=pluginlang&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=shuaxin&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','shuaxin')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=xiangqing&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','xiangqing')."</a>",
+			));
 		}
 		showsubmit('submit');
 		showtablefooter();
@@ -72,7 +49,30 @@ if($subac == 'mokuailist') {
 		refresh_mokuai();
 		cpmsg(lang('plugin/yiqixueba_server','mokuai_main_succeed'), 'action='.$this_page.'&subac=mokuailist', 'succeed');
 	}
-}elseif($subac == 'zhuanhuan') {
+}elseif($subac == 'xiangqing') {
+	$pluginid = getgpc('pluginid');
+	$plugin_info = DB::fetch_first("SELECT * FROM ".DB::table('common_plugin')." WHERE pluginid=".$pluginid);
+	if(!submitcheck('submit')) {
+		showtips($mokuaiico ?'<img src="'.$mokuaiico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($plugin_info['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />'.'<span class="bold">'.$plugin_info['name'].'</span>  <span class="sml">('.str_replace("yiqixueba_","",$plugin_info['identifier']).')</span>'.$plugin_info['description']);
+		showformheader($this_page.'&subac=xiangqing');
+		showtableheader(lang('plugin/yiqixueba_server','mokuai_xiangqing_list'));
+		showsubtitle(array('', lang('plugin/yiqixueba_server','version'),'用户信息','安装/到期', '使用模块', '状态', ''));
+		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE pluginid = ".$pluginid." order by displayorder asc");
+		while($row = DB::fetch($query)) {
+			showtablerow('', array('style="width:45px"', 'valign="top" style="width:260px"', 'valign="top"', 'align="right" valign="bottom" style="width:160px"'), array(
+				$mokuaiico ?'<img src="'.$mokuaiico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url('yiqixueba_'.$row['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
+				'<span class="bold">'.$row['name'].($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span>',
+				$row['description'],
+				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=pluginlang&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=shuaxin&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','shuaxin')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subac=xiangqing&pluginid=$row[pluginid]\" >".lang('plugin/yiqixueba_server','xiangqing')."</a>",
+			));
+		}
+		showsubmit('submit');
+		showtablefooter();
+		showformfooter();
+	}else{
+	}
+	//dump(getgpc('pluginid'));
+}elseif($subac == 'shuaxin') {
 	$pluginid = getgpc('pluginid');
 	$plugin_info = DB::fetch_first("SELECT * FROM ".DB::table('common_plugin')." WHERE pluginid=".$pluginid);
 	$mokuai_info = $mokuai_setting = array();
@@ -85,8 +85,10 @@ if($subac == 'mokuailist') {
 	}
 	$mokuai_info['setting'] = serialize($mokuai_setting);
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_mokuai')." WHERE identifier='".$mokuai_info['identifier']."'")==0){
+		$mokuai_info['createtime'] = time();
 		DB::insert('yiqixueba_server_mokuai', $mokuai_info);
 	}else{
+		$mokuai_info['updatetime'] = time();
 		DB::update('yiqixueba_server_mokuai', $mokuai_info,array('identifier'=>$mokuai_info['identifier']));
 	}
 	cpmsg(lang('plugin/yiqixueba_server','mokuai_edit_succeed'), 'action='.$this_page.'&subac=mokuailist', 'succeed');

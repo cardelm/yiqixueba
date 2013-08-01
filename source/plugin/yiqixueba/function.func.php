@@ -263,6 +263,17 @@ function write_scriptlang_file($pluginid,$script_lang){
 function update_plugin(){
 	$query = DB::query("SELECT * FROM ".DB::table('common_plugin')." WHERE identifier like 'yiqixueba_%' order by identifier asc");
 	while($row = DB::fetch($query)) {
+		$mokuai_info = $mokuai_setting = array();
+		$mokuai_info = $row;
+		$mokuai_info['available'] = 1;
+		$mokuai_info['identifier'] = str_replace("yiqixueba_","",$mokuai_info['identifier']);
+		$mokuai_info['createtime'] = time();
+		$query1 = DB::query("SELECT * FROM ".DB::table('common_pluginvar')." WHERE pluginid = ".$row['pluginid']." order by displayorder asc");
+		while($row1 = DB::fetch($query1)) {
+			$mokuai_setting[] = $row1;
+		}
+		$mokuai_info['setting'] = serialize($mokuai_setting);
+		dump($mokuai_info);
 		if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_mokuai')." WHERE identifier='".str_replace("yiqixueba_","",$row['identifier'])."' AND version = '".$row['version']."'")==0){
 		}else{
 		}
