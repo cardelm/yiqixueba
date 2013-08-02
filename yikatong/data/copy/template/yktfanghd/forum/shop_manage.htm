@@ -1,7 +1,0 @@
-<!--{eval $sub_sql = "SELECT tid FROM ".DB::table('forum_typeoptionvar')." WHERE sortid = ".$sortid;}-->
-<!--{eval $sub_sql .= " and optionid = ".$sort_dis['ykt_UID']." and value= ".$shop_uid;}-->
-<!--{eval $query = DB::query($sub_sql);}-->
-<!--{eval while($row = DB::fetch($query)) {}-->
-<!--{eval $shopinfo[] = $row['tid'];}-->
-<!--{eval }}-->
-<!--{eval var_dump($shopinfo);}-->

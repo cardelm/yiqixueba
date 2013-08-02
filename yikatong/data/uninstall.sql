@@ -1,9 +1,0 @@
-﻿DROP TABLE IF EXISTS `pre_brand_settings`;
-DROP TABLE IF EXISTS `pre_brand_xfjl`;
-DROP TABLE IF EXISTS `pre_brand_cikahaoma`;
-DROP TABLE IF EXISTS `pre_brand_hycz`;
-DROP TABLE IF EXISTS `pre_brand_hy`;
-DROP TABLE IF EXISTS `pre_brand_dianyuan`;
-DROP TABLE IF EXISTS `pre_brand_renyuanshuju`;
-DROP TABLE IF EXISTS `pre_brand_wangzhanshouyi`;
-DROP TABLE IF EXISTS `pre_brand_pingfen`;

@@ -1,5 +1,0 @@
-<?php
-$mokuailang = array(
-	''=>'',
-);
-?>

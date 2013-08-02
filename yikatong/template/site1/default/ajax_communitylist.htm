@@ -1,9 +1,0 @@
-<!--{template common/header}-->
-<!--{if !empty($communitylist)}-->
-<select id="communityid" name="communityid"  class="small_select"><option value="-1">«Î—°‘Ò</option>
-	<!--{loop $communitylist $community}-->
-	<option value="{$community['id']}" >{$community['name']}</option>
-	<!--{/loop}-->
-</select>
-<!--{/if}-->
-<!--{template common/footer}-->
