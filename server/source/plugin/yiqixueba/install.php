@@ -1,6 +1,8 @@
 <?php
 
-$server_siteurl = 'http://localhost/yiqixueba/dz3utf8/';
+//$server_siteurl = 'http://localhost/yiqixueba/dz3utf8/';
+//测试阶段
+$server_siteurl = $_G['siteurl'];
 
 $installdata = array();
 require_once DISCUZ_ROOT.'/source/discuz_version.php';
@@ -18,11 +20,11 @@ $outdata = is_array(xml2array($xml)) ? xml2array($xml) : $xml;
 
 
 
-$yiqixueba_setting = array();
-$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_setting'));
-while($row = DB::fetch($query)) {
-	$yiqixueba_setting[$row['skey']] = $row['svalue'];
-}
+//$yiqixueba_setting = array();
+//$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_setting'));
+//while($row = DB::fetch($query)) {
+	//$yiqixueba_setting[$row['skey']] = $row['svalue'];
+//}
 
 //dump($yiqixueba_setting);
 $sql = <<<EOF
@@ -83,7 +85,7 @@ CREATE TABLE `pre_yiqixueba_setting` (
 -- ----------------------------
 -- Records of pre_yiqixueba_setting
 -- ----------------------------
-INSERT INTO `pre_yiqixueba_setting` VALUES ('server_siteurl', 'http://localhost/yiqixueba/dz3utf8/');
+INSERT INTO `pre_yiqixueba_setting` VALUES ('server_siteurl', 'http://localhost/discuzdemo/dz3utf8/');
 
 
 -- ----------------------------
