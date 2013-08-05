@@ -22,6 +22,18 @@ $indata = base64_decode($indata);
 $indata = dunserialize($indata);
 ////////////////////////////////////////
 if($apiaction == 'install'){
+	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==0){
+		$data = array();
+		$data['salt'] = random(6);
+		$data['charset'] = $indata['charset'];
+		$data['clientip'] = $indata['clientip'];
+		$data['version'] = $indata['version'];
+		$data['siteurl'] = $indata['siteurl'];
+		$data['sitekey'] = md5($indata['siteurl'].$data['salt']);
+		$data['sitegroup'] = 1;
+		$data['installtime'] = time();
+		DB::insert('yiqixueba_server_site', $data);
+	}
 	$outdata = $indata;
 }
 

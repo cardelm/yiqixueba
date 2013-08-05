@@ -97,9 +97,16 @@ INSERT INTO `pre_yiqixueba_setting` VALUES ('server_siteurl', 'http://localhost/
 DROP TABLE IF EXISTS `pre_yiqixueba_server_site`;
 CREATE TABLE `pre_yiqixueba_server_site` (
   `siteid` mediumint(8) unsigned NOT NULL auto_increment,
-  `sitename` char(40) NOT NULL,
+  `sitegroup` smallint(3) NOT NULL,
+  `siteurl` char(40) NOT NULL,
+  `sitekey` char(32) NOT NULL,
+  `salt` char(6) NOT NULL,
+  `charset` char(10) NOT NULL,
+  `clientip` char(20) NOT NULL,
+  `version` char(255) NOT NULL,
   `displayorder` mediumint(8) NOT NULL,
   `installtime` int(10) NOT NULL,
+  `uninstalltime` int(10) NOT NULL,
   PRIMARY KEY  (`siteid`)
 ) ENGINE=MyISAM;
 
