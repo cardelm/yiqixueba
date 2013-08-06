@@ -4,30 +4,29 @@
 //测试阶段
 $server_siteurl = $_G['siteurl'];
 
-$installdata = array();
-require_once DISCUZ_ROOT.'/source/discuz_version.php';
-$installdata['charset'] = $_G['charset'];
-$installdata['clientip'] = $_G['clientip'];
-$installdata['siteurl'] = $_G['siteurl'];
-$installdata['version'] = DISCUZ_VERSION.'-'.DISCUZ_RELEASE.'-'.DISCUZ_FIXBUG;
-$installdata = serialize($installdata);
-$installdata = base64_encode($installdata);
-$api_url = $server_siteurl.'plugin.php?id=yiqixueba:api&apiaction=install&indata='.$installdata.'&sign='.md5(md5($installdata));
-$xml = @file_get_contents($api_url);
-require_once libfile('class/xml');
-$outdata = is_array(xml2array($xml)) ? xml2array($xml) : $xml;
-
-
-
-
-//$yiqixueba_setting = array();
-//$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_setting'));
-//while($row = DB::fetch($query)) {
-	//$yiqixueba_setting[$row['skey']] = $row['svalue'];
-//}
-
-//dump($yiqixueba_setting);
 $sql = <<<EOF
+-- ----------------------------
+-- Table structure for `pre_yiqixueba_setting`
+-- ----------------------------
+DROP TABLE IF EXISTS `pre_yiqixueba_setting`;
+CREATE TABLE `pre_yiqixueba_setting` (
+  `skey` varchar(255) NOT NULL,
+  `svalue` text NOT NULL,
+  PRIMARY KEY  (`skey`)
+) ENGINE=MyISAM;
+
+-- ----------------------------
+-- Table structure for `pre_yiqixueba_pages`
+-- ----------------------------
+DROP TABLE IF EXISTS `pre_yiqixueba_pages`;
+CREATE TABLE `pre_yiqixueba_pages` (
+  `pageid` char(33) NOT NULL,
+  `type` char(20) NOT NULL,
+  `mod` char(20) NOT NULL,
+  `submod` char(20) NOT NULL,
+  PRIMARY KEY  (`pageid`)
+) ENGINE=MyISAM;
+
 -- ----------------------------
 -- Table structure for `pre_yiqixueba_mokuai`
 -- ----------------------------
@@ -55,37 +54,56 @@ CREATE TABLE `pre_yiqixueba_mokuai` (
 -- ----------------------------
 INSERT INTO `pre_yiqixueba_mokuai` VALUES ('1', '1', '1', '主程序', 'main', '', '', 'yiqixueba_main/', 'www.17xue8.cn', 'a:3:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:12:\"平台首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";s:1:\"3\";s:7:\"adminid\";s:1:\"0\";s:12:\"displayorder\";i:0;s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:1;a:10:{s:4:\"name\";s:9:\"pluginreg\";s:4:\"menu\";s:12:\"平台注册\";s:3:\"url\";s:0:\"\";s:4:\"type\";s:1:\"3\";s:7:\"adminid\";s:1:\"0\";s:12:\"displayorder\";i:1;s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:2;a:10:{s:4:\"name\";s:6:\"mokuai\";s:4:\"menu\";s:12:\"模块管理\";s:3:\"url\";s:0:\"\";s:4:\"type\";s:1:\"3\";s:7:\"adminid\";s:1:\"0\";s:12:\"displayorder\";i:2;s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V2.0', 'a:0:{}', '1');
 
+EOF;
+
+//runquery($sql);
+
+$installdata = array();
+require_once DISCUZ_ROOT.'/source/discuz_version.php';
+$installdata['charset'] = $_G['charset'];
+$installdata['clientip'] = $_G['clientip'];
+$installdata['siteurl'] = $_G['siteurl'];
+$installdata['version'] = DISCUZ_VERSION.'-'.DISCUZ_RELEASE.'-'.DISCUZ_FIXBUG;
+$installdata = serialize($installdata);
+$installdata = base64_encode($installdata);
+$api_url = $server_siteurl.'plugin.php?id=yiqixueba:api&apiaction=install&indata='.$installdata.'&sign='.md5(md5($installdata));
+$xml = @file_get_contents($api_url);
+require_once libfile('class/xml');
+$outdata = is_array(xml2array($xml)) ? xml2array($xml) : $xml;
+
+if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_setting')." WHERE skey='sitekey'")==0){
+	DB::insert('yiqixueba_setting', array('skey'=>'sitekey','svalue'=>$outdata['sitekey']));
+}else{
+	//DB::update('yiqixueba_setting', array('svalue'=>$outdata['sitekey']),array('skey'=>'sitekey'));
+}
+$sitekey = $outdata['sitekey'];
+//dump($outdata);
+foreach($outdata['mod'] as $k=>$v ){
+	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_setting')." WHERE skey='mod_".$k."'")==0){
+		DB::insert('yiqixueba_setting', array('skey'=>'mod_'.$k,'svalue'=>$v));
+		$mod_file_text = api_indata('installmod',array($k=>$v));
+		//dump($mod_file_text);
+	}else{
+		//DB::update('yiqixueba_setting', array('svalue'=>$v),array('skey'=>'mod_'.$k));
+	}
+}
+//dump($outdata);
+
+
+//$yiqixueba_setting = array();
+//$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_setting'));
+//while($row = DB::fetch($query)) {
+	//$yiqixueba_setting[$row['skey']] = $row['svalue'];
+//}
+
+//dump($yiqixueba_setting);
+$sql = <<<EOF
+
 -- ----------------------------
 -- Mokuai yiqixueba_server Records
 -- ----------------------------
 INSERT INTO `pre_yiqixueba_mokuai` VALUES ('2', '1', '1', '服务端', 'server', '', '', 'yiqixueba_server/', 'www.17xue8.cn', 'a:4:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:12:\"后台首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";s:1:\"3\";s:7:\"adminid\";s:1:\"0\";s:12:\"displayorder\";i:0;s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:1;a:10:{s:4:\"name\";s:9:\"sitegroup\";s:4:\"menu\";s:9:\"站长组\";s:3:\"url\";s:0:\"\";s:4:\"type\";s:1:\"3\";s:7:\"adminid\";s:1:\"0\";s:12:\"displayorder\";i:1;s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:2;a:10:{s:4:\"name\";s:4:\"site\";s:4:\"menu\";s:12:\"站长管理\";s:3:\"url\";s:0:\"\";s:4:\"type\";s:1:\"3\";s:7:\"adminid\";s:1:\"0\";s:12:\"displayorder\";i:2;s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:3;a:10:{s:4:\"name\";s:6:\"mokuai\";s:4:\"menu\";s:12:\"模块管理\";s:3:\"url\";s:0:\"\";s:4:\"type\";s:1:\"3\";s:7:\"adminid\";s:1:\"0\";s:12:\"displayorder\";i:3;s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V2.0', 'a:0:{}', '0');
 
--- ----------------------------
--- Table structure for `pre_yiqixueba_pages`
--- ----------------------------
-DROP TABLE IF EXISTS `pre_yiqixueba_pages`;
-CREATE TABLE `pre_yiqixueba_pages` (
-  `pageid` char(33) NOT NULL,
-  `type` char(20) NOT NULL,
-  `mod` char(20) NOT NULL,
-  `submod` char(20) NOT NULL,
-  PRIMARY KEY  (`pageid`)
-) ENGINE=MyISAM;
-
--- ----------------------------
--- Table structure for `pre_yiqixueba_setting`
--- ----------------------------
-DROP TABLE IF EXISTS `pre_yiqixueba_setting`;
-CREATE TABLE `pre_yiqixueba_setting` (
-  `skey` varchar(255) NOT NULL,
-  `svalue` text NOT NULL,
-  PRIMARY KEY  (`skey`)
-) ENGINE=MyISAM;
-
--- ----------------------------
--- Records of pre_yiqixueba_setting
--- ----------------------------
-INSERT INTO `pre_yiqixueba_setting` VALUES ('server_siteurl', 'http://localhost/discuzdemo/dz3utf8/');
 
 
 -- ----------------------------
@@ -108,6 +126,18 @@ CREATE TABLE `pre_yiqixueba_server_site` (
   `installtime` int(10) NOT NULL,
   `uninstalltime` int(10) NOT NULL,
   PRIMARY KEY  (`siteid`)
+) ENGINE=MyISAM;
+
+-- ----------------------------
+-- Table structure for `pre_yiqixueba_server_pages`
+-- ----------------------------
+DROP TABLE IF EXISTS `pre_yiqixueba_server_pages`;
+CREATE TABLE `pre_yiqixueba_server_pages` (
+  `pageid` char(33) NOT NULL,
+  `type` char(20) NOT NULL,
+  `mod` char(20) NOT NULL,
+  `submod` char(20) NOT NULL,
+  PRIMARY KEY  (`pageid`)
 ) ENGINE=MyISAM;
 
 -- ----------------------------
@@ -162,4 +192,6 @@ EOF;
 //DB::delete('common_plugin', DB::field('identifier', $pluginarray['plugin']['identifier']));
 
 $finish = TRUE;
+
+
 ?>

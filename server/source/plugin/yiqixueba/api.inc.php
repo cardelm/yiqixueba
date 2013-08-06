@@ -2,7 +2,8 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
-var_dump('dasd');
+require_once DISCUZ_ROOT.'source/plugin/yiqixueba/function.func.php';
+
 $indata = addslashes($_GET['indata']);
 $sign = addslashes($_GET['sign']);
 $apiaction = addslashes($_GET['apiaction']);
@@ -20,6 +21,7 @@ if(!$apiaction) {
 
 $indata = base64_decode($indata);
 $indata = dunserialize($indata);
+
 ////////////////////////////////////////
 if($apiaction == 'install'){
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==0){
@@ -34,8 +36,24 @@ if($apiaction == 'install'){
 		$data['installtime'] = time();
 		DB::insert('yiqixueba_server_site', $data);
 	}
-	$outdata = $indata;
+	$site_info = DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'");
+	$outdata['sitekey'] = $site_info['sitekey'];
+	$main_page = array('admincp','function','yiqixueba');
+	foreach($main_page as $k=>$v ){
+		$outdata['mod'][$v] = random(1).md5($v.$site_info['salt']);
+	}
+	//$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_page')." WHERE type = 'main'");
+	//while($row = DB::fetch($query)) {
+		//$outdata['page'] = $row;
+	//}
+	//$outdata = $indata;
+}elseif(DB::result_first("SELECT sitekey FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==$indata['sitekey']){
+	$api_file = get_page('api',$apiaction);
+	$outdata = $api_file;
+}else{
+	$outdata['error'] = 'error';
 }
+
 
 
 ////////////////////////////////////////
@@ -58,6 +76,5 @@ if(is_array($outdata)){
 }else{
 	echo $outdata;
 }
-var_dump('dasd');
 
 ?>

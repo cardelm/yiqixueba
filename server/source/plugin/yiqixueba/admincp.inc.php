@@ -57,7 +57,7 @@ while($row = DB::fetch($query)) {
 //echo '<style>.floattopempty { height: 15px !important; height: auto; } </style>';
 showsubmenu($plugin['name'].' '.$plugin['version'],$admin_menu);
 
-$submod_file = get_page($submod);
+$submod_file = get_page('admincp',$submod);
 
 //dump($submod);
 //dump($submod_file);
