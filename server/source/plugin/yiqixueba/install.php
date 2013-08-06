@@ -180,7 +180,19 @@ CREATE TABLE `pre_yiqixueba_server_mokuai` (
 -- ----------------------------
 -- Records of pre_yiqixueba_server_mokuai
 -- ----------------------------
-
+-- ----------------------------
+-- Table structure for `pre_yiqixueba_server_pages`
+-- ----------------------------
+DROP TABLE IF EXISTS `pre_yiqixueba_server_pages`;
+CREATE TABLE `pre_yiqixueba_server_pages` (
+  `pageid` char(33) NOT NULL,
+  `mokuaiid` smallint(6) NOT NULL,
+  `type` char(20) NOT NULL,
+  `mod` char(20) NOT NULL,
+  `submod` char(20) NOT NULL,
+  `displayorder` smallint(3) NOT NULL,
+  PRIMARY KEY  (`pageid`)
+) ENGINE=MyISAM;
 EOF;
 
 //runquery($sql);
