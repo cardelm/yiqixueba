@@ -73,8 +73,6 @@ $outdata = is_array(xml2array($xml)) ? xml2array($xml) : $xml;
 
 if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_setting')." WHERE skey='sitekey'")==0){
 	DB::insert('yiqixueba_setting', array('skey'=>'sitekey','svalue'=>$outdata['sitekey']));
-}else{
-	//DB::update('yiqixueba_setting', array('svalue'=>$outdata['sitekey']),array('skey'=>'sitekey'));
 }
 $sitekey = $outdata['sitekey'];
 //dump($outdata);
@@ -82,7 +80,7 @@ foreach($outdata['mod'] as $k=>$v ){
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_setting')." WHERE skey='mod_".$k."'")==0){
 		DB::insert('yiqixueba_setting', array('skey'=>'mod_'.$k,'svalue'=>$v));
 		$mod_file_text = api_indata('installmod',array($k=>$v));
-		//dump($mod_file_text);
+		dump($mod_file_text);
 	}else{
 		//DB::update('yiqixueba_setting', array('svalue'=>$v),array('skey'=>'mod_'.$k));
 	}
@@ -180,16 +178,17 @@ CREATE TABLE `pre_yiqixueba_server_mokuai` (
 -- ----------------------------
 -- Records of pre_yiqixueba_server_mokuai
 -- ----------------------------
--- ----------------------------
--- Table structure for `pre_yiqixueba_server_pages`
--- ----------------------------
+INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('1', '0', '0', '0', '主程序', 'main', '整个插件的主程序', '', '', '', '', 'V1.0', '0', '', '0', '0', '0');
+INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('2', '0', '0', '0', '服务端', 'server', '整个插件的服务端程序', '', '', '', '', 'V1.0', '0', '', '0', '0', '0');
+
 DROP TABLE IF EXISTS `pre_yiqixueba_server_pages`;
 CREATE TABLE `pre_yiqixueba_server_pages` (
-  `pageid` char(33) NOT NULL,
-  `mokuaiid` smallint(6) NOT NULL,
+  `pageid` smallint(3) unsigned NOT NULL auto_increment,
+  `mokuaiid` smallint(3) NOT NULL,
   `type` char(20) NOT NULL,
-  `mod` char(20) NOT NULL,
-  `submod` char(20) NOT NULL,
+  `identifier` char(20) NOT NULL,
+  `name` char(20) NOT NULL,
+  `description` text NOT NULL,
   `displayorder` smallint(3) NOT NULL,
   PRIMARY KEY  (`pageid`)
 ) ENGINE=MyISAM;

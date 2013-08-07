@@ -23,6 +23,7 @@ $indata = base64_decode($indata);
 $indata = dunserialize($indata);
 
 ////////////////////////////////////////
+//整个插件的安装
 if($apiaction == 'install'){
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==0){
 		$data = array();
@@ -42,10 +43,10 @@ if($apiaction == 'install'){
 	foreach($main_page as $k=>$v ){
 		$outdata['mod'][$v] = random(1).md5($v.$site_info['salt']);
 	}
-	//$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_page')." WHERE type = 'main'");
-	//while($row = DB::fetch($query)) {
-		//$outdata['page'] = $row;
-	//}
+	$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_pages')." WHERE mokuai = 'main'");
+	while($row = DB::fetch($query)) {
+		$outdata['page'] = $row;
+	}
 	//$outdata = $indata;
 }elseif(DB::result_first("SELECT sitekey FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==$indata['sitekey']){
 	$api_file = get_page('api',$apiaction);
@@ -77,4 +78,6 @@ if(is_array($outdata)){
 	echo $outdata;
 }
 
+function mokuai_install($mokuaiid){
+}
 ?>

@@ -15,32 +15,6 @@
 			<item id="directory"><![CDATA[yiqixueba/]]></item>
 			<item id="copyright"><![CDATA[www.17xue8.cn]]></item>
 			<item id="version"><![CDATA[V2.0]]></item>
-			<item id="__modules">
-				<item id="0">
-					<item id="name"><![CDATA[yiqixueba]]></item>
-					<item id="menu"><![CDATA[]]></item>
-					<item id="url"><![CDATA[]]></item>
-					<item id="type"><![CDATA[11]]></item>
-					<item id="adminid"><![CDATA[0]]></item>
-					<item id="displayorder"><![CDATA[0]]></item>
-					<item id="navtitle"><![CDATA[]]></item>
-					<item id="navicon"><![CDATA[]]></item>
-					<item id="navsubname"><![CDATA[]]></item>
-					<item id="navsuburl"><![CDATA[]]></item>
-				</item>
-				<item id="1">
-					<item id="name"><![CDATA[admincp]]></item>
-					<item id="menu"><![CDATA[ºóÌ¨¿ØÖÆ]]></item>
-					<item id="url"><![CDATA[]]></item>
-					<item id="type"><![CDATA[3]]></item>
-					<item id="adminid"><![CDATA[0]]></item>
-					<item id="displayorder"><![CDATA[0]]></item>
-					<item id="navtitle"><![CDATA[]]></item>
-					<item id="navicon"><![CDATA[]]></item>
-					<item id="navsubname"><![CDATA[]]></item>
-					<item id="navsuburl"><![CDATA[]]></item>
-				</item>
-			</item>
 		</item>
 		<item id="version"><![CDATA[X3]]></item>
 		<item id="language">
@@ -61,7 +35,5 @@
 		</item>
 		<item id="installfile"><![CDATA[install.php]]></item>
 		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
-		<item id="upgradefile"><![CDATA[upgrade.php]]></item>
-		<item id="checkfile"><![CDATA[check.php]]></item>
 	</item>
 </root>

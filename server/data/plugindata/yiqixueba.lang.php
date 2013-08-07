@@ -8,29 +8,46 @@ $scriptlang['yiqixueba'] = array(
   'xiangqing' => '详情',
   'status' => '状态',
   'displayorder' => '排序',
+  'pagelist' => '页面',
+  'edit' => '编辑',
+  'page_list_tips' => '页面列表',
+  'page_list' => '页面列表',
+  'page_name' => '页面名称',
+  'page_type' => '页面类型',
+  'page_description' => '页面简介',
+  'add_page' => '增加新的页面',
+  'page_edit' => '页面选项',
+  'page_edit_identifier' => '页面标识',
+  'page_edit_name' => '页面名称',
+  'page_edit_description' => '页面简介',
+  'page_edit_type' => '页面类型',
+  'add_mokuai_succeed' => '模块编辑成功',
+  'add_mokuai' => '增加新的模块',
+  'mokuai_name' => '模块名称',
+  'mokuai_description' => '模块简介',
+  'mokuai_status' => '操作',
+  'mokuai_make' => '生成',
   '' => '',
   '' => '',
   '' => '',
-  '' => '',
-  
 );
 
 $templatelang['yiqixueba'] = array(
   '' => '',
-  
+
 );
 
 $installlang['yiqixueba'] = array(
   '' => '',
-  
+
 );
 
 $systemlang['yiqixueba'] = array(
   'file' => array(
      '' => '',
-     
+
   ),
-  
+
 );
 
 ?>
