@@ -1,4 +1,7 @@
 <?php
+if(!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 
-var_dump('dsadsa');
+
 ?>

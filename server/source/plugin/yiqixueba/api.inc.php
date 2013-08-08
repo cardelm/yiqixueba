@@ -43,7 +43,7 @@ if($apiaction == 'install'){
 	foreach($main_page as $k=>$v ){
 		$outdata['mod'][$v] = random(1).md5($v.$site_info['salt']);
 	}
-	$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_pages')." WHERE mokuai = 'main'");
+	$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_pages')." WHERE mokuaiid = 1");
 	while($row = DB::fetch($query)) {
 		$outdata['page'] = $row;
 	}

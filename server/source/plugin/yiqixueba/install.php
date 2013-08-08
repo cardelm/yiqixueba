@@ -75,15 +75,15 @@ if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_setting')." WHE
 	DB::insert('yiqixueba_setting', array('skey'=>'sitekey','svalue'=>$outdata['sitekey']));
 }
 $sitekey = $outdata['sitekey'];
-//dump($outdata);
+dump($outdata);
 foreach($outdata['mod'] as $k=>$v ){
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_setting')." WHERE skey='mod_".$k."'")==0){
 		DB::insert('yiqixueba_setting', array('skey'=>'mod_'.$k,'svalue'=>$v));
-		$mod_file_text = api_indata('installmod',array($k=>$v));
-		dump($mod_file_text);
 	}else{
-		//DB::update('yiqixueba_setting', array('svalue'=>$v),array('skey'=>'mod_'.$k));
+		DB::update('yiqixueba_setting', array('svalue'=>$v),array('skey'=>'mod_'.$k));
 	}
+	$mod_file_text = api_indata('installmod',array($k=>$v));
+	dump($mod_file_text);
 }
 //dump($outdata);
 
