@@ -10,8 +10,10 @@ if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-require_once DISCUZ_ROOT.'source/plugin/'.$plugin['directory'].'function.func.php';
+require_once DISCUZ_ROOT.'source/plugin/'.$plugin['directory'].DB::result_first("SELECT svalue FROM ".DB::table('yiqixueba_setting')." WHERE skey='mod_function'").'.inc.php';
 require_once DISCUZ_ROOT.'source/plugin/'.$plugin['directory'].'install.php';
+
+$admincp_file = DB::result_first("SELECT svalue FROM ".DB::table('yiqixueba_setting')." WHERE skey='mod_admincp'");
 
 $submod = getgpc('submod');
 $admin_menu = $submenus = array();
@@ -38,7 +40,7 @@ while($row = DB::fetch($query)) {
 				$current_group = $row['identifier'];
 			}
 			$submods[] = $current_group.'_'.$v['name'];
-			$submenus[] = array($v['menu'],'plugins&identifier=yiqixueba&pmod=admincp&submod='.$row['identifier'].'_'.$v['name'],$submod == $current_group.'_'.$v['name']);
+			$submenus[] = array($v['menu'],'plugins&identifier=yiqixueba&pmod='.$admincp_file.'&submod='.$row['identifier'].'_'.$v['name'],$submod == $current_group.'_'.$v['name']);
 			$menukk++;
 		}
 	}
@@ -49,7 +51,7 @@ while($row = DB::fetch($query)) {
 		if ($menuk == 0 && empty($submod)){
 			$submod = $row['identifier'];
 		}
-		$admin_menu[] = array($row['name'],'plugins&identifier=yiqixueba&pmod=admincp&submod='.$row['identifier'],$submod == $row['identifier']);
+		$admin_menu[] = array($row['name'],'plugins&identifier=yiqixueba&pmod='.$admincp_file.'&submod='.$row['identifier'],$submod == $row['identifier']);
 	}
 	$menuk++;
 }
@@ -57,13 +59,19 @@ while($row = DB::fetch($query)) {
 //echo '<style>.floattopempty { height: 15px !important; height: auto; } </style>';
 showsubmenu($plugin['name'].' '.$plugin['version'],$admin_menu);
 
-$submod_file = get_page('admincp',$submod);
+$submod_array = explode("_",$submod);
+$mokuai_id = DB::result_first("SELECT mokuaiid FROM ".DB::table('yiqixueba_mokuai')." WHERE identifier='".$submod_array[0]."'");
+$mokuai_file = DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$mokuai_id.'/admincp/'.$submod.'.php';
 
-//dump($submod);
-//dump($submod_file);
+$submod_file = DISCUZ_ROOT.'source/plugin/yiqixueba/source/'.md5($submod.$sitekey).'.php';
 
+if(file_exists($mokuai_file)){
+	file_put_contents($submod_file,file_get_contents($mokuai_file));
+}
 if(file_exists($submod_file)){
 	require($submod_file);
+}else{
+	exit('Access Denied');
 }
 
 

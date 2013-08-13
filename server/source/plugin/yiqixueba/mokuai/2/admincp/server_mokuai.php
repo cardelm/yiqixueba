@@ -2,9 +2,6 @@
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
-
-require_once DISCUZ_ROOT.'source/plugin/'.$plugin['directory'].'function.func.php';
-
 $this_page = substr($_SERVER['QUERY_STRING'],7,strlen($_SERVER['QUERY_STRING'])-7);
 stripos($this_page,'subop=') ? $this_page = substr($this_page,0,stripos($this_page,'subop=')-1) : $this_page;
 
@@ -24,8 +21,8 @@ if($subop == 'mokuailist') {
 		showsubtitle(array('', lang('plugin/'.$plugin['identifier'],'mokuai_name'),lang('plugin/'.$plugin['identifier'],'mokuai_description'),lang('plugin/'.$plugin['identifier'],'mokuai_status')));
 		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." group by identifier order by displayorder asc");
 		while($row = DB::fetch($query)) {
-			$zhuanhuanen_ids = array();//鏄惁宸茬粡杞崲鎻掍欢鏁扮粍
-			$zhuanhuanen_ids[] = 'yiqixueba_'.$row['identifier'];//杞崲涔嬪悗鍘绘帀浜唝iqixuaba_锛岄渶瑕佸啀鍔犱笂
+			$zhuanhuanen_ids = array();//是否已经转换插件数组
+			$zhuanhuanen_ids[] = 'yiqixueba_'.$row['identifier'];//转换之后去掉了yiqixuaba_，需要再加上
 			$ver_text = $currenver_text = '';
 			$query1 = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE identifier = '".$row['identifier']."' order by createtime asc");
 			$verk = 0;
@@ -50,7 +47,12 @@ if($subop == 'mokuailist') {
 		showtablefooter();
 		showformfooter();
 	}else{
-		dump(getgpc('vernew'));
+		DB::update('yiqixueba_server_mokuai', array('available'=>0));
+		foreach( getgpc('vernew') as $k=>$v ){
+			if($v){
+				DB::update('yiqixueba_server_mokuai', array('available'=>1),array('mokuaiid'=>$k));
+			}
+		}
 		cpmsg(lang('plugin/'.$plugin['identifier'],'mokuai_main_succeed'), 'action='.$this_page.'&subop=mokuailist', 'succeed');
 	}
 }elseif ($subop == 'mokuaiedit'){
@@ -214,8 +216,8 @@ if($subop == 'mokuailist') {
 $db = & DB::object();
 $dumpcharset = str_replace('-', '', $_G['charset']);
 
-dump(sqldumptablestruct(DB::table('yiqixueba_server_mokuai')));
-dump(sqldumptable(DB::table('yiqixueba_server_mokuai')));
+//dump(sqldumptablestruct(DB::table('yiqixueba_server_mokuai')));
+//dump(sqldumptable(DB::table('yiqixueba_server_mokuai')));
 function sqldumptablestruct($table) {
 	global $_G, $db, $excepttables;
 
@@ -279,7 +281,7 @@ function sqldumptable($table, $startfrom = 0, $currsize = 0) {
 			$tablefields[] = $fieldrow;
 		}
 	}
-dump($_GET['extendins'] == '0');
+//dump($_GET['extendins'] == '0');
 	if(!in_array($table, $excepttables)) {
 		$tabledumped = 0;
 		$numrows = $offset;
@@ -317,15 +319,15 @@ dump($_GET['extendins'] == '0');
 				}
 			}
 		} else {
-dump($currsize);
-dump($_GET['sizelimit']);
+//dump($currsize);
+//dump($_GET['sizelimit']);
 			while($currsize + strlen($tabledump) + 500 < $_GET['sizelimit'] * 1000 && $numrows == $offset) {
 				if($firstfield['Extra'] == 'auto_increment') {
 					$selectsql = "SELECT * FROM $table WHERE $firstfield[Field] > $startfrom LIMIT $offset";
 				} else {
 					$selectsql = "SELECT * FROM $table LIMIT $startfrom, $offset";
 				}
-dump($selectsql);
+//dump($selectsql);
 				$tabledumped = 1;
 				$rows = DB::query($selectsql);
 				$numfields = $db->num_fields($rows);
