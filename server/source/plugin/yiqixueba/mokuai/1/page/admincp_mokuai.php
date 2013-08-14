@@ -10,8 +10,13 @@ $subop = getgpc('subop');
 $subops = array('mokuailist','mokuaiedit');
 $subop = in_array($subop,$subops) ? $subop : $subops[0];
 
-$mokuaiid = getgpc('mokuaiid');
-$mokuai_info = $mokuaiid ? DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba_mokuai')." WHERE mokuaiid=".$mokuaiid) : array();
+dump($sitekey);
+dump($server_siteurl);
+
+$mokuai_array = api_indata('mokuaiinfo',array());
+
+dump($mokuai_array);
+dump($subop);
 
 if($subop == 'mokuailist') {
 }elseif($subop == 'mokuaiedit'){

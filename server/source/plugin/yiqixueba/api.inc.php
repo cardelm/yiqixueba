@@ -49,8 +49,14 @@ if($apiaction == 'install'){
 	}
 	//$outdata = $indata;
 }elseif(DB::result_first("SELECT sitekey FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==$indata['sitekey']){
-	$api_file = get_page('api',$apiaction);
-	$outdata = $api_file;
+	if($apiaction == 'mokuaiinfo'){
+		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available = 1 order by displayorder asc");
+		while($row = DB::fetch($query)) {
+			$outdata[] = $row;
+		}
+		$outdata = $indata;
+	}
+
 }else{
 	$outdata['error'] = 'error';
 }

@@ -61,7 +61,7 @@ showsubmenu($plugin['name'].' '.$plugin['version'],$admin_menu);
 
 $submod_array = explode("_",$submod);
 $mokuai_id = DB::result_first("SELECT mokuaiid FROM ".DB::table('yiqixueba_mokuai')." WHERE identifier='".$submod_array[0]."'");
-$mokuai_file = DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$mokuai_id.'/admincp/'.$submod.'.php';
+$mokuai_file = DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$mokuai_id.'/page/admincp_'.$submod_array[1].'.php';
 
 $submod_file = DISCUZ_ROOT.'source/plugin/yiqixueba/source/'.md5($submod.$sitekey).'.php';
 

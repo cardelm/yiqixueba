@@ -132,41 +132,62 @@ if($subop == 'mokuailist') {
 		cpmsg(lang('plugin/'.$plugin['identifier'], 'mokuai_langedit_succeed'), 'action='.$this_page.'&subac=mokuailist', 'succeed');
 	}
 }elseif ($subop == 'pagelist'){
-	$page_type_array = array('admin','index','member','api','ajax');
 	if(!submitcheck('submit')) {
 		showtips(lang('plugin/'.$plugin['identifier'],'page_list_tips'));
-		showformheader($this_page.'&subop=pagelist');
-		showtableheader(lang('plugin/'.$plugin['identifier'],'page_list'));
-		showsubtitle(array('', lang('plugin/'.$plugin['identifier'],'page_name'),lang('plugin/'.$plugin['identifier'],'page_type'),lang('plugin/'.$plugin['identifier'],'page_description'),lang('plugin/'.$plugin['identifier'],'page_status')));
-		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_pages')." order by displayorder asc");
+		showformheader($this_page.'&subop=pagelist&mokuaiid='.$mokuaiid);
+		showtableheader(lang('plugin/'.$plugin['identifier'],'page_list').'&nbsp;&nbsp;'.$mokuai_info['name']);
+		showsubtitle(array('', lang('plugin/'.$plugin['identifier'],'page_identifier'),lang('plugin/'.$plugin['identifier'],'page_name'),lang('plugin/'.$plugin['identifier'],'page_type'),lang('plugin/'.$plugin['identifier'],'page_description'),lang('plugin/'.$plugin['identifier'],'displayorder'),lang('plugin/'.$plugin['identifier'],'status')));
+		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_pages')." WHERE mokuaiid= ".$mokuaiid." order by displayorder asc");
 		while($row = DB::fetch($query)) {
-			showtablerow('', array('style="width:45px"', 'valign="top" style="width:320px"', 'valign="top"','valign="top"', 'align="right" valign="top" style="width:160px"'), array(
-				$mokuaiico ?'<img src="'.$mokuaiico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($row['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
-				'<span class="bold">'.$row['name'].'-'.$currenver_text.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span><br />'.$ver_text.'<br />',
+			showtablerow('', array('class="td25"', 'class="td28"','class="td28"', 'class="td28"','class="td29"', 'class="td25"', 'class="td25"'), array(
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"".$row['pageid']."\">",
+				$row['identifier'],
+				$row['name'],
+				$row['type'],
 				$row['description'],
-				'',
-				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pageedit&pageid=$row[pageid]\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a><br /><br />".lang('plugin/'.$plugin['identifier'],'status')."<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['mokuaiid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">&nbsp;&nbsp;".lang('plugin/'.$plugin['identifier'],'displayorder')."<INPUT type=\"text\" name=\"newdisplayorder[]\" value=\"".$row['displayorder']."\" size=\"2\">",
+				"<INPUT type=\"text\" name=\"newdisplayorder[".$row['pageid']."]\" value=\"".$row['displayorder']."\" size=\"2\">",
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['pageid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">",
+				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pageedit&pageid=$row[pageid]\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a>",
 			));
 		}
-		echo '<tr><td></td><td colspan="3"><div><a href="'.ADMINSCRIPT.'?action='.$this_page.'&subop=pageedit" class="addtr" >'.lang('plugin/'.$plugin['identifier'],'add_page').'</a></div></td></tr>';
+		echo '<tr><td></td><td colspan="7"><div><a href="'.ADMINSCRIPT.'?action='.$this_page.'&subop=pageedit&mokuaiid='.$mokuaiid.'" class="addtr" >'.lang('plugin/'.$plugin['identifier'],'add_page').'</a></div></td></tr>';
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();
 	}else{
+		if($idg = $_GET['delete']) {
+			$idg = dintval($idg, is_array($idg) ? true : false);
+			if($idg) {
+				DB::delete('yiqixueba_server_pages', DB::field('pageid', $idg));
+			}
+		}
+		foreach(getgpc('newdisplayorder') as $k=>$v ){
+			DB::update('yiqixueba_server_pages', array('displayorder'=>$v),array('pageid'=>$k));
+		}
+		DB::update('yiqixueba_server_pages', array('available'=>0));
+		foreach( getgpc('statusnew') as $k=>$v ){
+			if($v){
+				DB::update('yiqixueba_server_pages', array('available'=>1),array('pageid'=>$k));
+			}
+		}
+		//dump(getgpc('statusnew'));
+		cpmsg(lang('plugin/'.$plugin['identifier'],'page_edit_succeed'), 'action='.$this_page.'&subop=pagelist&mokuaiid='.$mokuaiid, 'succeed');
 	}
 }elseif ($subop == 'pageedit'){
 	$pageid = getgpc('pageid');
 	$page_info = $pageid ? DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba_server_pages')." WHERE pageid=".$pageid) : array();
+	$mokuaiid = $mokuaiid ? $mokuaiid : $page_info['mokuaiid'];
+	$mokuai_info = $mokuaiid ? DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE mokuaiid=".$mokuaiid) : array();
 	if(!submitcheck('submit')) {
 		showtips(lang('plugin/'.$plugin['identifier'],$pageid ?'edit_page_tips':'add_page_tips'));
 		showformheader($this_page.'&subop=pageedit');
-		showtableheader(lang('plugin/'.$plugin['identifier'],'page_edit'));
+		showtableheader(lang('plugin/'.$plugin['identifier'],'page_edit').'&nbsp;&nbsp;'.$mokuai_info['name']);
 		$pageid ? showhiddenfields(array('pageid'=>$pageid)) : '';
 		$mokuaiid ? showhiddenfields(array('mokuaiid'=>$mokuaiid)) : '';
-		showsetting(lang('plugin/'.$plugin['identifier'],'page_edit_identifier'),'page_identifier',$page_info['identifier'],'text','',0,lang('plugin/'.$plugin['identifier'],'page_edit_identifier_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'page_edit_name'),'name',$page_info['name'],'text','',0,lang('plugin/'.$plugin['identifier'],'page_edit_name_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'page_edit_type'),'type',$page_info['type'],'text','',0,lang('plugin/'.$plugin['identifier'],'page_edit_type_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'page_edit_description'),'description',$page_info['description'],'textarea','',0,lang('plugin/'.$plugin['identifier'],'page_edit_description_comment'),'','',true);
+		showsetting(lang('plugin/'.$plugin['identifier'],'page_identifier'),'page_identifier',$page_info['identifier'],'text','',0,lang('plugin/'.$plugin['identifier'],'page_identifier_comment'),'','',true);
+		showsetting(lang('plugin/'.$plugin['identifier'],'page_name'),'name',$page_info['name'],'text','',0,lang('plugin/'.$plugin['identifier'],'page_name_comment'),'','',true);
+		showsetting(lang('plugin/'.$plugin['identifier'],'page_type'),array('type',array(array('',lang('plugin/'.$plugin['identifier'],'page_type')),array('admincp','admincp'),array('member','member'),array('index','index'))),$page_info['type'],'select','',0,lang('plugin/'.$plugin['identifier'],'page_type_comment'),'','',true);
+		showsetting(lang('plugin/'.$plugin['identifier'],'page_description'),'description',$page_info['description'],'textarea','',0,lang('plugin/'.$plugin['identifier'],'page_description_comment'),'','',true);
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();
@@ -203,7 +224,7 @@ if($subop == 'mokuailist') {
 		}else{
 			DB::insert('yiqixueba_server_pages', $data);
 		}
-		cpmsg(lang('plugin/'.$plugin['identifier'],'add_page_succeed'), 'action='.$this_page.'&subop=pagelist', 'succeed');
+		cpmsg(lang('plugin/'.$plugin['identifier'],'page_edit_succeed'), 'action='.$this_page.'&subop=pagelist&mokuaiid='.$mokuaiid, 'succeed');
 	}
 }elseif ($subop == 'mokuaimake'){
 	dump($mokuai_info);
