@@ -2,8 +2,7 @@
 if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
-require_once DISCUZ_ROOT.'source/plugin/yiqixueba/function.func.php';
-
+require_once DISCUZ_ROOT.'source/plugin/yiqixueba/'.DB::result_first("SELECT svalue FROM ".DB::table('yiqixueba_setting')." WHERE skey='mod_function'").'.inc.php';
 $indata = addslashes($_GET['indata']);
 $sign = addslashes($_GET['sign']);
 $apiaction = addslashes($_GET['apiaction']);
@@ -25,6 +24,7 @@ $indata = dunserialize($indata);
 ////////////////////////////////////////
 //整个插件的安装
 if($apiaction == 'install'){
+
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==0){
 		$data = array();
 		$data['salt'] = random(6);
@@ -43,25 +43,14 @@ if($apiaction == 'install'){
 	foreach($main_page as $k=>$v ){
 		$outdata['mod'][$v] = random(1).md5($v.$site_info['salt']);
 	}
-	$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_pages')." WHERE mokuaiid = 1");
-	while($row = DB::fetch($query)) {
-		$outdata['page'] = $row;
-	}
-	//$outdata = $indata;
 }elseif(DB::result_first("SELECT sitekey FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==$indata['sitekey']){
-	if($apiaction == 'mokuaiinfo'){
-		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available = 1 order by displayorder asc");
-		while($row = DB::fetch($query)) {
-			$outdata[] = $row;
-		}
-		$outdata = $indata;
+	$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available = 1 group by identifier order by displayorder asc");
+	while($row = DB::fetch($query)) {
+		$outdata[] = $row;
 	}
-
 }else{
 	$outdata['error'] = 'error';
 }
-
-
 
 ////////////////////////////////////////
 if(is_array($outdata)){
@@ -84,6 +73,4 @@ if(is_array($outdata)){
 	echo $outdata;
 }
 
-function mokuai_install($mokuaiid){
-}
 ?>

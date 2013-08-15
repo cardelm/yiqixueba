@@ -24,6 +24,7 @@ while($row = DB::fetch($query)) {
 
 	$modules = $setting = array();
 	$modules = dunserialize($row['modules']);
+	//dump($modules);
 	$setting = dunserialize($row['setting']);
 	$submods = $submenus = array();
 	$current_menu = '';

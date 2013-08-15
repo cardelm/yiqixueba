@@ -53,6 +53,9 @@ if($subop == 'mokuailist') {
 				DB::update('yiqixueba_server_mokuai', array('available'=>1),array('mokuaiid'=>$k));
 			}
 		}
+		foreach(getgpc('newdisplayorder') as $k=>$v ){
+			DB::update('yiqixueba_server_mokuai', array('displayorder'=>$v),array('mokuaiid'=>$k));
+		}
 		cpmsg(lang('plugin/'.$plugin['identifier'],'mokuai_main_succeed'), 'action='.$this_page.'&subop=mokuailist', 'succeed');
 	}
 }elseif ($subop == 'mokuaiedit'){
@@ -170,7 +173,27 @@ if($subop == 'mokuailist') {
 				DB::update('yiqixueba_server_pages', array('available'=>1),array('pageid'=>$k));
 			}
 		}
-		//dump(getgpc('statusnew'));
+		$modules = array();
+		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_pages')." WHERE mokuaiid = ".$mokuaiid." AND available=1 order by displayorder asc");
+		while($row = DB::fetch($query)) {
+			if($row['type'] == 'admincp'){
+				$type = 3;
+			}
+			$modules[] = array(
+				'name' => $row['identifier'],
+				'menu' => $row['name'],
+				'url' => '',
+				'type' => $type,
+				'adminid' => 1,
+				'displayorder' => $row['displayorder'],
+				'navtitle' => '',
+				'navicon' => '',
+				'navsubname' => '',
+				'navsuburl' => '',
+			);
+		}
+		$modules_data = serialize($modules);
+		DB::update('yiqixueba_server_mokuai',array('modules'=>$modules_data) ,array('mokuaiid'=>$mokuaiid));
 		cpmsg(lang('plugin/'.$plugin['identifier'],'page_edit_succeed'), 'action='.$this_page.'&subop=pagelist&mokuaiid='.$mokuaiid, 'succeed');
 	}
 }elseif ($subop == 'pageedit'){

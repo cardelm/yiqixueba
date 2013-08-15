@@ -75,7 +75,6 @@ if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_setting')." WHE
 	DB::insert('yiqixueba_setting', array('skey'=>'sitekey','svalue'=>$outdata['sitekey']));
 }
 $sitekey = $outdata['sitekey'];
-dump($outdata);
 $mod_filename = array();
 foreach($outdata['mod'] as $k=>$v ){
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_setting')." WHERE skey='mod_".$k."'")==0){
