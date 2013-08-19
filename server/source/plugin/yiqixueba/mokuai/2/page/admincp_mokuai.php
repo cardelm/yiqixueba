@@ -37,7 +37,7 @@ if($subop == 'mokuailist') {
 			$currenver_text ? $currenver_text : DB::update('yiqixueba_server_mokuai', array('currentversion'=>1),array('identifier'=>$row['identifier'],'version'=>$currenver_text));
 			showtablerow('', array('style="width:45px"', 'valign="top" style="width:320px"', 'valign="top"', 'align="right" valign="top" style="width:200px"'), array(
 				$mokuaiico ?'<img src="'.$mokuaiico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($row['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
-				'<span class="bold">'.$row['name'].'-'.$currenver_text.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span><br />'.$ver_text.'<br />',
+				'<span class="bold">'.$row['name'].'-'.$currenver_text.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span><br />'.$ver_text.'<br />'.lang('plugin/'.$plugin['identifier'],'price').$row['price'],
 				$row['description'],
 				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pluginlang&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=shuaxin&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'shuaxin')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pagelist&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pagelist')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaiedit&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaimake&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'mokuai_make')."</a><br /><br />".lang('plugin/'.$plugin['identifier'],'status')."<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['mokuaiid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">&nbsp;&nbsp;".lang('plugin/'.$plugin['identifier'],'displayorder')."<INPUT type=\"text\" name=\"newdisplayorder[]\" value=\"".$row['displayorder']."\" size=\"2\">",
 			));
@@ -67,6 +67,7 @@ if($subop == 'mokuailist') {
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_identifier'),'mokuai_identifier',$mokuai_info['identifier'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_identifier_comment'),'','',true);
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_name'),'name',$mokuai_info['name'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_name_comment'),'','',true);
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_version'),'version',$mokuai_info['version'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_version_comment'),'','',true);
+		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_price'),'price',$mokuai_info['price'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_price_comment'),'','',true);
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_description'),'description',$mokuai_info['description'],'textarea','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_description_comment'),'','',true);
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_ico'),'ico',$mokuai_info['ico'],'filetext','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_ico_comment'),'','',true);
 		showsubmit('submit');
@@ -75,6 +76,7 @@ if($subop == 'mokuailist') {
 	} else {
 		$mokuai_identifier	= trim($_GET['mokuai_identifier']);
 		$mokuai_name	= dhtmlspecialchars(trim($_GET['name']));
+		$mokuai_price	= trim($_GET['price']);
 		$mokuai_version	= strip_tags(trim($_GET['version']));
 		$mokuai_description	= dhtmlspecialchars(trim($_GET['description']));
 
@@ -95,6 +97,7 @@ if($subop == 'mokuailist') {
 		}
 		$data = array(
 			'name' => $mokuai_name,
+			'price' => $mokuai_price,
 			'version' => $mokuai_version,
 			'identifier' => $mokuai_identifier,
 			'description' => $mokuai_description,
@@ -194,6 +197,7 @@ if($subop == 'mokuailist') {
 		}
 		$modules_data = serialize($modules);
 		DB::update('yiqixueba_server_mokuai',array('modules'=>$modules_data) ,array('mokuaiid'=>$mokuaiid));
+
 		cpmsg(lang('plugin/'.$plugin['identifier'],'page_edit_succeed'), 'action='.$this_page.'&subop=pagelist&mokuaiid='.$mokuaiid, 'succeed');
 	}
 }elseif ($subop == 'pageedit'){

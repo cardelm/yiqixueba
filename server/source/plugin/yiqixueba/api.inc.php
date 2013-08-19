@@ -44,9 +44,11 @@ if($apiaction == 'install'){
 		$outdata['mod'][$v] = random(1).md5($v.$site_info['salt']);
 	}
 }elseif(DB::result_first("SELECT sitekey FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==$indata['sitekey']){
-	$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available = 1 group by identifier order by displayorder asc");
-	while($row = DB::fetch($query)) {
-		$outdata[] = $row;
+	if($apiaction == 'mokuaiinfo'){
+		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available = 1 group by identifier order by displayorder asc");
+		while($row = DB::fetch($query)) {
+			$outdata[$row['mokuaiid']] = $row;
+		}
 	}
 }else{
 	$outdata['error'] = 'error';
