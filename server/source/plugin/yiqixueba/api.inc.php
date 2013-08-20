@@ -22,36 +22,18 @@ $indata = base64_decode($indata);
 $indata = dunserialize($indata);
 
 ////////////////////////////////////////
-//整个插件的安装
-if($apiaction == 'install'){
-
-	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==0){
-		$data = array();
-		$data['salt'] = random(6);
-		$data['charset'] = $indata['charset'];
-		$data['clientip'] = $indata['clientip'];
-		$data['version'] = $indata['version'];
-		$data['siteurl'] = $indata['siteurl'];
-		$data['sitekey'] = md5($indata['siteurl'].$data['salt']);
-		$data['sitegroup'] = 1;
-		$data['installtime'] = time();
-		DB::insert('yiqixueba_server_site', $data);
+$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_mokuai')." WHERE available=1 order by displayorder asc");
+while($row = DB::fetch($query)) {
+	$api_file = DISCUZ_ROOT.'source/plugin/yiqixueba/source/'.md5($row['mokuaikey'].'api').'.php';
+	////////////////debug//////////////////////
+	$server_mokuaiid = DB::result_first("SELECT mokuaiid FROM ".DB::table('yiqixueba_server_mokuai')." WHERE identifier='".$row['identifier']."' AND currentversion = 1");
+	if($server_mokuaiid && file_exists(DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$server_mokuaiid.'/api.inc.php')){
+		file_put_contents($api_file,file_get_contents(DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$server_mokuaiid.'/api.inc.php'));
 	}
-	$site_info = DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'");
-	$outdata['sitekey'] = $site_info['sitekey'];
-	$main_page = array('admincp','function','yiqixueba');
-	foreach($main_page as $k=>$v ){
-		$outdata['mod'][$v] = random(1).md5($v.$site_info['salt']);
+	////////////////debug//////////////////////
+	if(file_exists($api_file)){
+		require_once $api_file;
 	}
-}elseif(DB::result_first("SELECT sitekey FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==$indata['sitekey']){
-	if($apiaction == 'mokuaiinfo'){
-		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available = 1 group by identifier order by displayorder asc");
-		while($row = DB::fetch($query)) {
-			$outdata[$row['mokuaiid']] = $row;
-		}
-	}
-}else{
-	$outdata['error'] = 'error';
 }
 
 ////////////////////////////////////////
