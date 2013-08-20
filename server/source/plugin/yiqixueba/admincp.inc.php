@@ -10,6 +10,7 @@ $admincp_file = 'admincp';
 $query = DB::query("SELECT * FROM ".DB::table('yiqixueba_mokuai')." WHERE available=1 order by displayorder asc");
 $menuk = 0;
 while($row = DB::fetch($query)) {
+	//DB::update('yiqixueba_mokuai', array('mokuaikey'=>md5($row['identifier'].$sitekey)),array('identifier'=>$row['identifier']));
 	$function_file = DISCUZ_ROOT.'source/plugin/yiqixueba/source/'.md5($row['mokuaikey'].'function').'.php';
 	////////////////debug//////////////////////
 	$server_mokuaiid = DB::result_first("SELECT mokuaiid FROM ".DB::table('yiqixueba_server_mokuai')." WHERE identifier='".$row['identifier']."' AND currentversion = 1");
