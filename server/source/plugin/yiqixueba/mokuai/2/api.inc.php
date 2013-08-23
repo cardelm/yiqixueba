@@ -24,6 +24,14 @@ if($apiaction == 'install'){
 	if($apiaction == 'mokuaiinfo'){
 		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available = 1 group by identifier order by displayorder asc");
 		while($row = DB::fetch($query)) {
+			$ico = '';
+			if($row['ico']!='') {
+				$ico = str_replace('{STATICURL}', STATICURL, $row['ico']);
+				if(!preg_match("/^".preg_quote(STATICURL, '/')."/i", $ico) && !(($valueparse = parse_url($ico)) && isset($valueparse['host']))) {
+					$ico = $_G['setting']['attachurl'].'common/'.$row['ico'].'?'.random(6);
+				}
+			}
+			$row['ico'] = $ico;
 			$outdata[$row['mokuaiid']] = $row;
 		}
 	}

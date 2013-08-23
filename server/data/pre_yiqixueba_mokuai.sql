@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50045
 File Encoding         : 65001
 
-Date: 2013-08-22 16:39:31
+Date: 2013-08-23 16:32:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -79,6 +79,7 @@ CREATE TABLE `pre_yiqixueba_server_mokuai` (
   `identifier` varchar(40) NOT NULL default '',
   `description` varchar(255) NOT NULL default '',
   `price` char(10) NOT NULL,
+  `ico` char(50) NOT NULL,
   `datatables` varchar(255) NOT NULL default '',
   `directory` varchar(100) NOT NULL default '',
   `copyright` varchar(100) NOT NULL default '',
@@ -95,11 +96,11 @@ CREATE TABLE `pre_yiqixueba_server_mokuai` (
 -- ----------------------------
 -- Records of pre_yiqixueba_server_mokuai
 -- ----------------------------
-INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('1', '0', '1', '0', '主程序', 'main', '整个插件的主程序', '0', '', '', '', 'a:3:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:12:\"平台首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"0\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:1;a:10:{s:4:\"name\";s:9:\"pluginreg\";s:4:\"menu\";s:12:\"平台注册\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"1\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:2;a:10:{s:4:\"name\";s:6:\"mokuai\";s:4:\"menu\";s:12:\"模块管理\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"2\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V1.0', '1', '', '1', '1376037107', '1376877122');
-INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('2', '0', '1', '0', '服务端', 'server', '整个插件的服务端程序', '50000', '', '', '', 'a:0:{}', 'V1.0', '1', '', '2', '1376037107', '1376876867');
-INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('5', '0', '1', '0', '微信墙', 'weixin', '微信墙主程序', '500', '', '', '', 'a:1:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:15:\"微信墙首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"0\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V1.0', '0', '', '5', '1377071393', '1377071851');
-INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('3', '0', '1', '0', '商家联盟', 'shop', '联盟商家程序', '500', '', '', '', 'a:4:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:12:\"商家首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"0\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:1;a:10:{s:4:\"name\";s:9:\"shopgroup\";s:4:\"menu\";s:9:\"商家组\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"1\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:2;a:10:{s:4:\"name\";s:8:\"shoptype\";s:4:\"menu\";s:12:\"商家模型\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"2\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:3;a:10:{s:4:\"name\";s:8:\"shoplist\";s:4:\"menu\";s:12:\"商家管理\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"3\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V1.0', '1', '', '3', '1376037107', '1377066225');
-INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('4', '0', '1', '0', '会员卡', 'carde', '卡益联盟（一卡通）', '500', '', '', '', 'a:1:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:15:\"会员卡首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"0\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V1.0', '1', '', '4', '1376893983', '1377066284');
+INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('1', '0', '1', '0', '主程序', 'main', '整个插件的主程序', '0', 'cf/095225luqb7zfbzvfquiw9.jpg', '', '', '', 'a:3:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:12:\"平台首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"0\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:1;a:10:{s:4:\"name\";s:9:\"pluginreg\";s:4:\"menu\";s:12:\"平台注册\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"1\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:2;a:10:{s:4:\"name\";s:6:\"mokuai\";s:4:\"menu\";s:12:\"模块管理\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"2\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V1.0', '1', 'a:3:{i:1;a:6:{s:12:\"displayorder\";s:1:\"1\";s:5:\"title\";s:7:\"测试1\";s:11:\"description\";s:15:\"测距库哈斯\";s:4:\"type\";s:4:\"text\";s:8:\"variable\";s:4:\"test\";s:5:\"extra\";s:0:\"\";}i:0;a:4:{s:12:\"displayorder\";s:1:\"2\";s:5:\"title\";s:5:\"gdfgd\";s:8:\"variable\";s:7:\"gdfgdfg\";s:4:\"type\";s:6:\"select\";}i:2;a:4:{s:12:\"displayorder\";s:1:\"3\";s:5:\"title\";s:6:\"你好\";s:8:\"variable\";s:5:\"jkdha\";s:4:\"type\";s:4:\"text\";}}', '1', '1376037107', '1377222745');
+INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('2', '0', '1', '0', '服务端', 'server', '整个插件的服务端程序', '50000', 'cf/155954x5zq49i0ugh4yq5u.jpg', '', '', '', 'a:4:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:12:\"后台首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"0\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:1;a:10:{s:4:\"name\";s:9:\"sitegroup\";s:4:\"menu\";s:9:\"站长组\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"1\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:2;a:10:{s:4:\"name\";s:4:\"site\";s:4:\"menu\";s:12:\"站长管理\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"2\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:3;a:10:{s:4:\"name\";s:6:\"mokuai\";s:4:\"menu\";s:12:\"模块管理\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"3\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V1.0', '1', '', '2', '1376037107', '1377244794');
+INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('5', '0', '1', '0', '微信墙', 'weixin', '微信墙主程序', '500', '', '', '', '', 'a:1:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:15:\"微信墙首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"0\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V1.0', '0', '', '5', '1377071393', '1377071851');
+INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('3', '0', '1', '0', '商家联盟', 'shop', '联盟商家程序', '500', '', '', '', '', 'a:4:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:12:\"商家首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"0\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:1;a:10:{s:4:\"name\";s:9:\"shopgroup\";s:4:\"menu\";s:9:\"商家组\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"1\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:2;a:10:{s:4:\"name\";s:8:\"shoptype\";s:4:\"menu\";s:12:\"商家模型\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"2\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}i:3;a:10:{s:4:\"name\";s:8:\"shoplist\";s:4:\"menu\";s:12:\"商家管理\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"3\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V1.0', '1', '', '3', '1376037107', '1377066225');
+INSERT INTO `pre_yiqixueba_server_mokuai` VALUES ('4', '0', '1', '0', '会员卡', 'carde', '卡益联盟（一卡通）', '500', '', '', '', '', 'a:1:{i:0;a:10:{s:4:\"name\";s:5:\"index\";s:4:\"menu\";s:15:\"会员卡首页\";s:3:\"url\";s:0:\"\";s:4:\"type\";i:3;s:7:\"adminid\";i:1;s:12:\"displayorder\";s:1:\"0\";s:8:\"navtitle\";s:0:\"\";s:7:\"navicon\";s:0:\"\";s:10:\"navsubname\";s:0:\"\";s:9:\"navsuburl\";s:0:\"\";}}', 'V1.0', '1', '', '4', '1376893983', '1377066284');
 
 -- ----------------------------
 -- Table structure for `pre_yiqixueba_server_mokuaisetting`
@@ -117,3 +118,91 @@ CREATE TABLE `pre_yiqixueba_server_mokuaisetting` (
 -- ----------------------------
 -- Records of pre_yiqixueba_server_mokuaisetting
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `pre_yiqixueba_server_pages`
+-- ----------------------------
+DROP TABLE IF EXISTS `pre_yiqixueba_server_pages`;
+CREATE TABLE `pre_yiqixueba_server_pages` (
+  `pageid` smallint(3) unsigned NOT NULL auto_increment,
+  `mokuaiid` smallint(3) NOT NULL,
+  `type` char(20) NOT NULL,
+  `identifier` char(20) NOT NULL,
+  `name` char(20) NOT NULL,
+  `description` text NOT NULL,
+  `displayorder` smallint(3) NOT NULL,
+  `available` smallint(3) NOT NULL,
+  PRIMARY KEY  (`pageid`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pre_yiqixueba_server_pages
+-- ----------------------------
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('1', '1', 'admincp', 'index', '平台首页', '', '0', '1');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('2', '1', 'admincp', 'pluginreg', '平台注册', '', '1', '1');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('4', '2', 'admincp', 'index', '后台首页', '', '0', '0');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('5', '2', 'admincp', 'sitegroup', '站长组', '', '1', '0');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('6', '2', 'admincp', 'site', '站长管理', '', '2', '0');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('7', '2', 'admincp', 'mokuai', '模块管理', '', '3', '0');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('8', '1', 'admincp', 'mokuai', '模块管理', '', '2', '1');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('10', '3', 'admincp', 'shopgroup', '商家组', '', '1', '0');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('9', '3', 'admincp', 'index', '商家首页', '', '0', '0');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('11', '3', 'admincp', 'shoptype', '商家模型', '', '2', '0');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('12', '3', 'admincp', 'shoplist', '商家管理', '', '3', '0');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('13', '4', 'admincp', 'index', '会员卡首页', '', '0', '0');
+INSERT INTO `pre_yiqixueba_server_pages` VALUES ('14', '5', 'admincp', 'index', '微信墙首页', '', '0', '0');
+
+-- ----------------------------
+-- Table structure for `pre_yiqixueba_server_site`
+-- ----------------------------
+DROP TABLE IF EXISTS `pre_yiqixueba_server_site`;
+CREATE TABLE `pre_yiqixueba_server_site` (
+  `siteid` mediumint(8) unsigned NOT NULL auto_increment,
+  `sitegroup` smallint(3) NOT NULL,
+  `siteurl` char(40) NOT NULL,
+  `sitekey` char(32) NOT NULL,
+  `salt` char(6) NOT NULL,
+  `charset` char(10) NOT NULL,
+  `clientip` char(20) NOT NULL,
+  `version` char(255) NOT NULL,
+  `displayorder` mediumint(8) NOT NULL,
+  `installtime` int(10) NOT NULL,
+  `uninstalltime` int(10) NOT NULL,
+  PRIMARY KEY  (`siteid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pre_yiqixueba_server_site
+-- ----------------------------
+INSERT INTO `pre_yiqixueba_server_site` VALUES ('1', '1', 'http://localhost/discuzdemo/dz3utf8/', '50dc90ccca1eed10a9b7e46078d2e787', 'B56i5q', 'utf-8', '127.0.0.1', 'X3-20130620-30000000', '0', '1375858133', '0');
+
+-- ----------------------------
+-- Table structure for `pre_yiqixueba_server_sitegroup`
+-- ----------------------------
+DROP TABLE IF EXISTS `pre_yiqixueba_server_sitegroup`;
+CREATE TABLE `pre_yiqixueba_server_sitegroup` (
+  `sitegroupid` smallint(3) unsigned NOT NULL auto_increment,
+  `sitegroupname` char(20) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `mokuaitest` varchar(255) NOT NULL,
+  PRIMARY KEY  (`sitegroupid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pre_yiqixueba_server_sitegroup
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `pre_yiqixueba_setting`
+-- ----------------------------
+DROP TABLE IF EXISTS `pre_yiqixueba_setting`;
+CREATE TABLE `pre_yiqixueba_setting` (
+  `skey` varchar(255) NOT NULL,
+  `svalue` text NOT NULL,
+  PRIMARY KEY  (`skey`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pre_yiqixueba_setting
+-- ----------------------------
+INSERT INTO `pre_yiqixueba_setting` VALUES ('sitekey', '50dc90ccca1eed10a9b7e46078d2e787');

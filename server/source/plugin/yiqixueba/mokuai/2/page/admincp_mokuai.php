@@ -35,11 +35,21 @@ if($subop == 'mokuailist') {
 			}
 			$currenver_text =$currenver_text ? $currenver_text : $row['version'];
 			$currenver_text ? $currenver_text : DB::update('yiqixueba_server_mokuai', array('currentversion'=>1),array('identifier'=>$row['identifier'],'version'=>$currenver_text));
+			$ico = '';
+			if($row['ico']!='') {
+				$ico = str_replace('{STATICURL}', STATICURL, $row['ico']);
+				if(!preg_match("/^".preg_quote(STATICURL, '/')."/i", $ico) && !(($valueparse = parse_url($ico)) && isset($valueparse['host']))) {
+					$ico = $_G['setting']['attachurl'].'common/'.$row['ico'].'?'.random(6);
+				}
+			}
+			$modules = $settings = array();
+			$settings = dunserialize($row['setting']);
+			$modules = dunserialize($row['modules']);
 			showtablerow('', array('style="width:45px"', 'valign="top" style="width:320px"', 'valign="top"', 'align="right" valign="top" style="width:200px"'), array(
-				$mokuaiico ?'<img src="'.$mokuaiico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($row['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
+				$ico ?'<img src="'.$ico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($row['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
 				'<span class="bold">'.$row['name'].'-'.$currenver_text.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span><br />'.$ver_text.'<br />'.lang('plugin/'.$plugin['identifier'],'price').$row['price'],
 				$row['description'],
-				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pluginlang&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=shuaxin&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'shuaxin')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pagelist&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pagelist')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaisetting&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'mokuaisetting')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaiedit&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaimake&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'mokuai_make')."</a><br /><br />".lang('plugin/'.$plugin['identifier'],'status')."<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['mokuaiid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">&nbsp;&nbsp;".lang('plugin/'.$plugin['identifier'],'displayorder')."<INPUT type=\"text\" name=\"newdisplayorder[".$row['mokuaiid']."]\" value=\"".$row['displayorder']."\" size=\"2\">",
+				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pluginlang&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pagelist&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pagelist')."(".count($modules).")</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaisetting&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'mokuaisetting')."(".count($settings).")</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaiedit&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaimake&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'mokuai_make')."</a><br /><br />".lang('plugin/'.$plugin['identifier'],'status')."<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['mokuaiid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">&nbsp;&nbsp;".lang('plugin/'.$plugin['identifier'],'displayorder')."<INPUT type=\"text\" name=\"newdisplayorder[".$row['mokuaiid']."]\" value=\"".$row['displayorder']."\" size=\"2\">",
 			));
 		}
 		echo '<tr><td></td><td colspan="3"><div><a href="'.ADMINSCRIPT.'?action='.$this_page.'&subop=mokuaiedit" class="addtr" >'.lang('plugin/'.$plugin['identifier'],'add_mokuai').'</a></div></td></tr>';
@@ -61,21 +71,37 @@ if($subop == 'mokuailist') {
 }elseif ($subop == 'mokuaiedit'){
 	if(!submitcheck('submit')) {
 		showtips(lang('plugin/'.$plugin['identifier'],$mokuaiid ?'edit_mokuai_tips':'add_mokuai_tips'));
-		showformheader($this_page.'&subop=mokuaiedit');
+		showformheader($this_page.'&subop=mokuaiedit','enctype');
 		showtableheader(lang('plugin/'.$plugin['identifier'],'mokuai_edit'));
 		$mokuaiid ? showhiddenfields(array('mokuaiid'=>$mokuaiid)) : '';
+		$ico = '';
+		if($mokuai_info['ico']!='') {
+			$ico = str_replace('{STATICURL}', STATICURL, $mokuai_info['ico']);
+			if(!preg_match("/^".preg_quote(STATICURL, '/')."/i", $ico) && !(($valueparse = parse_url($ico)) && isset($valueparse['host']))) {
+				$ico = $_G['setting']['attachurl'].'common/'.$mokuai_info['ico'].'?'.random(6);
+			}
+			$icohtml = '<br /><label><input type="checkbox" class="checkbox" name="delete" value="yes" /> '.$lang['del'].'</label><br /><img src="'.$ico.'" width="40" height="40"/>';
+		}
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_identifier'),'mokuai_identifier',$mokuai_info['identifier'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_identifier_comment'),'','',true);
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_name'),'name',$mokuai_info['name'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_name_comment'),'','',true);
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_version'),'version',$mokuai_info['version'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_version_comment'),'','',true);
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_price'),'price',$mokuai_info['price'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_price_comment'),'','',true);
 		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_description'),'description',$mokuai_info['description'],'textarea','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_description_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_ico'),'ico',$mokuai_info['ico'],'filetext','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_ico_comment'),'','',true);
+		showsetting(lang('plugin/'.$plugin['identifier'],'mokuai_edit_ico'),'ico',$mokuai_info['ico'],'filetext','',0,lang('plugin/'.$plugin['identifier'],'mokuai_edit_ico_comment').$icohtml,'','',true);
+		echo '<script src="source/plugin/yiqixueba/template/kindeditor/kindeditor.js" type="text/javascript"></script>';
+		echo '<link rel="stylesheet" href="source/plugin/yiqixueba/template/kindeditor/themes/default/default.css" />';
+		echo '<link rel="stylesheet" href="source/plugin/yiqixueba/template/kindeditor/plugins/code/prettify.css" />';
+		echo '<script src="source/plugin/yiqixueba/template/kindeditor/lang/zh_CN.js" type="text/javascript"></script>';
+		echo '<script src="source/plugin/yiqixueba/template/kindeditor/prettify.js" type="text/javascript"></script>';
+		echo '<script src="source/plugin/yiqixueba/template/kindeditor/editor.js" type="text/javascript"></script>';
+		echo '<tr class="noborder" ><td colspan="2" class="td27" s="1">'.lang('plugin/yiqixueba','shopinformation').':</td></tr>';
+		echo '<tr class="noborder" ><td colspan="2" ><textarea name="shopinformation" style="width:700px;height:200px;visibility:hidden;">'.$chanpinku_info['information'].'</textarea></td></tr>';
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();
 	} else {
 		if($mokuaiid){
-			make_mokuai($mokuaiid,'');
+			//make_mokuai($mokuaiid,'');
 		}
 		$mokuai_identifier	= trim($_GET['mokuai_identifier']);
 		$mokuai_name	= dhtmlspecialchars(trim($_GET['name']));
@@ -98,12 +124,27 @@ if($subop == 'mokuailist') {
 		if(!$mokuaiid&&DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_mokuai')." WHERE identifier='".$mokuai_identifier."' and version = '".$mokuai_version."'")){
 			cpmsg(lang('plugin/'.$plugin['identifier'],'mokuai_identifier_invalid'), '', 'error');
 		}
+		$ico = addslashes($_GET['ico']);
+		if($_FILES['ico']) {
+			$upload = new discuz_upload();
+			if($upload->init($_FILES['ico'], 'common') && $upload->save()) {
+				$ico = $upload->attach['attachment'];
+			}
+		}
+		if($_POST['delete'] && addslashes($_POST['ico'])) {
+			$valueparse = parse_url(addslashes($_POST['ico']));
+			if(!isset($valueparse['host']) && !strexists(addslashes($_POST['ico']), '{STATICURL}')) {
+				@unlink($_G['setting']['attachurl'].'common/'.addslashes($_POST['ico']));
+			}
+			$ico = '';
+		}
 		$data = array(
 			'name' => $mokuai_name,
 			'price' => $mokuai_price,
 			'version' => $mokuai_version,
 			'identifier' => $mokuai_identifier,
 			'description' => $mokuai_description,
+			'ico' => $ico,
 		);
 		if($mokuaiid){
 			$data['updatetime'] = time();
@@ -247,82 +288,150 @@ if($subop == 'mokuailist') {
 	}
 }elseif ($subop == 'mokuaisetting'){
 	if(!submitcheck('submit')) {
-		showtips(lang('plugin/'.$plugin['identifier'],'mokuaisetting_list_tips'));
+		showtips(lang('plugin/'.$plugin['identifier'],'mokuaisetting_tips'));
 		showformheader($this_page.'&subop=mokuaisetting&mokuaiid='.$mokuaiid);
-		showtableheader(lang('plugin/'.$plugin['identifier'],'mokuaisetting_list').'&nbsp;&nbsp;'.$mokuai_info['name']);
-		showsubtitle(array('', lang('plugin/'.$plugin['identifier'],'mokuaisetting_identifier'),lang('plugin/'.$plugin['identifier'],'mokuaisetting_name'),lang('plugin/'.$plugin['identifier'],'mokuaisetting_type'),lang('plugin/'.$plugin['identifier'],'mokuaisetting_description'),lang('plugin/'.$plugin['identifier'],'displayorder'),lang('plugin/'.$plugin['identifier'],'status')));
-		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuaisetting')." WHERE mokuaiid= ".$mokuaiid." order by displayorder asc");
-		while($row = DB::fetch($query)) {
-			showtablerow('', array('class="td25"', 'class="td28"','class="td28"', 'class="td28"','class="td29"', 'class="td25"', 'class="td25"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"".$row['mokuaisettingid']."\">",
-				$row['identifier'],
-				$row['name'],
-				$row['type'],
-				$row['description'],
-				"<INPUT type=\"text\" name=\"newdisplayorder[".$row['mokuaisettingid']."]\" value=\"".$row['displayorder']."\" size=\"2\">",
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['mokuaisettingid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">",
-				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=settingedit&mokuaisettingid=$row[mokuaisettingid]\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a>",
+		showtableheader('plugins_edit_vars');
+		showsubtitle(array('', 'display_order', 'plugins_vars_title', 'plugins_vars_variable', 'plugins_vars_type', ''));
+		$settings = dunserialize($mokuai_info['setting']);
+		$settings =  array_sort($settings,'displayorder');
+		//dump($settings);
+		foreach($settings as $k=>$var) {
+			$var['type'] = $lang['plugins_edit_vars_type_'. $var['type']];
+			$var['title'] .= isset($lang[$var['title']]) ? '<br />'.$lang[$var['title']] : '';
+			showtablerow('', array('class="td25"', 'class="td28"'), array(
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"$k\">",
+				"<input type=\"text\" class=\"txt\" size=\"2\" name=\"displayordernew[$k]\" value=\"$var[displayorder]\">",
+				$var['title'],
+				$var['variable'],
+				$var['type'],
+				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=settingedit&mokuaiid=$mokuaiid&variable=$var[variable]\" class=\"act\">$lang[detail]</a>"
 			));
 		}
-		echo '<tr><td></td><td colspan="7"><div><a href="'.ADMINSCRIPT.'?action='.$this_page.'&subop=settingedit&mokuaiid='.$mokuaiid.'" class="addtr" >'.lang('plugin/'.$plugin['identifier'],'add_mokuaisetting').'</a></div></td></tr>';
-		showsubmit('submit');
+		showtablerow('', array('class="td25"', 'class="td28"'), array(
+			cplang('add_new'),
+			'<input type="text" class="txt" size="2" name="newdisplayorder" value="0">',
+			'<input type="text" class="txt" size="15" name="newtitle">',
+			'<input type="text" class="txt" size="15" name="newvariable">',
+			'<select name="newtype">
+				<option value="number">'.cplang('plugins_edit_vars_type_number').'</option>
+				<option value="text" selected>'.cplang('plugins_edit_vars_type_text').'</option>
+				<option value="textarea">'.cplang('plugins_edit_vars_type_textarea').'</option>
+				<option value="radio">'.cplang('plugins_edit_vars_type_radio').'</option>
+				<option value="select">'.cplang('plugins_edit_vars_type_select').'</option>
+				<option value="selects">'.cplang('plugins_edit_vars_type_selects').'</option>
+				<option value="color">'.cplang('plugins_edit_vars_type_color').'</option>
+				<option value="date">'.cplang('plugins_edit_vars_type_date').'</option>
+				<option value="datetime">'.cplang('plugins_edit_vars_type_datetime').'</option>
+				<option value="forum">'.cplang('plugins_edit_vars_type_forum').'</option>
+				<option value="forums">'.cplang('plugins_edit_vars_type_forums').'</option>
+				<option value="group">'.cplang('plugins_edit_vars_type_group').'</option>
+				<option value="groups">'.cplang('plugins_edit_vars_type_groups').'</option>
+				<option value="extcredit">'.cplang('plugins_edit_vars_type_extcredit').'</option>
+				<option value="forum_text">'.cplang('plugins_edit_vars_type_forum_text').'</option>
+				<option value="forum_textarea">'.cplang('plugins_edit_vars_type_forum_textarea').'</option>
+				<option value="forum_radio">'.cplang('plugins_edit_vars_type_forum_radio').'</option>
+				<option value="forum_select">'.cplang('plugins_edit_vars_type_forum_select').'</option>
+				<option value="group_text">'.cplang('plugins_edit_vars_type_group_text').'</option>
+				<option value="group_textarea">'.cplang('plugins_edit_vars_type_group_textarea').'</option>
+				<option value="group_radio">'.cplang('plugins_edit_vars_type_group_radio').'</option>
+				<option value="group_select">'.cplang('plugins_edit_vars_type_group_select').'</option>
+			</seletc>',
+			''
+		));
+		showsubmit('submit', 'submit', 'del');
 		showtablefooter();
 		showformfooter();
 	}else{
-		if($idg = $_GET['delete']) {
-			$idg = dintval($idg, is_array($idg) ? true : false);
-			if($idg) {
-				DB::delete('yiqixueba_server_mokuaisetting', DB::field('mokuaisettingid', $idg));
+		$settings = dunserialize($mokuai_info['setting']);
+		if(is_array($_GET['displayordernew'])) {
+			foreach($_GET['displayordernew'] as $id => $displayorder) {
+				$settings[$id]['displayorder'] =  $displayorder;
 			}
 		}
-		foreach(getgpc('newdisplayorder') as $k=>$v ){
-			DB::update('yiqixueba_server_mokuaisetting', array('displayorder'=>$v),array('mokuaisettingid'=>$k));
-		}
-		DB::update('yiqixueba_server_mokuaisetting', array('available'=>0));
-		foreach( getgpc('statusnew') as $k=>$v ){
-			if($v){
-				DB::update('yiqixueba_server_mokuaisetting', array('available'=>1),array('mokuaisettingid'=>$k));
+		if($_GET['delete']) {
+			foreach($_GET['delete'] as $k=>$v ){
+				unset($settings[$v]);
 			}
 		}
-		$modules = array();
-		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuaisetting')." WHERE mokuaiid = ".$mokuaiid." AND available=1 order by displayorder asc");
-		while($row = DB::fetch($query)) {
-			if($row['type'] == 'admincp'){
-				$type = 3;
-			}
-			$modules[] = array(
-				'name' => $row['identifier'],
-				'menu' => $row['name'],
-				'url' => '',
-				'type' => $type,
-				'adminid' => 1,
-				'displayorder' => $row['displayorder'],
-				'navtitle' => '',
-				'navicon' => '',
-				'navsubname' => '',
-				'navsuburl' => '',
+		$newtitle = dhtmlspecialchars(trim($_GET['newtitle']));
+		$newvariable = trim($_GET['newvariable']);
+		if($newtitle && $newvariable) {
+			//if(strlen($newvariable) > 40 || !ispluginkey($newvariable) || C::t('common_pluginvar')->check_variable($pluginid, $newvariable)) {
+				//cpmsg('plugins_edit_var_invalid', '', 'error');
+			//}
+			$settings[] = array(
+				'displayorder' => $_GET['newdisplayorder'],
+				'title' => $newtitle,
+				'variable' => $newvariable,
+				'type' => $_GET['newtype'],
+				'extra' => '',
 			);
 		}
-		$modules_data = serialize($modules);
-		DB::update('yiqixueba_server_mokuai',array('modules'=>$modules_data) ,array('mokuaiid'=>$mokuaiid));
+		$settings =  array_sort($settings,'displayorder');
+		$setting = serialize($settings);
+		DB::update('yiqixueba_server_mokuai', array('setting'=>$setting),array('mokuaiid'=>$mokuaiid));
+		cpmsg(lang('plugin/'.$plugin['identifier'],'page_edit_succeed'), 'action='.$this_page.'&subop=mokuaisetting&mokuaiid='.$mokuaiid, 'succeed');
 
-		cpmsg(lang('plugin/'.$plugin['identifier'],'mokuaisetting_edit_succeed'), 'action='.$this_page.'&subop=mokuaisettinglist&mokuaiid='.$mokuaiid, 'succeed');
 	}
 }elseif ($subop == 'settingedit'){
+	$settings = dunserialize($mokuai_info['setting']);
+	foreach($settings as $k=>$v ){
+		if($v['variable']==getgpc('variable')){
+			$pluginvar = $v;
+		}
+	}
 	if(!submitcheck('submit')) {
-		showtips(lang('plugin/'.$plugin['identifier'],$mokuaisettingid ?'edit_mokuaisetting_tips':'add_mokuaisetting_tips'));
-		showformheader($this_page.'&subop=mokuaisettingedit');
-		showtableheader(lang('plugin/'.$plugin['identifier'],'mokuaisetting_edit').'&nbsp;&nbsp;'.$mokuai_info['name']);
-		$mokuaisettingid ? showhiddenfields(array('mokuaisettingid'=>$mokuaisettingid)) : '';
-		$mokuaiid ? showhiddenfields(array('mokuaiid'=>$mokuaiid)) : '';
-		showsetting(lang('plugin/'.$plugin['identifier'],'mokuaisetting_identifier'),'mokuaisetting_identifier',$mokuaisetting_info['identifier'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuaisetting_identifier_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'mokuaisetting_name'),'name',$mokuaisetting_info['name'],'text','',0,lang('plugin/'.$plugin['identifier'],'mokuaisetting_name_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'mokuaisetting_type'),array('type',array(array('',lang('plugin/'.$plugin['identifier'],'mokuaisetting_type')),array('admincp','admincp'),array('member','member'),array('index','index'))),$mokuaisetting_info['type'],'select','',0,lang('plugin/'.$plugin['identifier'],'mokuaisetting_type_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'mokuaisetting_description'),'description',$mokuaisetting_info['description'],'textarea','',0,lang('plugin/'.$plugin['identifier'],'mokuaisetting_description_comment'),'','',true);
+		$typeselect = '<select name="typenew" onchange="if(this.value.indexOf(\'select\') != -1) $(\'extra\').style.display=\'\'; else $(\'extra\').style.display=\'none\';">';
+		foreach(array('number', 'text', 'radio', 'textarea', 'select', 'selects', 'color', 'date', 'datetime', 'forum', 'forums', 'group', 'groups', 'extcredit',
+				'forum_text', 'forum_textarea', 'forum_radio', 'forum_select', 'group_text', 'group_textarea', 'group_radio', 'group_select') as $type) {
+			$typeselect .= '<option value="'.$type.'" '.($pluginvar['type'] == $type ? 'selected' : '').'>'.$lang['plugins_edit_vars_type_'.$type].'</option>';
+		}
+		$typeselect .= '</select>';
+
+		showformheader($this_page."&subop=settingedit&mokuaiid=$mokuaiid&variable=$pluginvar[variable]");
+		showtableheader();
+		showtitle($lang['plugins_edit_vars'].' - '.$pluginvar['title']);
+		showsetting('plugins_edit_vars_title', 'titlenew', $pluginvar['title'], 'text');
+		showsetting('plugins_edit_vars_description', 'descriptionnew', $pluginvar['description'], 'textarea');
+		showsetting('plugins_edit_vars_type', '', '', $typeselect);
+		showsetting('plugins_edit_vars_variable', 'variablenew', $pluginvar['variable'], 'text');
+		showtagheader('tbody', 'extra', $pluginvar['type'] == 'select' || $pluginvar['type'] == 'selects');
+		showsetting('plugins_edit_vars_extra', 'extranew',  $pluginvar['extra'], 'textarea');
+		showtagfooter('tbody');
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();
 	}else{
+		$titlenew	= cutstr(trim($_GET['titlenew']), 25);
+		$descriptionnew	= cutstr(trim($_GET['descriptionnew']), 255);
+		$variablenew	= trim($_GET['variablenew']);
+		$extranew	= trim($_GET['extranew']);
+
+		if(!$titlenew) {
+			//cpmsg('plugins_edit_var_title_invalid', '', 'error');
+		} elseif($variablenew != $pluginvar['variable']) {
+			//if(!$variablenew || strlen($variablenew) > 40 || !ispluginkey($variablenew) || C::t('common_pluginvar')->check_variable($pluginid, $variablenew)) {
+				//cpmsg('plugins_edit_vars_invalid', '', 'error');
+			//}
+		}
+		foreach($settings as $k=>$v ){
+			if($v['variable']==getgpc('variable')){
+				$settings[$k] = array(
+					'displayorder' => $v['displayorder'],
+					'title' => $titlenew,
+					'description' => $descriptionnew,
+					'type' => $_GET['typenew'],
+					'variable' => $variablenew,
+					'extra' => $extranew
+				);
+			}
+		}
+		$setting = serialize($settings);
+		DB::update('yiqixueba_server_mokuai', array('setting'=>$setting),array('mokuaiid'=>$mokuaiid));
+
+		//updatecache(array('plugin', 'setting', 'styles'));
+		//cleartemplatecache();
+		cpmsg(lang('plugin/'.$plugin['identifier'],'setting_edit_succeed'), 'action='.$this_page.'&subop=mokuaisetting&mokuaiid='.$mokuaiid, 'succeed');
 	}
 }elseif ($subop == 'mokuaimake'){
 	dump($mokuai_info);
@@ -485,4 +594,21 @@ function sqldumptable($table, $startfrom = 0, $currsize = 0) {
 	return $tabledump;
 }
 
+
+function array_sort($arr,$keys,$type='asc'){
+	$keysvalue = $new_array = array();
+	foreach ($arr as $k=>$v){
+		$keysvalue[$k] = $v[$keys];
+	}
+	if($type == 'asc'){
+		asort($keysvalue);
+	}else{
+		arsort($keysvalue);
+	}
+	reset($keysvalue);
+	foreach ($keysvalue as $k=>$v){
+		$new_array[$k] = $arr[$k];
+	}
+	return $new_array;
+}
 ?>
