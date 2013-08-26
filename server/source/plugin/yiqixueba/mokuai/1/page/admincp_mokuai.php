@@ -13,7 +13,7 @@ $subop = in_array($subop,$subops) ? $subop : $subops[0];
 
 $mokuai_array = api_indata('mokuaiinfo',array());
 //dump(function_exists('api_indata'));
-//dump($mokuai_array);
+dump($mokuai_array);
 
 if($subop == 'mokuailist') {
 	if(!submitcheck('submit')) {

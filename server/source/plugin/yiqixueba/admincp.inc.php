@@ -23,7 +23,7 @@ while($row = DB::fetch($query)) {
 	if($setting){
 	}
 	foreach($modules as $k=>$v ){
-		if($v['type']==3){
+		if($v['type']==3 || $v['type']=='admincp'){
 			if ( $menuk == 0 && $menukk == 0 && empty($submod) ){
 				$submod = $row['identifier'].'_'.$v['name'];
 			}
