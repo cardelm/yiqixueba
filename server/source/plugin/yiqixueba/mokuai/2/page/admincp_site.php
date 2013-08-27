@@ -13,18 +13,26 @@ $subop = in_array($subop,$subops) ? $subop : $subops[0];
 $siteid = getgpc('siteid');
 $site_info = $siteid ? DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba_server_site')." WHERE siteid=".$siteid) : array();
 
+$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_sitegroup'));
+while($row = DB::fetch($query)) {
+	dump($row);
+	$sitegroups[$row['sitegroupid']] = $row;
+}
+dump($sitegroups);
 if($subop == 'sitelist') {
 	if(!submitcheck('submit')) {
 		showtips(lang('plugin/'.$plugin['identifier'],'site_list_tips'));
 		showformheader($this_page.'&subop=sitelist');
 		showtableheader(lang('plugin/'.$plugin['identifier'],'site_list'));
-		showsubtitle(array('', lang('plugin/'.$plugin['identifier'],'site_name'),lang('plugin/'.$plugin['identifier'],'site_description'),lang('plugin/'.$plugin['identifier'],'site_status')));
+		showsubtitle(array('', lang('plugin/'.$plugin['identifier'],'site_info'),lang('plugin/'.$plugin['identifier'],'site_description'),lang('plugin/'.$plugin['identifier'],'site_status')));
 		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_site')." order by siteid asc");
 		while($row = DB::fetch($query)) {
-			showtablerow('', array('style="width:45px"', 'valign="top" style="width:320px"', 'valign="top"', 'align="right" valign="top" style="width:200px"'), array(
-				$siteico ?'<img src="'.$siteico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($row['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
-				'<span class="bold">'.$row['name'].'-'.$currenver_text.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span><br />'.$ver_text.'<br />'.lang('plugin/'.$plugin['identifier'],'price').$row['price'],
-				$row['description'],
+			dump($row);
+			showtablerow('', array('class="td25"', 'valign="top" style="width:320px"', 'class="td28"', 'class="td28"'), array(
+				'',
+				$row['siteurl'].'<br />'.$row['version'].'&nbsp;&nbsp;'.$row['charset'].'<br />'.dgmdate($row['installtime']).'&nbsp;&nbsp;'.$sitegroups[$row['sitegroup']]['sitegroupname'],
+				$row['sitegroup'],
+				$row['sitekey'],
 				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pluginlang&siteid=$row[siteid]\" >".lang('plugin/'.$plugin['identifier'],'pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=shuaxin&siteid=$row[siteid]\" >".lang('plugin/'.$plugin['identifier'],'shuaxin')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pagelist&siteid=$row[siteid]\" >".lang('plugin/'.$plugin['identifier'],'pagelist')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=siteedit&siteid=$row[siteid]\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=sitemake&siteid=$row[siteid]\" >".lang('plugin/'.$plugin['identifier'],'site_make')."</a><br /><br />".lang('plugin/'.$plugin['identifier'],'status')."<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['siteid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">&nbsp;&nbsp;".lang('plugin/'.$plugin['identifier'],'displayorder')."<INPUT type=\"text\" name=\"newdisplayorder[".$row['siteid']."]\" value=\"".$row['displayorder']."\" size=\"2\">",
 			));
 		}

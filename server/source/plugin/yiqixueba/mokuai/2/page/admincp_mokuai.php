@@ -95,7 +95,7 @@ if($subop == 'mokuailist') {
 		echo '<script src="source/plugin/yiqixueba/template/kindeditor/prettify.js" type="text/javascript"></script>';
 		echo '<script src="source/plugin/yiqixueba/template/kindeditor/editor.js" type="text/javascript"></script>';
 		echo '<tr class="noborder" ><td colspan="2" class="td27" s="1">'.lang('plugin/yiqixueba','shopinformation').':</td></tr>';
-		echo '<tr class="noborder" ><td colspan="2" ><textarea name="shopinformation" style="width:700px;height:200px;visibility:hidden;">'.$chanpinku_info['information'].'</textarea></td></tr>';
+		echo '<tr class="noborder" ><td colspan="2" ><textarea name="shopinformation" style="width:700px;height:200px;visibility:hidden;">'.$mokuai_info['information'].'</textarea></td></tr>';
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();

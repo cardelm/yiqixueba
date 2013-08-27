@@ -60,16 +60,17 @@ if($subop == 'sitegrouplist') {
 	}
 }elseif ($subop == 'sitegroupedit'){
 	if(!submitcheck('submit')) {
+		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." group by identifier order by displayorder asc");
+		while($row = DB::fetch($query)) {
+			dump($row);
+		}
+
 		showtips(lang('plugin/'.$plugin['identifier'],$sitegroupid ?'edit_sitegroup_tips':'add_sitegroup_tips'));
 		showformheader($this_page.'&subop=sitegroupedit');
 		showtableheader(lang('plugin/'.$plugin['identifier'],'sitegroup_edit'));
 		$sitegroupid ? showhiddenfields(array('sitegroupid'=>$sitegroupid)) : '';
-		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_edit_identifier'),'sitegroup_identifier',$sitegroup_info['identifier'],'text','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_edit_identifier_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_edit_name'),'name',$sitegroup_info['name'],'text','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_edit_name_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_edit_version'),'version',$sitegroup_info['version'],'text','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_edit_version_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_edit_price'),'price',$sitegroup_info['price'],'text','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_edit_price_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_edit_description'),'description',$sitegroup_info['description'],'textarea','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_edit_description_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_edit_ico'),'ico',$sitegroup_info['ico'],'filetext','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_edit_ico_comment'),'','',true);
+		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_name'),'name',$sitegroup_info['name'],'text','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_name_comment'),'','',true);
+		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_mokuai'),'versions',$sitegroup_info['versions'],'text','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_edit_version_comment'),'','',true);
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();
