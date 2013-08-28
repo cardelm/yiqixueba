@@ -93,12 +93,39 @@ if($subop == 'mokuailist') {
 		echo '<link rel="stylesheet" href="source/plugin/yiqixueba/template/kindeditor/plugins/code/prettify.css" />';
 		echo '<script src="source/plugin/yiqixueba/template/kindeditor/lang/zh_CN.js" type="text/javascript"></script>';
 		echo '<script src="source/plugin/yiqixueba/template/kindeditor/prettify.js" type="text/javascript"></script>';
-		echo '<script src="source/plugin/yiqixueba/template/kindeditor/editor.js" type="text/javascript"></script>';
-		echo '<tr class="noborder" ><td colspan="2" class="td27" s="1">'.lang('plugin/yiqixueba','shopinformation').':</td></tr>';
-		echo '<tr class="noborder" ><td colspan="2" ><textarea name="shopinformation" style="width:700px;height:200px;visibility:hidden;">'.$mokuai_info['information'].'</textarea></td></tr>';
+		echo '<tr class="noborder" ><td colspan="2" class="td27" s="1">'.lang('plugin/yiqixueba','mokuaiinformation').':</td></tr>';
+		echo '<tr class="noborder" ><td colspan="2" ><textarea name="mokuaiinformation" style="width:700px;height:200px;visibility:hidden;">'.$business_info['mokuaiinformation'].'</textarea></td></tr>';
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();
+		dump(file_exists(DISCUZ_ROOT.'source/plugin/yiqixueba/template/kindeditor/themes/default/default.css'));
+		dump(file_exists(DISCUZ_ROOT.'source/plugin/yiqixueba/template/kindeditor/plugins/code/prettify.css'));
+		dump((DISCUZ_ROOT.'source/plugin/yiqixueba/template/kindeditor/lang/zh_CN.js'));
+		echo <<<EOF
+<script>
+	KindEditor.ready(function(K) {
+		var editor1 = K.create('textarea[name="mokuaiinformation"]', {
+			cssPath : 'source/plugin/yiqixueba/template/kindeditor/plugins/code/prettify.css',
+			uploadJson : 'source/plugin/yiqixueba/template/kindeditor/upload_json.php',
+			items : ['source', '|', 'undo', 'redo', '|', 'preview', 'cut', 'copy', 'paste','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript','superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/','formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage','flash', 'media',  'table', 'hr', 'emoticons','pagebreak','anchor', 'link', 'unlink', '|', 'about'],
+			afterCreate : function() {
+				var self = this;
+				K.ctrl(document, 13, function() {
+					self.sync();
+					K('form[name=cpform]')[0].submit();
+				});
+				K.ctrl(self.edit.doc, 13, function() {
+					self.sync();
+					K('form[name=cpform]')[0].submit();
+				});
+			}
+		});
+		prettyPrint();
+	});
+</script>
+
+EOF;
+
 	} else {
 		if($mokuaiid){
 			//make_mokuai($mokuaiid,'');
@@ -215,10 +242,6 @@ if($subop == 'mokuailist') {
 	$pageid = getgpc('pageid');
 	$modules = dunserialize($mokuai_info['modules']);
 	$page_info = $pageid ? $modules[$pageid-1] : array();
-	//dump($pageid);
-	if($pageid){
-		//dump($page_info);
-	}
 	if(!submitcheck('submit')) {
 		showtips(lang('plugin/'.$plugin['identifier'],$pageid ?'edit_page_tips':'add_page_tips'));
 		showformheader($this_page.'&subop=pageedit');
@@ -275,11 +298,6 @@ if($subop == 'mokuailist') {
 		$modules =  array_sort($modules,'displayorder');
 		$module = serialize($modules);
 		DB::update('yiqixueba_server_mokuai', array('modules'=>$module),array('mokuaiid'=>$mokuaiid));
-		if($pageid){
-			//DB::update('yiqixueba_server_pages', $data,array('pageid'=>$pageid));
-		}else{
-			//DB::insert('yiqixueba_server_pages', $data);
-		}
 		cpmsg(lang('plugin/'.$plugin['identifier'],'page_edit_succeed'), 'action='.$this_page.'&subop=pagelist&mokuaiid='.$mokuaiid, 'succeed');
 	}
 }elseif ($subop == 'mokuaisetting'){

@@ -4,7 +4,7 @@ update_github();
 function update_github($path=''){
 	global $_G;
 	clearstatcache();
-	$utf8_files = array('install.php');
+	$utf8_files = array('install.php','zh_CN.js','kindeditor.js');
 	$input_path = $_G['charset'] == 'utf-8' ? 'C:\GitHub\yiqixueba\server' : 'C:\GitHub\yiqixueba\client';//本地的GitHub文件夹
 	if($path=='')
 		$path = $input_path;
