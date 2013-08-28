@@ -7,13 +7,11 @@ $this_page = substr($_SERVER['QUERY_STRING'],7,strlen($_SERVER['QUERY_STRING'])-
 stripos($this_page,'subop=') ? $this_page = substr($this_page,0,stripos($this_page,'subop=')-1) : $this_page;
 
 $subop = getgpc('subop');
-$subops = array('mokuailist','install','update');
+$subops = array('mokuailist','install','update','uninstall');
 $subop = in_array($subop,$subops) ? $subop : $subops[0];
 
-
+$mokuaiid = getgpc('mokuaiid');
 $mokuai_array = api_indata('mokuaiinfo',array());
-//dump(function_exists('api_indata'));
-//dump($mokuai_array);
 
 if($subop == 'mokuailist') {
 	if(!submitcheck('submit')) {
@@ -34,11 +32,11 @@ if($subop == 'mokuailist') {
 	}else{
 	}
 }elseif($subop == 'install'){
-	$mokuaiid = getgpc('mokuaiid');
 	unset($mokuai_array[$mokuaiid]['pluginid']);
 	unset($mokuai_array[$mokuaiid]['currentversion']);
 	unset($mokuai_array[$mokuaiid]['mokuaiid']);
 	unset($mokuai_array[$mokuaiid]['ico']);
+	unset($mokuai_array[$mokuaiid]['mokuaiinformation']);
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_mokuai')." WHERE identifier='".$mokuai_array[$mokuaiid]['identifier']."'")==0){
 		$mokuai_array[$mokuaiid]['createtime'] = time();
 		DB::insert('yiqixueba_mokuai', $mokuai_array[$mokuaiid]);
@@ -53,6 +51,7 @@ if($subop == 'mokuailist') {
 	unset($mokuai_array[$mokuaiid]['currentversion']);
 	unset($mokuai_array[$mokuaiid]['mokuaiid']);
 	unset($mokuai_array[$mokuaiid]['ico']);
+	unset($mokuai_array[$mokuaiid]['mokuaiinformation']);
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_mokuai')." WHERE identifier='".$mokuai_array[$mokuaiid]['identifier']."'")==0){
 		$mokuai_array[$mokuaiid]['createtime'] = time();
 		DB::insert('yiqixueba_mokuai', $mokuai_array[$mokuaiid]);
@@ -61,6 +60,9 @@ if($subop == 'mokuailist') {
 
 		DB::update('yiqixueba_mokuai', $mokuai_array[$mokuaiid],array('identifier'=>$mokuai_array[$mokuaiid]['identifier']));
 	}
+	cpmsg(lang('plugin/'.$plugin['identifier'],'mokuai_update_succeed'), 'action='.$this_page.'&subop=mokuailist', 'succeed');
+}elseif($subop == 'uninstall'){
+	DB::delete('yiqixueba_mokuai',array('identifier'=>$mokuai_array[$mokuaiid]['identifier']));
 	cpmsg(lang('plugin/'.$plugin['identifier'],'mokuai_update_succeed'), 'action='.$this_page.'&subop=mokuailist', 'succeed');
 }
 

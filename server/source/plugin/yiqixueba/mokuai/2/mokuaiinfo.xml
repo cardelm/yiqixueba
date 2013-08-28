@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[服务端]]></item>
+	<item id="Version"><![CDATA[X3]]></item>
+	<item id="Time"><![CDATA[2013-08-28 23:03]]></item>
+	<item id="From"><![CDATA[Discuz3UTF8 (http://localhost/yiqixueba/dz3utf8/)]]></item>
+	<item id="Data">
+		<item id="mokuaiid"><![CDATA[2]]></item>
+		<item id="pluginid"><![CDATA[0]]></item>
+		<item id="available"><![CDATA[1]]></item>
+		<item id="adminid"><![CDATA[0]]></item>
+		<item id="name"><![CDATA[服务端]]></item>
+		<item id="identifier"><![CDATA[server]]></item>
+		<item id="description"><![CDATA[整个插件的服务端程序]]></item>
+		<item id="price"><![CDATA[50000]]></item>
+		<item id="datatables"><![CDATA[]]></item>
+		<item id="directory"><![CDATA[]]></item>
+		<item id="copyright"><![CDATA[]]></item>
+		<item id="version"><![CDATA[V1.0]]></item>
+		<item id="currentversion"><![CDATA[1]]></item>
+		<item id="setting"><![CDATA[]]></item>
+		<item id="displayorder"><![CDATA[2]]></item>
+		<item id="createtime"><![CDATA[1376037107]]></item>
+		<item id="updatetime"><![CDATA[1376876867]]></item>
+		<item id="__modules">
+			<item id="0">
+				<item id="name"><![CDATA[index]]></item>
+				<item id="menu"><![CDATA[后台首页]]></item>
+				<item id="url"><![CDATA[]]></item>
+				<item id="type"><![CDATA[admincp]]></item>
+				<item id="adminid"><![CDATA[1]]></item>
+				<item id="displayorder"><![CDATA[0]]></item>
+				<item id="navtitle"><![CDATA[]]></item>
+				<item id="navicon"><![CDATA[]]></item>
+				<item id="navsubname"><![CDATA[]]></item>
+				<item id="navsuburl"><![CDATA[]]></item>
+			</item>
+			<item id="2">
+				<item id="name"><![CDATA[sitegroup]]></item>
+				<item id="menu"><![CDATA[站长组]]></item>
+				<item id="url"><![CDATA[]]></item>
+				<item id="type"><![CDATA[admincp]]></item>
+				<item id="adminid"><![CDATA[1]]></item>
+				<item id="displayorder"><![CDATA[1]]></item>
+				<item id="navtitle"><![CDATA[]]></item>
+				<item id="navicon"><![CDATA[]]></item>
+				<item id="navsubname"><![CDATA[]]></item>
+				<item id="navsuburl"><![CDATA[]]></item>
+			</item>
+			<item id="1">
+				<item id="name"><![CDATA[site]]></item>
+				<item id="menu"><![CDATA[站长管理]]></item>
+				<item id="url"><![CDATA[]]></item>
+				<item id="type"><![CDATA[admincp]]></item>
+				<item id="adminid"><![CDATA[1]]></item>
+				<item id="displayorder"><![CDATA[2]]></item>
+				<item id="navtitle"><![CDATA[]]></item>
+				<item id="navicon"><![CDATA[]]></item>
+				<item id="navsubname"><![CDATA[]]></item>
+				<item id="navsuburl"><![CDATA[]]></item>
+			</item>
+			<item id="3">
+				<item id="name"><![CDATA[mokuai]]></item>
+				<item id="menu"><![CDATA[模块管理]]></item>
+				<item id="url"><![CDATA[]]></item>
+				<item id="type"><![CDATA[admincp]]></item>
+				<item id="adminid"><![CDATA[1]]></item>
+				<item id="displayorder"><![CDATA[3]]></item>
+				<item id="navtitle"><![CDATA[]]></item>
+				<item id="navicon"><![CDATA[]]></item>
+				<item id="navsubname"><![CDATA[]]></item>
+				<item id="navsuburl"><![CDATA[]]></item>
+			</item>
+		</item>
+	</item>
+</root>

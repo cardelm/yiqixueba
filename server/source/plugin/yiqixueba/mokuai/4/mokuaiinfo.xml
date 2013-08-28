@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[会员卡]]></item>
+	<item id="Version"><![CDATA[X3]]></item>
+	<item id="Time"><![CDATA[2013-08-28 23:27]]></item>
+	<item id="From"><![CDATA[Discuz3UTF8 (http://localhost/yiqixueba/dz3utf8/)]]></item>
+	<item id="Data">
+		<item id="mokuaiid"><![CDATA[4]]></item>
+		<item id="pluginid"><![CDATA[0]]></item>
+		<item id="available"><![CDATA[1]]></item>
+		<item id="adminid"><![CDATA[0]]></item>
+		<item id="name"><![CDATA[会员卡]]></item>
+		<item id="identifier"><![CDATA[carde]]></item>
+		<item id="description"><![CDATA[卡益联盟（一卡通）]]></item>
+		<item id="price"><![CDATA[500]]></item>
+		<item id="datatables"><![CDATA[]]></item>
+		<item id="directory"><![CDATA[]]></item>
+		<item id="copyright"><![CDATA[]]></item>
+		<item id="version"><![CDATA[V1.0]]></item>
+		<item id="currentversion"><![CDATA[1]]></item>
+		<item id="setting"><![CDATA[]]></item>
+		<item id="displayorder"><![CDATA[4]]></item>
+		<item id="createtime"><![CDATA[1376893983]]></item>
+		<item id="updatetime"><![CDATA[1377066284]]></item>
+		<item id="ico"><![CDATA[]]></item>
+		<item id="mokuaiinformation"><![CDATA[]]></item>
+		<item id="__modules">
+			<item id="0">
+				<item id="name"><![CDATA[index]]></item>
+				<item id="menu"><![CDATA[会员卡首页]]></item>
+				<item id="url"><![CDATA[]]></item>
+				<item id="type"><![CDATA[admincp]]></item>
+				<item id="adminid"><![CDATA[1]]></item>
+				<item id="displayorder"><![CDATA[0]]></item>
+				<item id="navtitle"><![CDATA[]]></item>
+				<item id="navicon"><![CDATA[]]></item>
+				<item id="navsubname"><![CDATA[]]></item>
+				<item id="navsuburl"><![CDATA[]]></item>
+			</item>
+		</item>
+	</item>
+</root>

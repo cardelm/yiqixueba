@@ -94,13 +94,10 @@ if($subop == 'mokuailist') {
 		echo '<script src="source/plugin/yiqixueba/template/kindeditor/lang/zh_CN.js" type="text/javascript"></script>';
 		echo '<script src="source/plugin/yiqixueba/template/kindeditor/prettify.js" type="text/javascript"></script>';
 		echo '<tr class="noborder" ><td colspan="2" class="td27" s="1">'.lang('plugin/yiqixueba','mokuaiinformation').':</td></tr>';
-		echo '<tr class="noborder" ><td colspan="2" ><textarea name="mokuaiinformation" style="width:700px;height:200px;visibility:hidden;">'.$business_info['mokuaiinformation'].'</textarea></td></tr>';
+		echo '<tr class="noborder" ><td colspan="2" ><textarea name="mokuaiinformation" style="width:700px;height:200px;visibility:hidden;">'.$mokuai_info['mokuaiinformation'].'</textarea></td></tr>';
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();
-		dump(file_exists(DISCUZ_ROOT.'source/plugin/yiqixueba/template/kindeditor/themes/default/default.css'));
-		dump(file_exists(DISCUZ_ROOT.'source/plugin/yiqixueba/template/kindeditor/plugins/code/prettify.css'));
-		dump((DISCUZ_ROOT.'source/plugin/yiqixueba/template/kindeditor/lang/zh_CN.js'));
 		echo <<<EOF
 <script>
 	KindEditor.ready(function(K) {
@@ -135,6 +132,7 @@ EOF;
 		$mokuai_price	= trim($_GET['price']);
 		$mokuai_version	= strip_tags(trim($_GET['version']));
 		$mokuai_description	= dhtmlspecialchars(trim($_GET['description']));
+		$mokuai_information	= trim($_GET['mokuaiinformation']);
 
 		if(!$mokuai_identifier){
 			cpmsg(lang('plugin/'.$plugin['identifier'],'mokuai_identifier_invalid'), '', 'error');
@@ -172,6 +170,7 @@ EOF;
 			'identifier' => $mokuai_identifier,
 			'description' => $mokuai_description,
 			'ico' => $ico,
+			'mokuaiinformation' => $mokuai_information,
 		);
 		if($mokuaiid){
 			$data['updatetime'] = time();
@@ -275,9 +274,9 @@ EOF;
 		if(!ispluginkey($page_identifier)) {
 			cpmsg(lang('plugin/'.$plugin['identifier'],'page_identifier_invalid'), '', 'error');
 		}
-		if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_pages')." WHERE identifier='".$page_identifier."' and type = '".$page_type."'")){
+		//if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_pages')." WHERE identifier='".$page_identifier."' and type = '".$page_type."'")){
 			//cpmsg(lang('plugin/'.$plugin['identifier'],'page_identifier_invalid'), '', 'error');
-		}
+		//}
 		$data = array(
 			'name' => $page_identifier,
 			'menu' => $page_name,
@@ -448,12 +447,23 @@ EOF;
 		cpmsg(lang('plugin/'.$plugin['identifier'],'setting_edit_succeed'), 'action='.$this_page.'&subop=mokuaisetting&mokuaiid='.$mokuaiid, 'succeed');
 	}
 }elseif ($subop == 'mokuaimake'){
-	dump($mokuai_info);
-	$mokuai_dir = DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$mokuaiid;
+	//$mokuai_dir = DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$mokuaiid;
+	$mokuai_dir = 'C:\GitHub\yiqixueba\server\source/plugin/yiqixueba/mokuai/'.$mokuaiid;
 	if(!is_dir($mokuai_dir)){
 		dmkdir($mokuai_dir);
 	}
-
+	require_once libfile('class/xml');
+	$root = array(
+		'Title' => $mokuai_info['name'],
+		'Version' => $_G['setting']['version'],
+		'Time' => dgmdate(TIMESTAMP, 'Y-m-d H:i'),
+		'From' => $_G['setting']['bbname'].' ('.$_G['siteurl'].')',
+		'Data' => exportarray($mokuai_info, 1)
+	);
+	$filename = $mokuai_dir.'/mokuaiinfo.xml';
+	$plugin_export = array2xml($root, 1);
+	file_put_contents ($filename,$plugin_export);
+	cpmsg(lang('plugin/'.$plugin['identifier'],'mokuaimake_edit_succeed'), 'action='.$this_page.'&subop=mokuailist', 'succeed');
 }
 $db = & DB::object();
 $dumpcharset = str_replace('-', '', $_G['charset']);
