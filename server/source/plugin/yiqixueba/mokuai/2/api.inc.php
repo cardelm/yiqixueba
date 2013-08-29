@@ -15,12 +15,9 @@ if($apiaction == 'install'){
 		$data['installtime'] = time();
 		DB::insert('yiqixueba_server_site', $data);
 	}
-	$site_info = DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'");
 	$outdata['sitekey'] = $site_info['sitekey'];
-	$main_page = array('admincp','function','yiqixueba');
-	foreach($main_page as $k=>$v ){
-		$outdata['mod'][$v] = random(1).md5($v.$site_info['salt']);
-	}
+	$outdata[] = array('type'=>'sqldata','data'=>'installdata');
+	$outdata[] = array('type'=>'dbdata','data'=>'installdata');
 }elseif($site_info['sitekey'] == $indata['sitekey']){
 	if($apiaction == 'mokuaiinfo'){
 		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available = 1 group by identifier order by displayorder asc");
