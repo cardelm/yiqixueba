@@ -32,19 +32,11 @@ if($subop == 'mokuailist') {
 	}else{
 	}
 }elseif($subop == 'install'){
-	unset($mokuai_array[$mokuaiid]['pluginid']);
-	unset($mokuai_array[$mokuaiid]['currentversion']);
-	unset($mokuai_array[$mokuaiid]['mokuaiid']);
-	unset($mokuai_array[$mokuaiid]['ico']);
-	unset($mokuai_array[$mokuaiid]['mokuaiinformation']);
-	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_mokuai')." WHERE identifier='".$mokuai_array[$mokuaiid]['identifier']."'")==0){
-		$mokuai_array[$mokuaiid]['createtime'] = time();
-		DB::insert('yiqixueba_mokuai', $mokuai_array[$mokuaiid]);
-	}else{
-		$mokuai_array[$mokuaiid]['updatetime'] = time();
-		DB::update('yiqixueba_mokuai', $mokuai_array[$mokuaiid],array('identifier'=>$mokuai_array[$mokuaiid]['identifier']));
-	}
-	cpmsg(lang('plugin/'.$plugin['identifier'],'mokuai_install_succeed'), 'action='.$this_page.'&subop=mokuailist', 'succeed');
+	$step = getgpc('step');
+	$step = $step ? $step : 0;
+	$install_data = api_indata('installmokuai',array('mokuaiid'=>$mokuaiid,'step'=>$step));
+	var_dump($install_data);
+	cpmsg($install_data['return_text'], 'action='.$this_page.$install_data['step'],$install_data['type'], array('volume' => $volume));
 }elseif($subop == 'update'){
 	$mokuaiid = getgpc('mokuaiid');
 	unset($mokuai_array[$mokuaiid]['pluginid']);

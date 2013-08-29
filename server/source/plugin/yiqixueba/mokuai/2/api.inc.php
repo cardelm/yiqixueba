@@ -1,8 +1,9 @@
 <?php
 
-if($apiaction == 'install'){
+$site_info = DB::fetch_first("SELECT * FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'");
 
-	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==0){
+if($apiaction == 'install'){
+	if(!$site_info){
 		$data = array();
 		$data['salt'] = random(6);
 		$data['charset'] = $indata['charset'];
@@ -20,7 +21,7 @@ if($apiaction == 'install'){
 	foreach($main_page as $k=>$v ){
 		$outdata['mod'][$v] = random(1).md5($v.$site_info['salt']);
 	}
-}elseif(DB::result_first("SELECT sitekey FROM ".DB::table('yiqixueba_server_site')." WHERE siteurl='".$indata['siteurl']."'")==$indata['sitekey']){
+}elseif($site_info['sitekey'] == $indata['sitekey']){
 	if($apiaction == 'mokuaiinfo'){
 		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." WHERE available = 1 group by identifier order by displayorder asc");
 		while($row = DB::fetch($query)) {
@@ -33,6 +34,16 @@ if($apiaction == 'install'){
 			}
 			$row['ico'] = $ico;
 			$outdata[$row['mokuaiid']] = $row;
+		}
+	}elseif($apiaction == 'installmokuai'){
+		$outdata['salt'] = $site_info['salt'];
+		$outdata['return_text'] = lang('plugin/yiqixueba','mokuai_install_return'.$indata['step']);
+		if($indata['step']>10){
+			$outdata['type'] = 'succeed';
+			$outdata['step'] = '&subop=mokuailist&mokuaiid='.$indata['mokuaiid'].'&step='.($indata['step']+1);
+		}else{
+			$outdata['type'] = 'loading';
+			$outdata['step'] = '&subop=install&mokuaiid='.$indata['mokuaiid'].'&step='.($indata['step']+1);
 		}
 	}
 }else{

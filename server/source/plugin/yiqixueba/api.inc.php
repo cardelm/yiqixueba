@@ -3,7 +3,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 require_once DISCUZ_ROOT.'source/plugin/yiqixueba/function.func.php';
-var_dump('fffshdfh');
+
 $indata = addslashes($_GET['indata']);
 $sign = addslashes($_GET['sign']);
 $apiaction = addslashes($_GET['apiaction']);
@@ -21,12 +21,10 @@ if(!$apiaction) {
 
 $indata = base64_decode($indata);
 $indata = dunserialize($indata);
-
 ////////////////////////////////////////
 $query = DB::query("SELECT * FROM ".DB::table('yiqixueba_mokuai')." WHERE available=1 order by displayorder asc");
 while($row = DB::fetch($query)) {
 	$api_file = DISCUZ_ROOT.'source/plugin/yiqixueba/source/'.md5($row['mokuaikey'].'api').'.php';
-	dump($row['mokuaikey']);
 	////////////////debug//////////////////////
 	$server_mokuaiid = DB::result_first("SELECT mokuaiid FROM ".DB::table('yiqixueba_server_mokuai')." WHERE identifier='".$row['identifier']."' AND currentversion = 1");
 	if($server_mokuaiid && file_exists(DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$server_mokuaiid.'/api.inc.php')){

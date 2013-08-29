@@ -54,7 +54,7 @@ INSERT INTO `pre_yiqixueba_mokuai` VALUES ('1', '1', '1', 'Ö÷³ÌÐò', 'main', '', 
 
 EOF;
 
-//runquery($sql);
+runquery($sql);
 
 $installdata = array();
 require_once DISCUZ_ROOT.'/source/discuz_version.php';
@@ -78,7 +78,6 @@ foreach($outdata['mod'] as $k=>$v ){
 	if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_setting')." WHERE skey='mod_".$k."'")==0){
 		DB::insert('yiqixueba_setting', array('skey'=>'mod_'.$k,'svalue'=>$v));
 		$mod_file_text = api_indata('installmod',array($k=>$v));
-		dump($mod_file_text);
 	}else{
 		//DB::update('yiqixueba_setting', array('svalue'=>$v),array('skey'=>'mod_'.$k));
 	}

@@ -289,6 +289,25 @@ EOF;
 			'navsubname' => '',
 			'navsuburl' => '',
 		);
+		//$mokuai_dir = DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$mokuaiid;
+		$mokuai_dir = 'C:\GitHub\yiqixueba\server\source/plugin/yiqixueba/mokuai/'.$mokuaiid;
+		if(!is_dir($mokuai_dir)){
+			dmkdir($mokuai_dir);
+		}
+		if(!is_dir($mokuai_dir.'/page')){
+			dmkdir($mokuai_dir.'/page');
+		}
+		$page_file = $mokuai_dir.'/page/'.$page_type.'_'.$page_identifier.'.php';
+		if(!file_exists($page_file)){
+			if($page_type == 'admincp'){
+				$file_text = "<?php\n?>";
+			}elseif($page_type == 'index'){
+				$file_text = "<?php\n?>";
+			}elseif($page_type == 'member'){
+				$file_text = "<?php\n?>";
+			}
+			file_put_contents($page_file,$file_text);
+		}
 		if($pageid){
 			$modules[$pageid-1] = $data;
 		}else{
@@ -451,6 +470,16 @@ EOF;
 	$mokuai_dir = 'C:\GitHub\yiqixueba\server\source/plugin/yiqixueba/mokuai/'.$mokuaiid;
 	if(!is_dir($mokuai_dir)){
 		dmkdir($mokuai_dir);
+	}
+	if(!is_dir($mokuai_dir.'/page')){
+		dmkdir($mokuai_dir.'/page');
+	}
+	$modules = dunserialize($mokuai_info['modules']);
+	foreach($modules as $k=>$v ){
+		$page_file = $mokuai_dir.'/page/'.$v['type'].'_'.$v['name'].'.php';
+		if(!file_exists($page_file)){
+			file_put_contents($page_file,"<?php\n?>");
+		}
 	}
 	require_once libfile('class/xml');
 	$root = array(
