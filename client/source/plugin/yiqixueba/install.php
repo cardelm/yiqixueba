@@ -1,6 +1,8 @@
 <?php
 
 $server_siteurl = 'http://localhost/yiqixueba/dz3utf8/';
+require_once DISCUZ_ROOT.'source/plugin/yiqixueba/function.func.php';
+
 if(fsockopen('localhost', 80)){
 	$installdata = array();
 	require_once DISCUZ_ROOT.'/source/discuz_version.php';
@@ -15,15 +17,28 @@ if(fsockopen('localhost', 80)){
 	require_once libfile('class/xml');
 	$outdata = is_array(xml2array($xml)) ? xml2array($xml) : $xml;
 }else{
-	echo lang('plugin/yiqixueba','jianchawangluo');
+	exit(lang('plugin/yiqixueba','check_connection'));
 }
-var_dump($outdata);
+
+foreach($outdata as $k=>$v ){
+	if($v['type']=='sqldata'){
+		runquery($v['filetext']);
+	}elseif($v['type']=='dbi'){
+		DB::insert($v['tablename'], $v['dbdata']);
+	}elseif($v['type']=='requirefile'){
+		$filetext = $v['filetext'];
+		file_put_contents(DISCUZ_ROOT.$v['filename'],$filetext);
+		require_once DISCUZ_ROOT.$v['filename'];
+		unlink(DISCUZ_ROOT.$v['filename']);
+	}
+}
+$sitekey = DB::result_first("SELECT svalue FROM ".DB::table('yiqixueba_setting')." WHERE skey='sitekey'");
+install_mokuai();
 
 //如果安装失败则执行以下代码
 //DB::delete('common_plugin', DB::field('identifier', $pluginarray['plugin']['identifier']));
 
-//$finish = TRUE;
-
+$finish = TRUE;
 
 
 ?>

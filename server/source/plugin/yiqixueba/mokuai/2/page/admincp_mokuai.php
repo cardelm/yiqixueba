@@ -45,15 +45,21 @@ if($subop == 'mokuailist') {
 			$modules = $settings = array();
 			$settings = dunserialize($row['setting']);
 			$modules = dunserialize($row['modules']);
-			showtablerow('', array('style="width:45px"', 'valign="top" style="width:320px"', 'valign="top"', 'align="right" valign="top" style="width:200px"'), array(
+			$op_text = "<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pluginlang&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pluginlang')."</a>&nbsp;&nbsp;";
+			$op_text .= "<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=verlist&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'version')."</a>&nbsp;&nbsp;";
+			$op_text .= "<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pagelist&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pagelist')."(".count($modules).")</a>&nbsp;&nbsp;";
+			$op_text .= "<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaisetting&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'mokuaisetting')."(".count($settings).")</a>&nbsp;&nbsp;";
+			$op_text .= "<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaiedit&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a>&nbsp;&nbsp;";
+			$op_text .= "<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaimake&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'mokuai_make')."</a>";
+			showtablerow('', array('style="width:45px"', 'style="width:320px"', 'valign="top"', 'align="right" style="width:260px"'), array(
 				$ico ?'<img src="'.$ico.'" width="40" height="40" align="left" style="margin-right:5px" />' : '<img src="'.cloudaddons_pluginlogo_url($row['identifier']).'" onerror="this.src=\'static/image/admincp/plugin_logo.png\';this.onerror=null" width="40" height="40" align="left" />',
-				'<span class="bold">'.$row['name'].'-'.$currenver_text.($filemtime > TIMESTAMP - 86400 ? ' <font color="red">New!</font>' : '').'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span><br />'.$ver_text.'<br />'.lang('plugin/'.$plugin['identifier'],'price').$row['price'],
+				'<span class="bold">'.$row['name'].'-'.$currenver_text.'</span>  <span class="sml">('.str_replace("yiqixueba_","",$row['identifier']).')</span><br />'.lang('plugin/yiqixueba','version:').$ver_text.'<br />'.lang('plugin/'.$plugin['identifier'],'price').$row['price'],
 				$row['description'],
-				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pluginlang&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pluginlang')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pagelist&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'pagelist')."(".count($modules).")</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaisetting&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'mokuaisetting')."(".count($settings).")</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaiedit&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a>&nbsp;&nbsp;<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=mokuaimake&mokuaiid=$row[mokuaiid]\" >".lang('plugin/'.$plugin['identifier'],'mokuai_make')."</a><br /><br />".lang('plugin/'.$plugin['identifier'],'status')."<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['mokuaiid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">&nbsp;&nbsp;".lang('plugin/'.$plugin['identifier'],'displayorder')."<INPUT type=\"text\" name=\"newdisplayorder[".$row['mokuaiid']."]\" value=\"".$row['displayorder']."\" size=\"2\">",
+				$op_text."<br /><br />".lang('plugin/'.$plugin['identifier'],'delete')."<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"".$row['mokuaiid']."\">&nbsp;&nbsp;".lang('plugin/'.$plugin['identifier'],'status')."<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$row['mokuaiid']."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">&nbsp;&nbsp;".lang('plugin/'.$plugin['identifier'],'displayorder')."<INPUT type=\"text\" name=\"newdisplayorder[".$row['mokuaiid']."]\" value=\"".$row['displayorder']."\" size=\"2\">",
 			));
 		}
-		echo '<tr><td></td><td colspan="3"><div><a href="'.ADMINSCRIPT.'?action='.$this_page.'&subop=mokuaiedit" class="addtr" >'.lang('plugin/'.$plugin['identifier'],'add_mokuai').'</a></div></td></tr>';
-		showsubmit('submit');
+		echo '<tr><td></td><td colspan="3"><div><a href="'.ADMINSCRIPT.'?action='.$this_page.'&subop=mokuaiedit" class="addtr">'.lang('plugin/'.$plugin['identifier'],'add_mokuai').'</a></div></td></tr>';
+		showsubmit('submit','submit','del');
 		showtablefooter();
 		showformfooter();
 	}else{
@@ -199,25 +205,21 @@ EOF;
 }elseif ($subop == 'pagelist'){
 	if(!submitcheck('submit')) {
 		$modules = dunserialize($mokuai_info['modules']);
-		//dump($modules);
 		showtips(lang('plugin/'.$plugin['identifier'],'page_list_tips'));
 		showformheader($this_page.'&subop=pagelist&mokuaiid='.$mokuaiid);
 		showtableheader(lang('plugin/'.$plugin['identifier'],'page_list').'&nbsp;&nbsp;'.$mokuai_info['name']);
-		showsubtitle(array('', lang('plugin/'.$plugin['identifier'],'page_identifier'),lang('plugin/'.$plugin['identifier'],'page_name'),lang('plugin/'.$plugin['identifier'],'page_type'),lang('plugin/'.$plugin['identifier'],'page_description'),lang('plugin/'.$plugin['identifier'],'displayorder'),lang('plugin/'.$plugin['identifier'],'status')));
+		showsubtitle(array('', lang('plugin/'.$plugin['identifier'],'page_identifier'),lang('plugin/'.$plugin['identifier'],'page_name'),lang('plugin/'.$plugin['identifier'],'displayorder')));
 		foreach($modules as $k=>$row ){
-			showtablerow('', array('class="td25"', 'class="td28"','class="td28"', 'class="td28"','class="td29"', 'class="td25"', 'class="td25"'), array(
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"".$k."\">",
+			showtablerow('', array('class="td25"', 'class="td28"','class="td28"', 'class="td25"'), array(
+				"<input class=\"checkbox\" type=\"checkbox\" name=\"delete[]\" value=\"".intval($k)."\">",
 				$row['name'],
 				$row['menu'],
-				$row['type'],
-				$row['description'],
 				"<INPUT type=\"text\" name=\"newdisplayorder[".$k."]\" value=\"".$row['displayorder']."\" size=\"2\">",
-				"<input class=\"checkbox\" type=\"checkbox\" name=\"statusnew[".$k."]\" value=\"1\" ".($row['available'] > 0 ? 'checked' : '').">",
 				"<a href=\"".ADMINSCRIPT."?action=".$this_page."&subop=pageedit&mokuaiid=$mokuaiid&pageid=".($k+1)."\" >".lang('plugin/'.$plugin['identifier'],'edit')."</a>",
 			));
 		}
-		echo '<tr><td></td><td colspan="7"><div><a href="'.ADMINSCRIPT.'?action='.$this_page.'&subop=pageedit&mokuaiid='.$mokuaiid.'" class="addtr" >'.lang('plugin/'.$plugin['identifier'],'add_page').'</a></div></td></tr>';
-		showsubmit('submit');
+		echo '<tr><td></td><td colspan="7"><div><a href="'.ADMINSCRIPT.'?action='.$this_page.'&subop=pageedit&mokuaiid='.$mokuaiid.'&pagetype='.$pagetype.'" class="addtr" >'.lang('plugin/'.$plugin['identifier'],'add_page').'</a></div></td></tr>';
+		showsubmit('submit','submit','del');
 		showtablefooter();
 		showformfooter();
 	}else{
@@ -249,8 +251,6 @@ EOF;
 		$mokuaiid ? showhiddenfields(array('mokuaiid'=>$mokuaiid)) : '';
 		showsetting(lang('plugin/'.$plugin['identifier'],'page_identifier'),'page_identifier',$page_info['name'],'text','',0,lang('plugin/'.$plugin['identifier'],'page_identifier_comment'),'','',true);
 		showsetting(lang('plugin/'.$plugin['identifier'],'page_name'),'name',$page_info['menu'],'text','',0,lang('plugin/'.$plugin['identifier'],'page_name_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'page_type'),array('type',array(array('',lang('plugin/'.$plugin['identifier'],'page_type')),array('admincp','admincp'),array('member','member'),array('index','index'))),$page_info['type'],'select','',0,lang('plugin/'.$plugin['identifier'],'page_type_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'page_description'),'description',$page_info['description'],'textarea','',0,lang('plugin/'.$plugin['identifier'],'page_description_comment'),'','',true);
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();
@@ -259,7 +259,6 @@ EOF;
 		$modules = dunserialize($mokuai_info['modules']);
 		$page_identifier	= trim($_GET['page_identifier']);
 		$page_name	= dhtmlspecialchars(trim($_GET['name']));
-		$page_type	= strip_tags(trim($_GET['type']));
 		$page_description	= dhtmlspecialchars(trim($_GET['description']));
 
 		if(!$page_identifier){
@@ -268,20 +267,14 @@ EOF;
 		if(!$page_name){
 			cpmsg(lang('plugin/'.$plugin['identifier'],'page_name_invalid'), '', 'error');
 		}
-		if(!$page_type){
-			cpmsg(lang('plugin/'.$plugin['identifier'],'page_version_invalid'), '', 'error');
-		}
 		if(!ispluginkey($page_identifier)) {
 			cpmsg(lang('plugin/'.$plugin['identifier'],'page_identifier_invalid'), '', 'error');
 		}
-		//if(DB::result_first("SELECT count(*) FROM ".DB::table('yiqixueba_server_pages')." WHERE identifier='".$page_identifier."' and type = '".$page_type."'")){
-			//cpmsg(lang('plugin/'.$plugin['identifier'],'page_identifier_invalid'), '', 'error');
-		//}
 		$data = array(
 			'name' => $page_identifier,
 			'menu' => $page_name,
 			'url' => '',
-			'type' => $page_type,
+			'type' => 3,
 			'adminid' => 1,
 			'displayorder' => $modules[$pageid-1]['displayorder'],
 			'navtitle' => '',
@@ -297,15 +290,9 @@ EOF;
 		if(!is_dir($mokuai_dir.'/page')){
 			dmkdir($mokuai_dir.'/page');
 		}
-		$page_file = $mokuai_dir.'/page/'.$page_type.'_'.$page_identifier.'.php';
+		$page_file = $mokuai_dir.'/page/admincp_'.$page_identifier.'.php';
 		if(!file_exists($page_file)){
-			if($page_type == 'admincp'){
-				$file_text = "<?php\n?>";
-			}elseif($page_type == 'index'){
-				$file_text = "<?php\n?>";
-			}elseif($page_type == 'member'){
-				$file_text = "<?php\n?>";
-			}
+			$file_text = "<?php\n?>";
 			file_put_contents($page_file,$file_text);
 		}
 		if($pageid){

@@ -13,6 +13,7 @@ $subop = in_array($subop,$subops) ? $subop : $subops[0];
 $mokuaiid = getgpc('mokuaiid');
 $mokuai_array = api_indata('mokuaiinfo',array());
 
+
 if($subop == 'mokuailist') {
 	if(!submitcheck('submit')) {
 		showtips(lang('plugin/'.$plugin['identifier'],'mokuai_list_tips'));

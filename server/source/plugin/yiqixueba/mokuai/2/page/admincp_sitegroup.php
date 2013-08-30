@@ -22,14 +22,12 @@ if($subop == 'sitegrouplist') {
 		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_sitegroup')." order by sitegroupid asc");
 		while($row = DB::fetch($query)) {
 			$vervalues = array();
+			$vervalues[0] = 0;
 			$vert = '';
-			foreach(dunserialize($row['versions']) as $k=>$v ){
-				$vervalues[] = $k;
-			}
 
 			$query1 = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." order by displayorder asc");
 			while($row1 = DB::fetch($query1)) {
-				$vert .= in_array($row1['mokuaiid'],$vervalues) ? ($row1['name'].'-'.$row1['version'].'&nbsp;&nbsp;') : '';
+				$vert .= in_array($row1['mokuaiid'],dunserialize($row['versions'])) ? ($row1['name'].'-'.$row1['version'].'&nbsp;&nbsp;') : '';
 			}
 			showtablerow('', array('class="td25"', 'class="td28"', 'class="td29"','class="td25"'), array(
 				'',
@@ -58,19 +56,17 @@ if($subop == 'sitegrouplist') {
 }elseif ($subop == 'sitegroupedit'){
 	if(!submitcheck('submit')) {
 		$vers = $vervalues = array();
+		$vers[0] = $vervalues[0] = 0;
 		$query = DB::query("SELECT * FROM ".DB::table('yiqixueba_server_mokuai')." order by displayorder asc");
 		while($row = DB::fetch($query)) {
 			$vers[] = array($row['mokuaiid'],$row['name'].'-'.$row['version']);
-		}
-		foreach(dunserialize($sitegroup_info['versions']) as $k=>$v ){
-			$vervalues[] = $k;
 		}
 		showtips(lang('plugin/'.$plugin['identifier'],$sitegroupid ?'edit_sitegroup_tips':'add_sitegroup_tips'));
 		showformheader($this_page.'&subop=sitegroupedit');
 		showtableheader(lang('plugin/'.$plugin['identifier'],'sitegroup_edit'));
 		$sitegroupid ? showhiddenfields(array('sitegroupid'=>$sitegroupid)) : '';
 		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_name'),'name',$sitegroup_info['sitegroupname'],'text','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_name_comment'),'','',true);
-		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_mokuai'),array('versions',$vers),$vervalues,'mcheckbox','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_edit_version_comment'),'','',true);
+		showsetting(lang('plugin/'.$plugin['identifier'],'sitegroup_mokuai'),array('versions',$vers),dunserialize($sitegroup_info['versions']),'mcheckbox','',0,lang('plugin/'.$plugin['identifier'],'sitegroup_edit_version_comment'),'','',true);
 		showsubmit('submit');
 		showtablefooter();
 		showformfooter();

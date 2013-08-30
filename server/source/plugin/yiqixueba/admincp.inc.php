@@ -2,7 +2,16 @@
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
+$name="17xue8";
+$pwd  ="888888";
+$tel  ="13113890911";
+$msg  =rawurlencode("dfasdasd");
+
+$res = file_get_contents("http://sms.4006555441.com/webservice.asmx/mt?Sn=$name&Pwd=$pwd&mobile=$tel&content=$msg");
+
+
 require_once DISCUZ_ROOT.'source/plugin/yiqixueba/function.func.php';
+dump($res);
 
 $sitekey = DB::result_first("SELECT svalue FROM ".DB::table('yiqixueba_setting')." WHERE skey='sitekey'");
 $submod = getgpc('submod');
@@ -23,25 +32,23 @@ while($row = DB::fetch($query)) {
 	if($setting){
 	}
 	foreach($modules as $k=>$v ){
-		if($v['type']==3 || $v['type']=='admincp'){
-			if ( $menuk == 0 && $menukk == 0 && empty($submod) ){
-				$submod = $row['identifier'].'_'.$v['name'];
-			}
-			if ($submod == $row['identifier'].'_'.$v['name']){
-				$current_menu = $v['menu'];
-				$current_group = $row['identifier'];
-				$submod_file = DISCUZ_ROOT.'source/plugin/yiqixueba/source/'.md5($submod.$row['mokuaikey']).'.php';
-				////////////////debug//////////////////////
-				$mokuai_file = DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$row['mokuaiid'].'/page/admincp_'.$v['name'].'.php';
-				if(file_exists($mokuai_file)&&filemtime($mokuai_file)>filemtime($submod_file)){
-					file_put_contents($submod_file,file_get_contents($mokuai_file));
-				}
-				////////////////debug//////////////////////
-			}
-			$submods[] = $current_group.'_'.$v['name'];
-			$submenus[] = array($v['menu'],'plugins&identifier=yiqixueba&pmod='.$admincp_file.'&submod='.$row['identifier'].'_'.$v['name'],$submod == $current_group.'_'.$v['name']);
-			$menukk++;
+		if ( $menuk == 0 && $menukk == 0 && empty($submod) ){
+			$submod = $row['identifier'].'_'.$v['name'];
 		}
+		if ($submod == $row['identifier'].'_'.$v['name']){
+			$current_menu = $v['menu'];
+			$current_group = $row['identifier'];
+			$submod_file = DISCUZ_ROOT.'source/plugin/yiqixueba/source/'.md5($submod.$row['mokuaikey']).'.php';
+			////////////////debug//////////////////////
+			$mokuai_file = DISCUZ_ROOT.'source/plugin/yiqixueba/mokuai/'.$row['mokuaiid'].'/page/admincp_'.$v['name'].'.php';
+			if(file_exists($mokuai_file)&&filemtime($mokuai_file)>filemtime($submod_file)){
+				file_put_contents($submod_file,file_get_contents($mokuai_file));
+			}
+			////////////////debug//////////////////////
+		}
+		$submods[] = $current_group.'_'.$v['name'];
+		$submenus[] = array($v['menu'],'plugins&identifier=yiqixueba&pmod='.$admincp_file.'&submod='.$row['identifier'].'_'.$v['name'],$submod == $current_group.'_'.$v['name']);
+		$menukk++;
 	}
 
 	if($menukk != 0){
@@ -54,7 +61,7 @@ while($row = DB::fetch($query)) {
 	}
 	$menuk++;
 }
-echo '<style>.floattopempty { height: 15px !important; height: auto; } </style>';
+//echo '<style>.floattopempty { height: 15px !important; height: auto; } </style>';
 showsubmenu($plugin['name'].' '.$plugin['version'],$admin_menu,'<span style="float:right;padding-right:40px;"><a href="plugin.php?id='.$plugin['identifier'].'" target="_blank" class="bold" >'.$plugin['name'].'</a>&nbsp;&nbsp;<a href="plugin.php?id='.$plugin['identifier'].':member"  target="_blank" class="bold" >'.lang('plugin/'.$plugin['identifier'],'member').'</a></span>');
 
 
